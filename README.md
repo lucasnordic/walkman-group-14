@@ -65,8 +65,11 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Pages
 
-* Home: 1-3 sentences describing what the page displays and what a user can do
-* Shopping cart: ...
+* Pet Lovers: This page displays all the pet Lovers and their services. Here a user can also sort through all the different pet lovers depending on the services they give.
+
+* Profile: Here, pet owners, or lovers, can see all sorts of information of the sites users. A user can also change  anything related to their profile.
+
+
 
 ### Entity-Relationship (ER) Diagram
 
