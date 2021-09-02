@@ -61,6 +61,8 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
+Walkman:
+
 It is a safe environment where pet owners find care for their pets (dogs, cats, hamsters, etc) While they are traveling daily or staying overnight or even a few days off. Pet owners are able to find reliable people through the system by reading through about them. We call these people, "Pet Lovers". The system is going to have messaging option between the users to be able to establish quaility communication.    
 
 Walkman will provide an opportunity for pet lovers to offer their services to pet owners. Offered services include things like veterinary services, walking, beauty services and even housing services for those days when pet owners want to take some time away from their pets. 
@@ -68,17 +70,19 @@ Walkman will provide an opportunity for pet lovers to offer their services to pe
 
 ### Pages
 
+* Home page: 
+Login box for the users who would like to login to the website. Information about the purpose of website. Thumpnails and buttons of services, pet lovers messages/feedbacks as well as thumbnails & tips about animals which can taken care of.
+
+* Service: 
+The page of both pet owners and pet lovers can interact between to provide and/or receive the services through variaes of choices. Through this page, users can also read about the available services, their detailed descriptions and their possible price ranges.
+
 * Pet Lovers: 
 This page displays all the pet Lovers and their services. Here a user can also sort through all the different pet lovers depending on the services they give.
 
 * Profile: 
 Here, pet owners, or lovers, can see all sorts of information of the sites users. A user can also change  anything related to their profile.
 
-* Service: 
-The page of both pet owners and pet lovers can interact between to provide and/or receive the services through variaes of choices. Through this page, users can also read about the available services, their detailed descriptions and their possible price ranges.
 
-* Home page: 
-Login box for the users who would like to login to the website. Information about the purpose of website. Thumpnails and buttons of services, pet lovers messages/feedbacks as well as thumbnails & tips about animals which can taken care of.
 
 
 
