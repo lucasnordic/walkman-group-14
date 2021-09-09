@@ -7,6 +7,7 @@ var history = require('connect-history-api-fallback');
 
 var animalRouter = require ('./Router/animalRouter');
 var petLoverRouter = require ('./Router/petLoverRouter');
+var petOwnerRouter = require ('./Router/petOwnerRouter');
 
 // Variables
 /*var mongoURI = process.env.MONGODB_URI=mongodb+srv://dbediz:<password>@cluster0.u00xj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
@@ -40,6 +41,7 @@ app.use(cors());
 
 app.use(animalRouter);
 app.use(petLoverRouter);
+app.use(petOwnerRouter);
 
 // Import routes
 app.get('/api', function(req, res) {
