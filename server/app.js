@@ -4,8 +4,14 @@ var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
+var  userRouter = require ('./Router/userRouter');
+var animalRouter = require ('./Router/animalRouter');
 
 // Variables
+/*var mongoURI = process.env.MONGODB_URI=mongodb+srv://dbediz:<password>@cluster0.u00xj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+Line 14 can be replaced as line #10 to be able to reflect on MongoDB.
+*/
+
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
 var port = process.env.PORT || 3000;
 
@@ -29,6 +35,9 @@ app.use(morgan('dev'));
 // Enable cross-origin resource sharing for frontend must be registered before api
 app.options('*', cors());
 app.use(cors());
+
+app.use(userRouter);
+app.use(animalRouter);
 
 // Import routes
 app.get('/api', function(req, res) {
