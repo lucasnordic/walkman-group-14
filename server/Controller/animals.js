@@ -8,4 +8,4 @@ exports.postAnimal = (req, res, next) => {
         if (err) { return next(err); }
         res.status(201).json(animal);
     })
-}
+};
