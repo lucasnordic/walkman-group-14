@@ -5,10 +5,8 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
-var animalRouter = require ('./Router/animalRouter');
 var petLoverRouter = require ('./Router/petLoverRouter');
 var petOwnerRouter = require ('./Router/petOwnerRouter');
-var hasPetRouter = require ('./Router/hasPetRouter');
 
 // Variables
 /*var mongoURI = process.env.MONGODB_URI=mongodb+srv://dbediz:<password>@cluster0.u00xj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
@@ -39,10 +37,8 @@ app.use(morgan('dev'));
 app.options('*', cors());
 app.use(cors());
 
-app.use('/api/v1/animals', animalRouter);
 app.use('/api/v1/petlovers', petLoverRouter);
 app.use('/api/v1/petowners', petOwnerRouter);
-app.use('/api/v1/haspets', hasPetRouter);
 
 // Import routes
 app.get('/api/', function(req, res) {
