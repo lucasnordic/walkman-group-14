@@ -48,6 +48,18 @@ app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT341 the backend ExpressJS project!'});
 });
 
+app.get('/api/animals', function(req, res) {                                      //Why can't the routers be used in here?
+    res.send('We are gonna keep all the pets in here')
+});
+
+app.get('/api/petlovers', function(req, res) {
+    res.send('We love and care for animals in here!')
+});
+
+app.get('/api/petowners', function(req, res) {
+    res.send('We need to get rid of our pets just for a short while in here.. pleeeease!!! Help us!')
+});
+
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
     res.status(404).json({ 'message': 'Not Found' });
