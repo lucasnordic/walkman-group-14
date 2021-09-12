@@ -3,6 +3,8 @@ var Schema = mongoose.Schema;
 
 var petOwnerSchema = new Schema({
     username: { type: String, required: true, unique: true},
+    password: {type: String, required: true},
+    fullName: {type: String},
     petItems: [{ type: String}]
 });
 
