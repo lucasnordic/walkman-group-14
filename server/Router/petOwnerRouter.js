@@ -27,6 +27,8 @@ router.post('/:userId/pets', controller.savePet);
 
 router.get('/:userId/pets', controller.userGetPets);
 
+router.get('/:userId/pets/:petId', controller.getMyFavoritePet);
+
 
 /*
 a) POST /cars/:car_id/drivers

@@ -98,3 +98,21 @@ exports.userGetPets = (req, res, next) => {
         return next(err);
     });
 };
+
+exports.getMyFavoritePet = (req, res, next) => {
+    PetOwner.findById(req.params.userId)
+    .then((result) => {
+        var pet = result.Pets;
+        var myPet; 
+        for (i = 0; i < pet.length; i++) {
+            if(pet[i]._id.toString() === req.params.petId) {
+                myPet = pet[i];
+            }
+        };
+        res.json(myPet);
+        res.send(myPet);
+    })
+    .catch ((err) => {
+        return next(err);
+    });
+};
