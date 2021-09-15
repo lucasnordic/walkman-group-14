@@ -1,26 +1,18 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var UserInfo = require('./UserInfo');
 
 var PetSchema = new Schema({
-    name: { type: String, required: true},
-    type: { type: String, required: true},
-    gender: { type: String},
-    allergies: [{ type : String}],
-    foodPreferences: [{ type: String}],
-    petItems: [{ type: String}]
-});
-
-var AddressSchema = new Schema({
-    city: {type: String, required: true},
-    streetName: {type: String, required: true},
-    streetNum: {type: Number, required: true}
+    name: { type: String, required: true },
+    type: { type: String, required: true },
+    gender: { type: String },
+    allergies: [{ type: String }],
+    foodPreferences: [{ type: String }],
+    petItems: [{ type: String }]
 });
 
 var petOwnerSchema = new Schema({
-    username: { type: String, required: true, unique: true},
-    password: {type: String, required: true},
-    fullName: {type: String, required: true},
-    address: {type: AddressSchema, required: true},
+    userinfo: { type: UserInfo, required: true },
     Pets: [PetSchema]
 });
 
