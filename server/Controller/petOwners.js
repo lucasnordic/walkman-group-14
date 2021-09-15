@@ -116,3 +116,16 @@ exports.getMyFavoritePet = (req, res, next) => {
         return next(err);
     });
 };
+
+
+//TODO this one does not work yet. Fix this
+exports.deletePet = (req, res, next) => {
+    PetOwner.findOneAndUpdate(req.params.userId, {pull : {Pets: req.params.petId}})
+    .then((result) => {
+        res.json(result.Pets);
+        res.send(result.Pets);
+    })
+    .catch ((err) => {
+        return next(err);
+    });
+};
