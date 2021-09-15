@@ -12,6 +12,9 @@ router.get('/:userId', controller.viewUser);
 
 router.patch('/:userId', controller.editPetOwner);
 
+router.put('/:userId', controller.dubbelEditPetOwner);
+
+
 router.post('/:userId/pets', controller.savePet);
 
 

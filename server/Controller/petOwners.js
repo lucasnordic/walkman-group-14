@@ -56,7 +56,18 @@ exports.savePet = (req, res, next) => {
 };
 
 exports.editPetOwner = (req, res, next) => {
-    PetOwner.findByIdAndUpdate(req.params.userid, req.body, {new:true})
+    PetOwner.findByIdAndUpdate(req.params.userId, req.body, {new:true})
+    .then((result) => {
+        res.json(result);
+        res.send(result);
+    }).catch ((err) => {
+        return next(err);
+    });
+
+};
+
+exports.dubbelEditPetOwner = (req, res, next) => {
+    PetOwner.findByIdAndUpdate(req.params.userId, req.body, {new:true})
     .then((result) => {
         res.json(result);
         res.send(result);
