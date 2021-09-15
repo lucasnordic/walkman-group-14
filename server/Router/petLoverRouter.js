@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require('../Controller/petLovers');
 
 router.post('/', controller.postPetLover);
-<<<<<<< server/Router/petLoverRouter.js
+
 // router.get('/', controller.getPetLover);
 
 // 3.
