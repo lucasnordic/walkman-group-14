@@ -76,3 +76,14 @@ exports.dubbelEditPetOwner = (req, res, next) => {
     });
 
 };
+
+exports.deletePetOwner = (req, res, next) => {
+    PetOwner.findByIdAndDelete(req.params.userId)
+    .then((result) => {
+        res.json(result);
+        res.send(result);
+    }).catch ((err) => {
+        return next(err);
+    });
+
+};

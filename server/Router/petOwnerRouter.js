@@ -14,6 +14,8 @@ router.patch('/:userId', controller.editPetOwner);
 
 router.put('/:userId', controller.dubbelEditPetOwner);
 
+router.delete('/:userId', controller.deletePetOwner);
+
 
 router.post('/:userId/pets', controller.savePet);
 
