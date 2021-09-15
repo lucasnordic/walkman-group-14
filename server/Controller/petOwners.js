@@ -44,17 +44,6 @@ exports.deleteAll = (req, res, next) => {
     });
 };
 
-exports.savePet = (req, res, next) => {
-    PetOwner.findOneAndUpdate(req.params.userId, {$push : {Pets: req.body}})
-    .then((result) => {
-        res.json(result);
-        res.send(result);
-    })
-    .catch ((err) => {
-        return next(err);
-    });
-};
-
 exports.editPetOwner = (req, res, next) => {
     PetOwner.findByIdAndUpdate(req.params.userId, req.body, {new:true})
     .then((result) => {
@@ -86,4 +75,26 @@ exports.deletePetOwner = (req, res, next) => {
         return next(err);
     });
 
+};
+
+exports.savePet = (req, res, next) => {
+    PetOwner.findOneAndUpdate(req.params.userId, {$push : {Pets: req.body}})
+    .then((result) => {
+        res.json(result);
+        res.send(result);
+    })
+    .catch ((err) => {
+        return next(err);
+    });
+};
+
+exports.userGetPets = (req, res, next) => {
+    PetOwner.findById(req.params.userId)
+    .then((result) => {
+        res.json(result.Pets);
+        res.send(result.Pets);
+    })
+    .catch ((err) => {
+        return next(err);
+    });
 };

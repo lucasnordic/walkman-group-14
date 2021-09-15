@@ -2,6 +2,9 @@ const express = require ('express');
 const router = express.Router();
 const controller = require ('../Controller/petOwners');
 
+
+//Milestone 1 -> Task 2:
+
 router.post('/', controller.postPetOwner);
 
 router.get('/', controller.viewAll);
@@ -17,20 +20,18 @@ router.put('/:userId', controller.dubbelEditPetOwner);
 router.delete('/:userId', controller.deletePetOwner);
 
 
+
+//Milestone 1 -> Task 3:
+
 router.post('/:userId/pets', controller.savePet);
 
-
+router.get('/:userId/pets', controller.userGetPets);
 
 
 /*
-
-(a) POST /camels
-(b) GET /camels
-(c) DELETE /camels
-(d) GET /camels/:id
-(e) PUT /camels/:id
-(f) PATCH /camels/:id
-(g) DELETE /camels/:id
-
+a) POST /cars/:car_id/drivers
+(b) GET /cars/:car_id/drivers
+(c) GET /cars/:car_id/drivers/:driver_id
+(d) DELETE /cars/:car_id/drivers/:driver_id
 */
 module.exports = router;
