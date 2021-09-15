@@ -8,4 +8,124 @@ exports.postPetOwner = (req, res, next) => {
         if (err) { return next(err); }
         res.status(201).json(petOwner);
     })
-}
+};
+
+
+exports.viewAll = (req, res, next) => {
+    PetOwner.find()
+    .then((result) => {
+        res.json(result);
+        res.send(result);
+    })
+    .catch ((err) => {
+        return next(err);
+    });
+};
+
+exports.viewUser = (req, res, next) => {
+    PetOwner.findById(req.params.userId)
+    .then((result) => {
+        res.json(result);
+        res.send(result);
+    })
+    .catch ((err) => {
+        return next(err);
+    });
+};
+
+exports.deleteAll = (req, res, next) => {
+    PetOwner.deleteMany({})
+    .then((result) => {
+        res.json(result);
+        res.send(result);
+    })
+    .catch ((err) => {
+        return next(err);
+    });
+};
+
+exports.editPetOwner = (req, res, next) => {
+    PetOwner.findByIdAndUpdate(req.params.userId, req.body, {new:true})
+    .then((result) => {
+        res.json(result);
+        res.send(result);
+    }).catch ((err) => {
+        return next(err);
+    });
+
+};
+
+exports.dubbelEditPetOwner = (req, res, next) => {
+    PetOwner.findByIdAndUpdate(req.params.userId, req.body, {new:true})
+    .then((result) => {
+        res.json(result);
+        res.send(result);
+    }).catch ((err) => {
+        return next(err);
+    });
+
+};
+
+exports.deletePetOwner = (req, res, next) => {
+    PetOwner.findByIdAndDelete(req.params.userId)
+    .then((result) => {
+        res.json(result);
+        res.send(result);
+    }).catch ((err) => {
+        return next(err);
+    });
+
+};
+
+exports.savePet = (req, res, next) => {
+    PetOwner.findOneAndUpdate(req.params.userId, {$push : {Pets: req.body}})
+    .then((result) => {
+        res.json(result);
+        res.send(result);
+    })
+    .catch ((err) => {
+        return next(err);
+    });
+};
+
+exports.userGetPets = (req, res, next) => {
+    PetOwner.findById(req.params.userId)
+    .then((result) => {
+        res.json(result.Pets);
+        res.send(result.Pets);
+    })
+    .catch ((err) => {
+        return next(err);
+    });
+};
+
+exports.getMyFavoritePet = (req, res, next) => {
+    PetOwner.findById(req.params.userId)
+    .then((result) => {
+        var pet = result.Pets;
+        var myPet; 
+        for (i = 0; i < pet.length; i++) {
+            if(pet[i]._id.toString() === req.params.petId) {
+                myPet = pet[i];
+            }
+        };
+        res.json(myPet);
+        res.send(myPet);
+    })
+    .catch ((err) => {
+        return next(err);
+    });
+};
+
+
+//TODO this one does not work yet. Fix this
+exports.deletePet = (req, res, next) => {
+    PetOwner.findOneAndUpdate(req.params.userId, {pull : {Pets: req.params.petId}})
+    .then((result) => {
+        res.json(result.Pets);
+        res.send(result.Pets);
+    })
+    .catch ((err) => {
+        return next(err);
+    });
+};

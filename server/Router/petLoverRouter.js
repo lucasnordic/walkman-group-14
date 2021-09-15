@@ -3,6 +3,7 @@ const router = express.Router();
 const controller = require('../Controller/petLovers');
 
 router.post('/', controller.postPetLover);
+<<<<<<< server/Router/petLoverRouter.js
 // router.get('/', controller.getPetLover);
 
 // 3.
@@ -19,5 +20,4 @@ router.get('/:petLoverId/services', controller.getPetLoverServices);
 //router.delete('/petOwner/:petOwner_id/pets/:pet_id', controller.deletePetFromOwner);
 
 
-module.exports = router;
 module.exports = router;
