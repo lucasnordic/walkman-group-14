@@ -120,10 +120,16 @@ exports.getMyFavoritePet = (req, res, next) => {
 
 //TODO this one does not work yet. Fix this
 exports.deletePet = (req, res, next) => {
-    PetOwner.findOneAndUpdate(req.params.userId, {pull : {Pets: req.params.petId}})
+    PetOwner.findById(req.params.userId)
     .then((result) => {
-        res.json(result.Pets);
-        res.send(result.Pets);
+        var pet = result.Pets;
+        for (i = 0; i < pet.length; i++) {
+            if(pet[i]._id.toString() === req.params.petId) {
+                result.Pets.splice(i, 1);
+            }
+        };
+        res.json(result);
+        res.send(result);
     })
     .catch ((err) => {
         return next(err);
