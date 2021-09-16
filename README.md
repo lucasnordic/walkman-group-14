@@ -88,7 +88,7 @@ Here, pet owners, or lovers, can see all sorts of information of the sites users
 
 ### Entity-Relationship (ER) Diagram
 
-![ER Diagram](./images/ER diagram - Walkman.png)
+![ER Diagram](./images/ER Diagram_ WalkMan.png)
 
 ## Teaser (MS3)
 

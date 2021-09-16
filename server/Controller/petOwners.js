@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var PetOwner = require('../Models/PetOwner');
+var Pet = require('../Models/Pet');
+var ObjectId = require('mongodb').ObjectID;
 
 exports.postPetOwner = (req, res, next) => {
     var petOwner = new PetOwner(req.body);
@@ -12,7 +14,7 @@ exports.postPetOwner = (req, res, next) => {
 
 
 exports.viewAll = (req, res, next) => {
-    PetOwner.find()
+    PetOwner.find().sort({username : -1})
     .then((result) => {
         res.json(result);
         res.send(result);
@@ -78,21 +80,23 @@ exports.deletePetOwner = (req, res, next) => {
 };
 
 exports.savePet = (req, res, next) => {
-    PetOwner.findOneAndUpdate(req.params.userId, {$push : {Pets: req.body}})
-    .then((result) => {
+    var newPet = new Pet(req.body);
+    newPet.save();
+    PetOwner.findByIdAndUpdate( {_id : ObjectId(req.params.userId)}, {$push : {_pets : newPet._id}}, {new : true})
+    .populate('_pets')
+    .then ((result) => {
         res.json(result);
         res.send(result);
-    })
-    .catch ((err) => {
+    }).catch ((err) => {
         return next(err);
     });
 };
 
 exports.userGetPets = (req, res, next) => {
-    PetOwner.findById(req.params.userId)
+    PetOwner.findById(req.params.userId).populate('_pets')
     .then((result) => {
-        res.json(result.Pets);
-        res.send(result.Pets);
+        res.json(result._pets);
+        res.send(result._pets);
     })
     .catch ((err) => {
         return next(err);
@@ -100,32 +104,26 @@ exports.userGetPets = (req, res, next) => {
 };
 
 exports.getMyFavoritePet = (req, res, next) => {
-    PetOwner.findById(req.params.userId)
+    PetOwner.findById(req.params.userId).populate('_pets')
     .then((result) => {
-        var pet = result.Pets;
-        var myPet; 
-        for (i = 0; i < pet.length; i++) {
-            if(pet[i]._id.toString() === req.params.petId) {
-                myPet = pet[i];
-            }
-        };
-        res.json(myPet);
-        res.send(myPet);
-    })
-    .catch ((err) => {
+        Pet.findById(req.params.petId)
+        .then ((result) => {
+            res.json(result);
+        })
+    }).catch ((err) => {
         return next(err);
     });
 };
 
-
-//TODO this one does not work yet. Fix this
 exports.deletePet = (req, res, next) => {
-    PetOwner.findOneAndUpdate(req.params.userId, {pull : {Pets: req.params.petId}})
+    PetOwner.findByIdAndUpdate({_id : ObjectId(req.params.userId)}, {$pull : {_pets : ObjectId(req.params.petId)}}, {new : true}).populate('_pets')
     .then((result) => {
-        res.json(result.Pets);
-        res.send(result.Pets);
-    })
-    .catch ((err) => {
+        Pet.findByIdAndDelete(req.params.petId)
+        .then((result) => {
+            res.json(result);
+        })
+    }).catch ((err) => {
         return next(err);
     });
 };
+

@@ -31,10 +31,7 @@ router.get('/:userId/pets/:petId', controller.getMyFavoritePet);
 
 router.delete('/:userId/pets/:petId', controller.deletePet);
 
-/*
-a) POST /cars/:car_id/drivers
-(b) GET /cars/:car_id/drivers
-(c) GET /cars/:car_id/drivers/:driver_id
-(d) DELETE /cars/:car_id/drivers/:driver_id
-*/
+
+//Export:
+
 module.exports = router;
