@@ -5,9 +5,9 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
-var serviceRouter = require ('./Router/serviceRouter');
-var petLoverRouter = require ('./Router/petLoverRouter');
-var petOwnerRouter = require ('./Router/petOwnerRouter');
+var serviceRouter = require('./Router/serviceRouter');
+var petLoverRouter = require('./Router/petLoverRouter');
+var petOwnerRouter = require('./Router/petOwnerRouter');
 
 // Variables
 /*var mongoURI = process.env.MONGODB_URI=mongodb+srv://dbediz:<password>@cluster0.u00xj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
@@ -20,7 +20,7 @@ var mongoURI = "mongodb+srv://walkmary:SesameOpen@cluster0.9udhm.mongodb.net/wal
 var port = process.env.PORT || 3000;
 
 // Connect to MongoDB
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }, function(err) {
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }, function (err) {
     if (err) {
         console.error(`Failed to connect to MongoDB with URI: ${mongoURI}`);
         console.error(err.stack);
@@ -40,13 +40,13 @@ app.use(morgan('dev'));
 app.options('*', cors());
 app.use(cors());
 
-app.use(serviceRouter);
 app.use('/api/v1/petlovers', petLoverRouter);
+app.use('/api/v1/petlovers', serviceRouter);
 app.use('/api/v1/petowners', petOwnerRouter);
 
 // Import routes
-app.get('/api/', function(req, res) {
-    res.json({'message': 'Welcome to your DIT341 the backend ExpressJS project!'});
+app.get('/api/', function (req, res) {
+    res.json({ 'message': 'Welcome to your DIT341 the backend ExpressJS project!' });
 });
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
@@ -65,7 +65,7 @@ app.use(express.static(client));
 // Error handler (i.e., when exception is thrown) must be registered last
 var env = app.get('env');
 // eslint-disable-next-line no-unused-vars
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     console.error(err.stack);
     var err_res = {
         'message': err.message,
@@ -79,7 +79,7 @@ app.use(function(err, req, res, next) {
     res.json(err_res);
 });
 
-app.listen(port, function(err) {
+app.listen(port, function (err) {
     if (err) throw err;
     console.log(`Express server listening on port ${port}, in ${env} mode`);
     console.log(`Backend: http://localhost:${port}/api/`);
