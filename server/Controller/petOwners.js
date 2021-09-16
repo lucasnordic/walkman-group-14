@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var PetOwner = require('../Models/PetOwner');
 var Pet = require('../Models/Pet');
+var ObjectId = require('mongodb').ObjectID;
 
 exports.postPetOwner = (req, res, next) => {
     var petOwner = new PetOwner(req.body);
@@ -79,54 +80,41 @@ exports.deletePetOwner = (req, res, next) => {
 };
 
 exports.savePet = (req, res, next) => {
-
-    var pet = new Pet(req.body);
-        pet.save(function (err, pet) {
-            if (err) { return next(err); }
-            res.status(201).json(pet);
-        });
-
-    PetOwner.findByIdAndUpdate(req.params.userId).pets.push(pet)
-    .then((result) => {
+    var newPet = new Pet(req.body);
+    newPet.save();
+    PetOwner.findByIdAndUpdate( {_id : ObjectId(req.params.userId)}, {$push : {_pets : newPet._id}}, {new : true})
+    .populate('_pets')
+    .then ((result) => {
         res.json(result);
         res.send(result);
-    })
-    .catch ((err) => {
+    }).catch ((err) => {
         return next(err);
     });
 };
-/*
+
 exports.userGetPets = (req, res, next) => {
-    PetOwner.findById(req.params.userId)
+    PetOwner.findById(req.params.userId).populate('_pets')
     .then((result) => {
-        res.json(result);
-        res.send(result);
+        res.json(result._pets);
+        res.send(result._pets);
     })
     .catch ((err) => {
         return next(err);
     });
 };
-
 
 exports.getMyFavoritePet = (req, res, next) => {
-    PetOwner.findById(req.params.userId)
+    PetOwner.findById(req.params.userId).populate('_pets')
     .then((result) => {
-        var pet = result.Pets;
-        var myPet; 
-        for (i = 0; i < pet.length; i++) {
-            if(pet[i]._id.toString() === req.params.petId) {
-                myPet = pet[i];
-            }
-        };
-        res.json(myPet);
-        res.send(myPet);
+        res.json(result.findById(req.params.petId));
+        res.send(result.findById(req.params.petId));
     })
     .catch ((err) => {
         return next(err);
     });
 };
 
-
+/*
 exports.deletePet = (req, res, next) => {
     PetOwner.findOneAndUpdate(req.params.userId, {Pets: {$pull: req.params.petId}}, {new: true})
     .then((result) => {

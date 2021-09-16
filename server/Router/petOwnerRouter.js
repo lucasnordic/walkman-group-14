@@ -25,9 +25,9 @@ router.delete('/:userId', controller.deletePetOwner);
 
 router.post('/:userId/pets', controller.savePet);
 
-//router.get('/:userId/pets', controller.userGetPets);
+router.get('/:userId/pets', controller.userGetPets);
 
-//router.get('/:userId/pets/:petId', controller.getMyFavoritePet);
+router.get('/:userId/pets/:petId', controller.getMyFavoritePet);
 
 //router.delete('/:userId/pets/:petId', controller.deletePet);
 
