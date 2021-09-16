@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var PetLover = require('../Models/PetLover');
-var Service = require('../Models/Service');
+var Service = require('../Models/Services');
 
 // (a) POST /petLovers
 exports.postPetLover = (req, res, next) => {
