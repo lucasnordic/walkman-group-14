@@ -5,11 +5,11 @@ const controller = require('../Controller/serviceController');
 
 //Milestone 1 -> Task 3:
 
-// router.post('/:petLoverId/services', controller.postPetLoverService);
+router.post('/:petLoverId/services', controller.postPetLoverService);
 
-// router.get('/users/:userId/services', controller.getUserServices);
+router.get('/:petLoverId/services', controller.getPetLoverServices);
 
-// router.get('/users/:userId/services/:serviceId', controller.getUserService);
+router.get('/:petLoverId/services/:serviceId', controller.getPetLoverService);
 
 // (d) DELETE /cars/:car_id/drivers/:driver_id
 
