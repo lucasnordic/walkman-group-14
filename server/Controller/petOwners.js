@@ -14,7 +14,7 @@ exports.postPetOwner = (req, res, next) => {
 
 
 exports.viewAll = (req, res, next) => {
-    PetOwner.find()
+    PetOwner.find().sort({username : -1})
     .then((result) => {
         res.json(result);
         res.send(result);
