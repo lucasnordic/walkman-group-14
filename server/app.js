@@ -13,6 +13,8 @@ var petOwnerRouter = require ('./Router/petOwnerRouter');
 Line 14 can be replaced as line #10 to be able to reflect on MongoDB.
 */
 
+//var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
+
 var mongoURI = "mongodb+srv://walkmary:SesameOpen@cluster0.9udhm.mongodb.net/walkman1?retryWrites=true&w=majority";
 var port = process.env.PORT || 3000;
 
