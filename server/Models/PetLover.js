@@ -6,7 +6,7 @@ var petLoverSchema = new Schema({
     userinfo: { type: UserInfo, required: true },
     availableHours: [{ type: Number, required: true }],
     acceptablePets: [{ type: String }],
-    service_ids: [{
+    _services: [{
         type: mongoose.Types.ObjectId,
         ref: 'services'
     }]
