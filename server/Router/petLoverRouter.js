@@ -2,22 +2,20 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../Controller/petLovers');
 
-router.post('/', controller.postPetLover);
 
+router.post('/', controller.postPetLover);
 // router.get('/', controller.getPetLover);
 
-// 3.
-// (a) POST /petLover/:petLoverId/service
+
+//Milestone 1 -> Task 3:
+
 router.post('/:petLoverId/services', controller.postPetLoverService);
 
-// (b) GET /petLover/:petLoverId/service
 router.get('/:petLoverId/services', controller.getPetLoverServices);
 
-// (c) GET /petLover/:petLoverId/service/:serviceId
-//router.get('/petOwner/:petOwner_id/pets/:pet_id', controller.getPetFromOwner);
+router.get('/:petLoverId/services/:serviceId', controller.getPetLoverService);
 
-// (d) DELETE /petLover/:petLoverId/service/:serviceId
-//router.delete('/petOwner/:petOwner_id/pets/:pet_id', controller.deletePetFromOwner);
+// (d) DELETE /cars/:car_id/drivers/:driver_id
 
 
 module.exports = router;
