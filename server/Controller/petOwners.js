@@ -106,51 +106,24 @@ exports.userGetPets = (req, res, next) => {
 exports.getMyFavoritePet = (req, res, next) => {
     PetOwner.findById(req.params.userId).populate('_pets')
     .then((result) => {
-        res.json(result.findById(req.params.petId));
-        res.send(result.findById(req.params.petId));
-    })
-    .catch ((err) => {
+        Pet.findById(req.params.petId)
+        .then ((result) => {
+            res.json(result);
+        })
+    }).catch ((err) => {
         return next(err);
     });
 };
 
-/*
 exports.deletePet = (req, res, next) => {
-    PetOwner.findOneAndUpdate(req.params.userId, {Pets: {$pull: req.params.petId}}, {new: true})
+    PetOwner.findByIdAndUpdate({_id : ObjectId(req.params.userId)}, {$pull : {_pets : ObjectId(req.params.petId)}}, {new : true}).populate('_pets')
     .then((result) => {
-        res.json(result);
-        res.send(result);
-    })
-    .catch ((err) => {
+        Pet.findByIdAndDelete(req.params.petId)
+        .then((result) => {
+            res.json(result);
+        })
+    }).catch ((err) => {
         return next(err);
     });
 };
 
-
-exports.deletePet = (req, res, next) => {
-    PetOwner.findOneAndUpdate(req.params.userId, {$pull: {Pets: req.params.petId}}, {new: true})
-    .then((result) => {
-        res.json(result);
-        res.send(result);
-    })
-    .catch ((err) => {
-        return next(err);
-    });
-};
-
-
-exports.deletePet = (req, res, next) => {
-
-    for (i = 0; i < PetOwner.findById(req.params.userId).Pets.lenght; i++) {
-
-        if(PetOwner.findById(req.params.userId).Pets[i]._id.toString() === req.params.petId) {
-
-            PetOwner.findById(req.params.userId).Pets.splice(i, 1);
-
-        }
-    }
-
-};
-
-
-*/
