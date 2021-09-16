@@ -5,6 +5,7 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
+var serviceRouter = require ('./Router/serviceRouter');
 var petLoverRouter = require ('./Router/petLoverRouter');
 var petOwnerRouter = require ('./Router/petOwnerRouter');
 
@@ -39,6 +40,7 @@ app.use(morgan('dev'));
 app.options('*', cors());
 app.use(cors());
 
+app.use(serviceRouter);
 app.use('/api/v1/petlovers', petLoverRouter);
 app.use('/api/v1/petowners', petOwnerRouter);
 
