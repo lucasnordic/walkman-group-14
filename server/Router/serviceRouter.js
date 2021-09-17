@@ -3,15 +3,10 @@ const router = express.Router();
 const controller = require('../Controller/serviceController');
 
 
-//Milestone 1 -> Task 3:
-
-router.post('/:petLoverId/services', controller.postPetLoverService);
-
-router.get('/:petLoverId/services', controller.getPetLoverServices);
-
-router.get('/:petLoverId/services/:serviceId', controller.getPetLoverService);
-
-// (d) DELETE /cars/:car_id/drivers/:driver_id
-
+//TODO: could be additionally practised for MS1-task 3
+router.post('/:petLoverId/services', controller.postServicesByPetLoverId);
+router.get('/:petLoverId/services', controller.getServicesByPetLoverId);
+router.get('/:petLoverId/services/:serviceId', controller.getServicesAndPetLoversById);
+router.delete('/:petLoverId/services/:serviceId', controller.deleteServicesAndPetLoversById);
 
 module.exports = router;

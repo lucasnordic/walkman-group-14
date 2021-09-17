@@ -6,8 +6,8 @@ var PetLover = require('../Models/PetLover');
  * Service related
  */
 
-// POST /petLovers/:petLoversId/services
-exports.postPetLoverService = async (req, res, next) => {
+// POST /petLovers/:petLoverid/services
+exports.postServicesByPetLoverId = async (req, res, next) => {
     const service = new Service(req.body);
     const petLoverId = req.params['petLoverId'];
     await service.save();
@@ -20,13 +20,14 @@ exports.postPetLoverService = async (req, res, next) => {
             result.save();
             res.status(201).json(result);
         })
-        .catch((err) => {
+        .catch((err, petLover) => {
+            res.status(201).json(petLover);
             return next(err);
         });
 };
 
-// GET /users/:userId/services
-exports.getPetLoverServices = (req, res, next) => {
+// GET /petLovers/:petLoverId/services
+exports.getServicesByPetLoverId = (req, res, next) => {
     const petLoverId = req.params['petLoverId'];
 
     PetLover
@@ -36,16 +37,16 @@ exports.getPetLoverServices = (req, res, next) => {
             console.log(result); // debugging
             res.json(result._services);
         })
-        .catch((err) => {
+        .catch((err, petLover) => {
+            res.status(200).json(petLover);
             return next(err);
         });
 };
 
-// GET /users/:userId/services/:serviceId
-exports.getPetLoverService = (req, res, next) => {
+// GET /petLovers/:petLoverId/services/:serviceId
+exports.getServicesAndPetLoversById = (req, res, next) => {
     const petLoverId = req.params['petLoverId'];
     const serviceId = req.params['serviceId'];
-    var service;
 
     PetLover
         .findById(petLoverId)
@@ -62,7 +63,8 @@ exports.getPetLoverService = (req, res, next) => {
 
             res.json(service);
         })
-        .catch((err) => {
+        .catch((err, petLover) => {
+            res.status(200).json(petLover);
             return next(err);
         });
 
@@ -70,6 +72,6 @@ exports.getPetLoverService = (req, res, next) => {
 
 //TODO:
 // DELETE /petLovers/:petLoversId/services/:services_id
-exports.deletePetLoverService = (req, res, next) => {
+exports.deleteServicesAndPetLoversById = (req, res, next) => {
 
 };
