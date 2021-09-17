@@ -12,7 +12,6 @@ exports.postPetOwner = (req, res, next) => {
     })
 };
 
-
 exports.viewAll = (req, res, next) => {
     PetOwner.find().sort({username : -1})
     .then((result) => {
@@ -78,6 +77,11 @@ exports.deletePetOwner = (req, res, next) => {
     });
 
 };
+
+
+
+
+
 
 exports.savePet = (req, res, next) => {
     var newPet = new Pet(req.body);
