@@ -2,7 +2,6 @@ const express = require ('express');
 const router = express.Router();
 const controller = require ('../Controller/petOwners');
 
-
 //MS1 -> Task 2:
 router.post('/', controller.postPetOwners);
 router.get('/', controller.getPetOwners);

@@ -20,8 +20,8 @@ exports.postServicesByPetLoverId = async (req, res, next) => {
             result.save();
             res.status(201).json(result);
         })
-        .catch((err, petLover) => {
-            res.status(201).json(petLover);
+        .catch((err) => {
+            res.status(201).send();
             return next(err);
         });
 };
@@ -37,8 +37,8 @@ exports.getServicesByPetLoverId = (req, res, next) => {
             console.log(result); // debugging
             res.json(result._services);
         })
-        .catch((err, petLover) => {
-            res.status(200).json(petLover);
+        .catch((err) => {
+            res.status(200).send();
             return next(err);
         });
 };
@@ -63,8 +63,8 @@ exports.getServicesAndPetLoversById = (req, res, next) => {
 
             res.json(service);
         })
-        .catch((err, petLover) => {
-            res.status(200).json(petLover);
+        .catch((err) => {
+            res.status(200).send();
             return next(err);
         });
 

@@ -19,8 +19,8 @@ exports.getPetLovers = (req, res, next) => {
         res.json(result);
         res.send(result);
     })
-    .catch ((err, petLover) => {
-        res.status(200).json(petLover);
+    .catch ((err) => {
+        res.status(200).send();
         return next(err);
     });
 };
@@ -32,11 +32,10 @@ exports.deletePetLovers = (req, res, next) => {
         res.json(result);
         res.send(result);
     })
-    .catch ((err, petLover) => {
-        res.status(204).json(petLover);
+    .catch ((err) => {
+        res.status(204).send();
         return next(err);
     });
-    res.status(204).json(petLover);
 };
 
 //(d) GET /petLovers/:id
@@ -46,11 +45,10 @@ exports.getPetLoversById = (req, res, next) => {
         res.json(result);
         res.send(result);
     })
-    .catch ((err, petLover) => {
-        res.status(200).json(petLover);
+    .catch ((err) => {
+        res.status(200).send();
         return next(err);
     });
-    res.status(404).json(petLover);
 };
 
 //(e) PUT /petLovers/:id
@@ -59,8 +57,8 @@ exports.putPetLoversById = (req, res, next) => {
     .then((result) => {
         res.json(result);
         res.send(result);
-    }).catch ((err, petLover) => {
-        res.status(204).json(petLover);
+    }).catch ((err) => {
+        res.status(204).send();
         return next(err);
     });
 };
@@ -70,8 +68,8 @@ exports.patchPetLoversById = (req, res, next) => {
     .then((result) => {
         res.json(result);
         res.send(result);
-    }).catch ((err, petLover) => {
-        res.status(204).json(petLover);
+    }).catch ((err) => {
+        res.status(204).send();
         return next(err);
     });
 };
@@ -81,8 +79,8 @@ exports.deletePetLoversbyId = (req, res, next) => {
     .then((result) => {
         res.json(result);
         res.send(result);
-    }).catch ((err, petLover) => {
-        res.status(204).json(petLover);
+    }).catch ((err) => {
+        res.status(204).send();
         return next(err);
     });
 };

@@ -21,8 +21,8 @@ exports.getPetOwners = (req, res, next) => {
         res.json(result);
         res.send(result);
     })
-    .catch ((err, petOwner) => {
-        res.status(200).json(petOwner);
+    .catch ((err) => {
+        res.status(200).send();
         return next(err);
     });
 };
@@ -34,8 +34,8 @@ exports.deletePetOwners = (req, res, next) => {
         res.json(result);
         res.send(result);
     })
-    .catch ((err, petOwner) => {
-        res.status(204).json(petOwner);
+    .catch ((err) => {
+        res.status(204).send();
         return next(err);
     });
 };
@@ -47,8 +47,8 @@ exports.getPetOwnersById = (req, res, next) => {
         res.json(result);
         res.send(result);
     })
-    .catch ((err, petOwner) => {
-        res.status(200).json(petOwner);
+    .catch ((err) => {
+        res.status(200).send();
         return next(err);
     });
 };
@@ -59,8 +59,8 @@ exports.putPetOwnersById = (req, res, next) => {
     .then((result) => {
         res.json(result);
         res.send(result);
-    }).catch ((err, petOwner) => {
-        res.status(204).json(petOwner);
+    }).catch ((err) => {
+        res.status(204).send();
         return next(err);
     });
 
@@ -72,8 +72,8 @@ exports.patchPetOwnersById = (req, res, next) => {
     .then((result) => {
         res.json(result);
         res.send(result);
-    }).catch ((err, petOwner) => {
-        res.status(204).json(petOwner);
+    }).catch ((err) => {
+        res.status(204).send();
         return next(err);
     });
 
@@ -85,8 +85,8 @@ exports.deletePetOwnersById = (req, res, next) => {
     .then((result) => {
         res.json(result);
         res.send(result);
-    }).catch ((err, petOwner) => {
-        res.status(204).json(petOwner);
+    }).catch ((err) => {
+        res.status(204).send();
         return next(err);
     });
 
@@ -104,8 +104,8 @@ exports.postPetsByPetOwnerId = (req, res, next) => {
     .then ((result) => {
         res.json(result);
         res.send(result);
-    }).catch ((err, petOwner) => {
-        res.status(201).json(petOwner);
+    }).catch ((err) => {
+        res.status(201).send();
         return next(err);
     });
 };
@@ -117,8 +117,8 @@ exports.getPetsByPetOwnerId = (req, res, next) => {
         res.json(result._pets);
         res.send(result._pets);
     })
-    .catch ((err, petOwner) => {
-        res.status(200).json(petOwner);
+    .catch ((err) => {
+        res.status(200).send();
         return next(err);
     });
 };
@@ -131,8 +131,8 @@ exports.getPetOwnersAndPetsById = (req, res, next) => {
         .then ((result) => {
             res.json(result);
         })
-    }).catch ((err, petOwner) => {
-        res.status(200).json(petOwner);
+    }).catch ((err) => {
+        res.status(200).send();
         return next(err);
     });
 };
@@ -145,8 +145,8 @@ exports.deletePetOwnersAndPetsbyId = (req, res, next) => {
         .then((result) => {
             res.json(result);
         })
-    }).catch ((err, petOwner) => {
-        res.status(204).json(petOwner);
+    }).catch ((err) => {
+        res.status(204).send();
         return next(err);
     });
 };
