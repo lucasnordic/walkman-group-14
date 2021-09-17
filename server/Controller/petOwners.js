@@ -130,7 +130,10 @@ exports.getPetOwnersAndPetsById = (req, res, next) => {
         Pet.findById(req.params.petId)
         .then ((result) => {
             res.json(result);
-        })
+        }).catch ((err) => {
+            res.status(200).send();
+        return next(err);
+        });
     }).catch ((err) => {
         res.status(200).send();
         return next(err);
