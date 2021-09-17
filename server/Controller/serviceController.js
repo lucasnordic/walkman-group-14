@@ -67,6 +67,8 @@ exports.getPetLoverService = (req, res, next) => {
         });
 
 };
+
+//TODO:
 // DELETE /petLovers/:petLoversId/services/:services_id
 exports.deletePetLoverService = (req, res, next) => {
 

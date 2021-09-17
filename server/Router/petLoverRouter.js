@@ -2,14 +2,14 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../Controller/petLovers');
 
-
-router.post('/', controller.postPetLover);
-router.get('/', controller.getPetLover);
-router.delete('/', controller.deleteAll);
-router.get('/:userId', controller.viewUser);
-router.patch('/:userId', controller.editPetOwner);
-router.put('/:userId', controller.dubbelEditPetOwner);
-router.delete('/:userId', controller.deletePetOwner);
+//MS1 -> Task 2:
+router.post('/', controller.postPetLovers);
+router.get('/', controller.getPetLovers);
+router.delete('/', controller.deletePetLovers);
+router.get('/:userId', controller.getPetLoversById);
+router.put('/:userId', controller.putPetLoversById);
+router.patch('/:userId', controller.patchPetLoversById);
+router.delete('/:userId', controller.deletePetLoversbyId);
 
 //Export:
 module.exports = router;

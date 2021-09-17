@@ -4,7 +4,9 @@ var PetOwner = require('../Models/PetOwner');
 var Pet = require('../Models/Pet');
 var ObjectId = require('mongodb').ObjectID;
 
-exports.postPetOwner = (req, res, next) => {
+// TODO: go through'em once again before front-end
+//(a) POST /petOwners
+exports.postPetOwners = (req, res, next) => {
     var petOwner = new PetOwner(req.body);
     petOwner.save(function (err, petOwner) {
         if (err) { return next(err); }
@@ -12,7 +14,8 @@ exports.postPetOwner = (req, res, next) => {
     })
 };
 
-exports.viewAll = (req, res, next) => {
+//(b) GET /petOwners
+exports.getPetOwners = (req, res, next) => {
     PetOwner.find().sort({username : -1})
     .then((result) => {
         res.json(result);
@@ -23,18 +26,8 @@ exports.viewAll = (req, res, next) => {
     });
 };
 
-exports.viewUser = (req, res, next) => {
-    PetOwner.findById(req.params.userId)
-    .then((result) => {
-        res.json(result);
-        res.send(result);
-    })
-    .catch ((err) => {
-        return next(err);
-    });
-};
-
-exports.deleteAll = (req, res, next) => {
+//(c) DELETE /petOwners
+exports.deletePetOwners = (req, res, next) => {
     PetOwner.deleteMany({})
     .then((result) => {
         res.json(result);
@@ -45,7 +38,20 @@ exports.deleteAll = (req, res, next) => {
     });
 };
 
-exports.editPetOwner = (req, res, next) => {
+//(d) GET /petOwners/:id
+exports.getPetOwnersById = (req, res, next) => {
+    PetOwner.findById(req.params.userId)
+    .then((result) => {
+        res.json(result);
+        res.send(result);
+    })
+    .catch ((err) => {
+        return next(err);
+    });
+};
+
+//(e) PUT /petOwners/:id
+exports.putPetOwnersById = (req, res, next) => {
     PetOwner.findByIdAndUpdate(req.params.userId, req.body, {new:true})
     .then((result) => {
         res.json(result);
@@ -56,7 +62,8 @@ exports.editPetOwner = (req, res, next) => {
 
 };
 
-exports.dubbelEditPetOwner = (req, res, next) => {
+//(f) PATCH /petOwners/:id
+exports.patchPetOwnersById = (req, res, next) => {
     PetOwner.findByIdAndUpdate(req.params.userId, req.body, {new:true})
     .then((result) => {
         res.json(result);
@@ -67,7 +74,8 @@ exports.dubbelEditPetOwner = (req, res, next) => {
 
 };
 
-exports.deletePetOwner = (req, res, next) => {
+//(g) DELETE /petOwners/:id
+exports.deletePetOwnersById = (req, res, next) => {
     PetOwner.findByIdAndDelete(req.params.userId)
     .then((result) => {
         res.json(result);
@@ -78,12 +86,11 @@ exports.deletePetOwner = (req, res, next) => {
 
 };
 
+/*------------------------------------------------------------
+------------------------------------------------------------*/
 
-
-
-
-
-exports.savePet = (req, res, next) => {
+//(a) POST /petOwners/:petOwner_id/pets
+exports.postPetsByPetOwnerId = (req, res, next) => {
     var newPet = new Pet(req.body);
     newPet.save();
     PetOwner.findByIdAndUpdate( {_id : ObjectId(req.params.userId)}, {$push : {_pets : newPet._id}}, {new : true})
@@ -96,7 +103,8 @@ exports.savePet = (req, res, next) => {
     });
 };
 
-exports.userGetPets = (req, res, next) => {
+//(b) GET /petOwners/:petOwner_id/pets
+exports.getPetsByPetOwnerId = (req, res, next) => {
     PetOwner.findById(req.params.userId).populate('_pets')
     .then((result) => {
         res.json(result._pets);
@@ -107,7 +115,8 @@ exports.userGetPets = (req, res, next) => {
     });
 };
 
-exports.getMyFavoritePet = (req, res, next) => {
+//(c) GET /petOwners/:petOwner_id/pets/:pet_id
+exports.getPetOwnersAndPetsById = (req, res, next) => {
     PetOwner.findById(req.params.userId).populate('_pets')
     .then((result) => {
         Pet.findById(req.params.petId)
@@ -119,7 +128,8 @@ exports.getMyFavoritePet = (req, res, next) => {
     });
 };
 
-exports.deletePet = (req, res, next) => {
+//(d) DELETE /petOwners/:petOwner_id/pets/:pet_id
+exports.deletePetOwnersAndPetsbyId = (req, res, next) => {
     PetOwner.findByIdAndUpdate({_id : ObjectId(req.params.userId)}, {$pull : {_pets : ObjectId(req.params.petId)}}, {new : true}).populate('_pets')
     .then((result) => {
         Pet.findByIdAndDelete(req.params.petId)
@@ -131,3 +141,5 @@ exports.deletePet = (req, res, next) => {
     });
 };
 
+/*------------------------------------------------------------
+------------------------------------------------------------*/
