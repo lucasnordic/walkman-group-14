@@ -99,8 +99,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Body matches string\", function () {\r",
-							"    pm.expect(pm.response.text()).to.include(\"bob123\");\r",
+							"pm.test(\"Content type is present\", function () {\r",
+							"pm.response.to.have.header(\"Content-Type\");\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Status code is 200\", function () {\r",
