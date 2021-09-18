@@ -31,7 +31,6 @@ test:
     MONGODB_URI: "mongodb://mongo:27017/serverTestDB"
   script:
     - cd server
-    - npm run dev
     - npm run ci-test
 
 deploy:
