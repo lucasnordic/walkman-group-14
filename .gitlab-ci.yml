@@ -47,6 +47,7 @@ deploy:
   only:
     refs:
       - master
+      - branches
     variables:
       - $HEROKU_APP_NAME
       - $HEROKU_API_KEY
