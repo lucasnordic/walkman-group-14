@@ -11,3 +11,5 @@ var PetSchema = new Schema({
 });
 
 module.exports = mongoose.model('pets', PetSchema);
+
+//"newman-wait": "wait-on http://localhost:3001/api && npm run newman",
