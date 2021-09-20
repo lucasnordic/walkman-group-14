@@ -1,17 +1,17 @@
-var express = require('express');
-var mongoose = require('mongoose');
+const express = require('express');
+const mongoose = require('mongoose');
 var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
-var serviceRouter = require('./Router/serviceRouter');
-var petLoverRouter = require('./Router/petLoverRouter');
-var petOwnerRouter = require('./Router/petOwnerRouter');
+const serviceRouter = require('./Router/serviceRouter');
+const petLoverRouter = require('./Router/petLoverRouter');
+const petOwnerRouter = require('./Router/petOwnerRouter');
 
 // Variables
-var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
-var port = process.env.PORT || 3000;
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
+const port = process.env.PORT || 3000;
 
 // Connect to MongoDB
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }, function (err) {

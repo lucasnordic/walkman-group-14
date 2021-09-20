@@ -1,6 +1,5 @@
-var express = require('express');
-var Service = require('../Models/Services');
-var PetLover = require('../Models/PetLover');
+const Service = require('../Models/Services');
+const PetLover = require('../Models/PetLover');
 
 /**
  * Service related
@@ -52,8 +51,8 @@ exports.getServicesAndPetLoversById = (req, res, next) => {
         .findById(petLoverId)
         .populate('_services')
         .then((result) => {
-            var servicesArray = result._services;
-            var service;
+            const servicesArray = result._services;
+            let service;
             console.log(result._services); // debugging
             for (let i = 0; i < result._services.length; i++) {
                 if (servicesArray[i]._id.toString() === serviceId.toString()) {
