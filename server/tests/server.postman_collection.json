@@ -1,13 +1,22 @@
 {
 	"info": {
-		"_postman_id": "fd3b8816-4648-4bab-948c-45c2312c4078",
-		"name": "341_Group_14_pm.test",
+		"_postman_id": "2015ce0b-45bf-4700-bf01-391ff32e7460",
+		"name": "server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "api/v1/petLovers",
+			"name": "GET /api",
 			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
 				{
 					"listen": "test",
 					"script": {
@@ -15,6 +24,69 @@
 							"pm.test(\"Successful POST request\", function () {\r",
 							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
 							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n   \"availableHours\": [\r\n        \"1\", \"2\"\r\n    ],\r\n    \"acceptablePets\": [\r\n        \"dragon\",\r\n        \"baby\"\r\n    ],\r\n    \"userinfo\": {\r\n        \"userName\": \"asda\",\r\n        \"password\": \"bob123\",\r\n        \"fullName\": \"Billy Bong\",\r\n        \"contactInfo\": {\r\n            \"email\": \"bill@live.se\",\r\n            \"phoneNumber\": 14551432,\r\n            \"address\": {\r\n                \"city\": \"vaxjo\"\r\n            }\r\n        }\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/v1/petLovers",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"petLovers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/petLovers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var petLoverId = jsonData._id;\r",
+							"pm.environment.set(\"petLoverId\", petLoverId);\r",
+							"\r",
+							"var getPetLoverId = pm.variables.get(\"petLoversId\")\r",
+							"\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body has _id\", function () {\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.expect(jsonData._id).to.be.a('String');\r",
+							"});\r",
+							"\r",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -33,12 +105,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/v1/petLovers",
-					"protocol": "http",
+					"raw": "{{host}}/api/v1/petLovers",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"v1",
@@ -71,12 +141,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/v1/petLovers?_id=614405c7e8bd0492c8a4b1a3",
-					"protocol": "http",
+					"raw": "{{host}}/api/v1/petLovers",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"v1",
@@ -85,61 +153,8 @@
 					"query": [
 						{
 							"key": "_id",
-							"value": "614405c7e8bd0492c8a4b1a3"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "api/v1/petLovers/:userId",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Content type is present\", function () {\r",
-							"pm.response.to.have.header(\"Content-Type\");\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{   \r\n   \"availableHours\": [\r\n        \"1\", \"2\"\r\n    ],\r\n    \"acceptablePets\": [\r\n        \"dragon\",\r\n        \"baby\"\r\n    ],\r\n    \"userinfo\": {\r\n        \"userName\": \"asda\",\r\n        \"password\": \"bob123\",\r\n        \"fullName\": \"Billy Bong\",\r\n        \"contactInfo\": {\r\n            \"email\": \"bill@live.se\",\r\n            \"phoneNumber\": 14551432,\r\n            \"address\": {\r\n                \"city\": \"vaxjo\"\r\n            }\r\n        }\r\n    }\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/api/v1/petLovers/:userId",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"api",
-						"v1",
-						"petLovers",
-						":userId"
-					],
-					"variable": [
-						{
-							"key": "userId",
-							"value": "614415a27d669b5564d17c06"
+							"value": "614405c7e8bd0492c8a4b1a3",
+							"disabled": true
 						}
 					]
 				}
@@ -167,12 +182,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/v1/petLovers?=6144138b7d669b5564d17bf3",
-					"protocol": "http",
+					"raw": "{{host}}/api/v1/petLovers",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"v1",
@@ -181,7 +194,8 @@
 					"query": [
 						{
 							"key": "",
-							"value": "6144138b7d669b5564d17bf3"
+							"value": "6144138b7d669b5564d17bf3",
+							"disabled": true
 						}
 					]
 				}
@@ -190,75 +204,190 @@
 		},
 		{
 			"name": "api/v1/petLovers/:userId",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/api/v1/petLovers/:userId",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"api",
-						"v1",
-						"petLovers",
-						":userId"
-					],
-					"variable": [
-						{
-							"key": "userId",
-							"value": "614409dd0c6a7b6f008db873"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "api/v1/petLovers/:userId",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/api/v1/petLovers/:userId",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"api",
-						"v1",
-						"petLovers",
-						":userId"
-					],
-					"variable": [
-						{
-							"key": "userId",
-							"value": "614409dd0c6a7b6f008db873"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "api/v1/petOwners",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
 							"var jsonData = pm.response.json();\r",
+							"var userId = jsonData._id;\r",
+							"pm.environment.set(\"petLover_Id\", userId);\r",
 							"\r",
-							"pm.test(\"password: bob123\", function () {\r",
-							"    pm.expect(jsonData.userinfo.password).to.eql(\"bob123\");\r",
+							"var getUserId = pm.variables.get(\"petLover_Id\")\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Post status code check\", function () {\r",
-							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);\r",
+							"pm.test(\"Body has _id\", function () {\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.expect(jsonData._id).to.be.a('String');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/v1/petLovers",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"petLovers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/petLovers/:userId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"bob123\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n   \"availableHours\": [\r\n        \"1\", \"2\"\r\n    ],\r\n    \"acceptablePets\": [\r\n        \"dragon\",\r\n        \"baby\"\r\n    ],\r\n    \"userinfo\": {\r\n        \"userName\": \"asda\",\r\n        \"password\": \"bob123\",\r\n        \"fullName\": \"Billy Bong\",\r\n        \"contactInfo\": {\r\n            \"email\": \"bill@live.se\",\r\n            \"phoneNumber\": 14551432,\r\n            \"address\": {\r\n                \"city\": \"vaxjo\"\r\n            }\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/v1/petLovers",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"petLovers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/petLovers/:userId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"bob123\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n   \"availableHours\": [\r\n        \"1\", \"2\"\r\n    ],\r\n    \"acceptablePets\": [\r\n        \"dragon\",\r\n        \"baby\"\r\n    ],\r\n    \"userinfo\": {\r\n        \"userName\": \"asda\",\r\n        \"password\": \"bob123\",\r\n        \"fullName\": \"Billy Bong\",\r\n        \"contactInfo\": {\r\n            \"email\": \"bill@live.se\",\r\n            \"phoneNumber\": 14551432,\r\n            \"address\": {\r\n                \"city\": \"vaxjo\"\r\n            }\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/v1/petLovers/{{petLoversId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"petLovers",
+						"{{petLoversId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/petLovers/:userId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(null);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/v1/petLovers",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"petLovers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/petLovers/:userId/services",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var serviceId = jsonData._id;\r",
+							"pm.environment.set(\"serviceId\", serviceId);\r",
+							"\r",
+							"\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -270,7 +399,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"userinfo\": {\r\n        \"userName\": \"sss\",\r\n        \"password\": \"bob123\",\r\n        \"fullName\": \"Billy Bong\",\r\n        \"contactInfo\": {\r\n            \"email\": \"bill@live.se\",\r\n            \"phoneNumber\": 14551432,\r\n            \"address\": {\r\n                \"city\": \"vaxjo\"\r\n            }\r\n        }\r\n    }\r\n}",
+					"raw": "{   \r\n        \"userinfo\": {\r\n        \"userName\": \"asda\",\r\n        \"password\": \"bob123\",\r\n        \"fullName\": \"Billy Bong\",\r\n        \"contactInfo\": {\r\n            \"email\": \"bill@live.se\",\r\n            \"phoneNumber\": 14551432,\r\n            \"address\": {\r\n                \"city\": \"vaxjo\"\r\n            }\r\n        }\r\n    },\r\n   \"availableHours\": [\r\n        \"1\", \"2\"\r\n    ],\r\n    \"acceptablePets\": [\r\n        \"dragon\",\r\n        \"baby\"\r\n    ],\r\n    \"price\": 120,\r\n    \"beauty\":\r\n    {\r\n        \"brush\": true,\r\n        \"nailclips\": true,\r\n        \"washing\": true\r\n    },\r\n    \"veterinary\":\r\n    {\r\n        \"examination\": true,\r\n        \"examinationSubject\": true,\r\n        \"xRay\": true\r\n    },\r\n    \"hostel\": true,\r\n    \"walking\":\r\n    {\r\n        \"location\": \"Askim\",\r\n        \"hours\": 2\r\n    }\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -278,23 +407,23 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/v1/petOwners",
-					"protocol": "http",
+					"raw": "{{host}}/api/v1/petLovers/{{petLoverId}}/services",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"v1",
-						"petOwners"
+						"petLovers",
+						"{{petLoverId}}",
+						"services"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "api/v1/petOwners",
+			"name": "api/v1/petLovers/:userId/services",
 			"event": [
 				{
 					"listen": "test",
@@ -302,6 +431,10 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -312,23 +445,30 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/v1/petOwners",
-					"protocol": "http",
+					"raw": "{{host}}/api/v1/petLovers/{{petLoverId}}/services",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"v1",
-						"petOwners"
+						"petLovers",
+						"{{petLoverId}}",
+						"services"
+					],
+					"query": [
+						{
+							"key": "_id",
+							"value": "614405c7e8bd0492c8a4b1a3",
+							"disabled": true
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "api/v1/petOwners/:userId",
+			"name": "api/v1/petLovers/:userId/services/:serviceId",
 			"event": [
 				{
 					"listen": "test",
@@ -338,44 +478,35 @@
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Content-Type is present\"), function() {\r",
-							"    pm.response.to.have.header(\"Content-Type\");\r",
-							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('appplication/json');\r",
-							"}"
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "http://localhost:3000/api/v1/petOwners/:userId",
-					"protocol": "http",
+					"raw": "{{host}}/api/v1/petLovers/{{petLoverId}}/services/{{serviceId}}",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"v1",
-						"petOwners",
-						":userId"
+						"petLovers",
+						"{{petLoverId}}",
+						"services",
+						"{{serviceId}}"
 					],
-					"variable": [
+					"query": [
 						{
-							"key": "userId",
-							"value": "61440aeb71ff548e24bf8ba5"
+							"key": "_id",
+							"value": "614405c7e8bd0492c8a4b1a3",
+							"disabled": true
 						}
 					]
 				}
@@ -383,64 +514,53 @@
 			"response": []
 		},
 		{
-			"name": "api/v1/petOwners",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
+			"name": "api/v1/petLovers/:userId/services/:serviceId",
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "http://localhost:3000/api/v1/petOwners?=614417547d669b5564d17c16",
-					"protocol": "http",
+					"raw": "{{host}}/api/v1/petLovers/{{petLoverId}}/services/{{serviceId}}",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"v1",
-						"petOwners"
-					],
-					"query": [
-						{
-							"key": null,
-							"value": "614417547d669b5564d17c16"
-						}
+						"petLovers",
+						"{{petLoverId}}",
+						"services",
+						"{{serviceId}}"
 					]
 				}
 			},
 			"response": []
 		}
 	],
-	"variable": [
+	"event": [
 		{
-			"key": "acceptablePets",
-			"value": ""
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		},
 		{
-			"key": "password",
-			"value": ""
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:3000",
+			"type": "string"
 		}
 	]
 }

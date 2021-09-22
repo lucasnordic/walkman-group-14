@@ -1,4 +1,6 @@
 var express = require('express');
+const { request } = require('../app');
+var router = express.Router();
 var PetLover = require('../Models/PetLover');
 var Service = require('../Models/Services');
 
@@ -28,6 +30,7 @@ exports.getPetLovers = (req, res, next) => {
 //(c) DELETE /petLovers
 exports.deletePetLovers = (req, res, next) => {
     PetLover.deleteMany({})
+    .populate()
     .then((result) => {
         res.json(result);
         res.send(result);
@@ -42,6 +45,10 @@ exports.deletePetLovers = (req, res, next) => {
 exports.getPetLoversById = (req, res, next) => {
     PetLover.findById(req.params.userId)
     .then((result) => {
+        if(result === null){
+            res.status(404).send({message: "The petLover_Id not found."});
+            return;
+        }
         res.json(result);
         res.send(result);
     })
@@ -56,29 +63,55 @@ exports.putPetLoversById = (req, res, next) => {
     PetLover.findByIdAndUpdate(req.params.userId, req.body, {new:true})
     .then((result) => {
         res.json(result);
-        res.send(result);
     }).catch ((err) => {
         res.status(204).send();
         return next(err);
     });
 };
+
 //(f) PATCH /petLovers/:id
-exports.patchPetLoversById = (req, res, next) => {
-    PetLover.findByIdAndUpdate(req.params.userId, req.body, {new:true})
+exports.patchPetLoversById = ({body, params}, res, next) => {
+    PetLover.findById(params.userId)
     .then((result) => {
+        // if(result === null){
+        //     res.status(404).send({message: "The petLover_Id not found."});
+        //     return;
+        // }
+        if(body.availableHours){
+            result.availableHours = [...body.availableHours, ...result.availableHours];
+        }
+        if(body.acceptablePets){
+            result.acceptablePets = [...body.acceptablePets, ...result.acceptablePets];
+        }
+        if (body._services){
+            result._services = [...body._services, ...result._services];
+        }
+        //result._id = body._id;
+        result.userinfo.username = body.userinfo.username || result.userinfo.username; 
+        result.userinfo.password = body.userinfo.password || result.userinfo.password; 
+        result.userinfo.fullName = body.userinfo.fullName || result.userinfo.fullName; 
+        if(body.userinfo.contactInfo){
+            result.userinfo.contactInfo.email = body.userinfo.contactInfo.email || result.userinfo.contactInfo.email;
+            result.userinfo.contactInfo.phoneNumber = body.userinfo.contactInfo.phoneNumber || result.userinfo.contactInfo.phoneNumber;
+            result.userinfo.contactInfo.address = body.userinfo.contactInfo.address || result.userinfo.contactInfo.address;
+        }
+
+        result.save();
+
+        console.log(result);
         res.json(result);
-        res.send(result);
+        
     }).catch ((err) => {
-        res.status(204).send();
+        //res.status(404).send({message: "error code 404"});
         return next(err);
     });
 };
+
 //(g) DELETE /petLovers/:id
 exports.deletePetLoversbyId = (req, res, next) => {
     PetLover.findByIdAndDelete(req.params.userId)
     .then((result) => {
         res.json(result);
-        res.send(result);
     }).catch ((err) => {
         res.status(204).send();
         return next(err);

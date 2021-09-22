@@ -4,11 +4,11 @@ var UserInfo = require('./UserInfo');
 
 var petLoverSchema = new Schema({
     userinfo: { type: UserInfo, required: true },
-    availableHours: [{ type: Number, required: true }],
+    availableHours: [{ type: String, required: true }],
     acceptablePets: [{ type: String }],
     _services: [{
         type: mongoose.Types.ObjectId,
-        ref: 'services'
+        ref: 'Services'
     }]
 });
 

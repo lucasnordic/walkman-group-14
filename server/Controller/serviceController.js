@@ -2,10 +2,6 @@ var express = require('express');
 var Service = require('../Models/Services');
 var PetLover = require('../Models/PetLover');
 
-/**
- * Service related
- */
-
 // POST /petLovers/:petLoverid/services
 exports.postServicesByPetLoverId = async (req, res, next) => {
     const service = new Service(req.body);
@@ -18,10 +14,10 @@ exports.postServicesByPetLoverId = async (req, res, next) => {
         .then((result) => {
             console.log(result); // debugging
             result.save();
-            res.status(201).json(result);
+            res.status(201).json(service);
         })
         .catch((err) => {
-            res.status(201).send();
+            res.status(500).send();
             return next(err);
         });
 };
@@ -38,7 +34,7 @@ exports.getServicesByPetLoverId = (req, res, next) => {
             res.json(result._services);
         })
         .catch((err) => {
-            res.status(200).send();
+            res.status(500).send();
             return next(err);
         });
 };
@@ -52,6 +48,10 @@ exports.getServicesAndPetLoversById = (req, res, next) => {
         .findById(petLoverId)
         .populate('_services')
         .then((result) => {
+            if(result === null){
+                res.status(404).send({message: "The service_Id not found."});
+                return;
+            }
             var servicesArray = result._services;
             var service;
             console.log(result._services); // debugging
@@ -64,7 +64,7 @@ exports.getServicesAndPetLoversById = (req, res, next) => {
             res.json(service);
         })
         .catch((err) => {
-            res.status(200).send();
+            res.status(500).send();
             return next(err);
         });
 
@@ -73,5 +73,30 @@ exports.getServicesAndPetLoversById = (req, res, next) => {
 //TODO:
 // DELETE /petLovers/:petLoversId/services/:services_id
 exports.deleteServicesAndPetLoversById = (req, res, next) => {
+    const petLoverId = req.params['petLoverId'];
+    const serviceId = req.params['serviceId'];
 
+    PetLover
+        .findByIdAndDelete(petLoverId)
+        .populate('_services')
+        .then((result) => {
+            if(result === null){
+                res.status(404).send({message: "The service_Id not found."});
+                return;
+            }
+            var servicesArray = result._services;
+            var service;
+            console.log(result._services); // debugging
+            for (let i = 0; i < result._services.length; i++) {
+                if (servicesArray[i]._id.toString() === serviceId.toString()) {
+                    service = servicesArray[i];
+                };
+            };
+
+            res.json(service);
+        })
+        .catch((err) => {
+            res.status(500).send();
+            return next(err);
+        });
 };
