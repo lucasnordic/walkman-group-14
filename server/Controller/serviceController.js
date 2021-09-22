@@ -71,16 +71,3 @@ exports.getServiceByPetLoverById = (req, res, next) => {
 };
 
 // DELETE /petLovers/:petLoversId/services/:services_id
-exports.deleteServiceByPetLoverId = (req, res, next) => {
-    const service = new Service(req.body);
-    const petLoverId = req.params['petLoverId'];
-
-    Service.findByIdAndRemove({ _id: ObjectId(req.params.serviceId) })
-        .then((result) => {
-            res.status(200).json(result);
-        })
-        .catch((err) => {
-            res.status(201).send();
-            return next(err);
-        });
-};
