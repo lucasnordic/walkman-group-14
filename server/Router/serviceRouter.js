@@ -7,6 +7,6 @@ const controller = require('../Controller/serviceController');
 router.post('/:petLoverId/services', controller.postServicesByPetLoverId);
 router.get('/:petLoverId/services', controller.getServicesByPetLoverId);
 router.get('/:petLoverId/services/:serviceId', controller.getServiceByPetLoverById);
-router.delete('/:petLoverId/services/:serviceId', controller.deleteServiceByPetLoverId);
+// router.delete('/:petLoverId/services/:serviceId', controller.deleteServiceByPetLoverId);
 
 module.exports = router;
