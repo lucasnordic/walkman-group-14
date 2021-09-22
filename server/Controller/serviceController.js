@@ -1,16 +1,16 @@
-var express = require('express');
-var Service = require('../Models/Services');
-var PetLover = require('../Models/PetLover');
+const Service = require('../Models/Services');
+const PetLover = require('../Models/PetLover');
+const ObjectId = require('mongodb').ObjectID;
 
 /**
  * Service related
  */
 
 // POST /petLovers/:petLoverid/services
-exports.postServicesByPetLoverId = async (req, res, next) => {
+exports.postServicesByPetLoverId = (req, res, next) => {
     const service = new Service(req.body);
     const petLoverId = req.params['petLoverId'];
-    await service.save();
+    service.save();
 
     PetLover
         .findByIdAndUpdate(petLoverId, { $push: { _services: service._id } })
@@ -44,7 +44,7 @@ exports.getServicesByPetLoverId = (req, res, next) => {
 };
 
 // GET /petLovers/:petLoverId/services/:serviceId
-exports.getServicesAndPetLoversById = (req, res, next) => {
+exports.getServiceByPetLoverById = (req, res, next) => {
     const petLoverId = req.params['petLoverId'];
     const serviceId = req.params['serviceId'];
 
@@ -52,8 +52,8 @@ exports.getServicesAndPetLoversById = (req, res, next) => {
         .findById(petLoverId)
         .populate('_services')
         .then((result) => {
-            var servicesArray = result._services;
-            var service;
+            const servicesArray = result._services;
+            let service;
             console.log(result._services); // debugging
             for (let i = 0; i < result._services.length; i++) {
                 if (servicesArray[i]._id.toString() === serviceId.toString()) {
@@ -70,8 +70,4 @@ exports.getServicesAndPetLoversById = (req, res, next) => {
 
 };
 
-//TODO:
 // DELETE /petLovers/:petLoversId/services/:services_id
-exports.deleteServicesAndPetLoversById = (req, res, next) => {
-
-};
