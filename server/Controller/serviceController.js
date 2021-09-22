@@ -71,3 +71,22 @@ exports.getServiceByPetLoverById = (req, res, next) => {
 };
 
 // DELETE /petLovers/:petLoversId/services/:services_id
+exports.deleteServiceByPetLoverId = (req, res, next) => {
+
+    Service.findByIdAndRemove({ _id: ObjectId(req.params.serviceId) })  // 1. delete the service itself
+        .then((result) => {
+            if (result === null) { res.status(404).send(); };           // 1,5. service was not found, return 404
+            console.log(result);
+            return PetLover                                             // 2. then, delete the reference ObjectId from petlover
+                .findByIdAndUpdate({ _id: ObjectId(req.params.petLoverId) }, { $pull: { _services: ObjectId(req.params.serviceId) } }, { new: true })
+                .populate('_services')
+        })
+        .then((result) => {                                             // 3. send result. Returns the whole petlover
+            console.log(result); // debugg
+            res.status(200).json(result);
+        })
+        .catch((err) => {
+            res.status(404).send();
+            return next(err);
+        });
+};
