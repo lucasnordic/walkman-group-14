@@ -10,7 +10,7 @@ exports.postPetLovers = (req, res, next) => {
     var petLover = new PetLover(req.body);
     petLover.save((err, petLover) => {
             if (err) { return next(err); }
-            res.status(201).json(petLover);
+            res.status(502).json(petLover);
         });
 };
 
@@ -22,7 +22,7 @@ exports.getPetLovers = (req, res, next) => {
         res.send(result);
     })
     .catch ((err) => {
-        res.status(200).send();
+        res.status(404).send();
         return next(err);
     });
 };
@@ -36,7 +36,7 @@ exports.deletePetLovers = (req, res, next) => {
         res.send(result);
     })
     .catch ((err) => {
-        res.status(204).send();
+        res.status(502).send();
         return next(err);
     });
 };
@@ -53,7 +53,7 @@ exports.getPetLoversById = (req, res, next) => {
         res.send(result);
     })
     .catch ((err) => {
-        res.status(200).send();
+        res.status(404).send();
         return next(err);
     });
 };
@@ -64,7 +64,7 @@ exports.putPetLoversById = (req, res, next) => {
     .then((result) => {
         res.json(result);
     }).catch ((err) => {
-        res.status(204).send();
+        res.status(502).send();
         return next(err);
     });
 };
@@ -102,7 +102,7 @@ exports.patchPetLoversById = ({body, params}, res, next) => {
         res.json(result);
         
     }).catch ((err) => {
-        //res.status(404).send({message: "error code 404"});
+        res.status(502).send({message: "error code 404"});
         return next(err);
     });
 };
@@ -113,7 +113,7 @@ exports.deletePetLoversbyId = (req, res, next) => {
     .then((result) => {
         res.json(result);
     }).catch ((err) => {
-        res.status(204).send();
+        res.status(502).send();
         return next(err);
     });
 };

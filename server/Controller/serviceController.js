@@ -17,7 +17,7 @@ exports.postServicesByPetLoverId = async (req, res, next) => {
             res.status(201).json(service);
         })
         .catch((err) => {
-            res.status(500).send();
+            res.status(502).send();
             return next(err);
         });
 };
@@ -34,7 +34,7 @@ exports.getServicesByPetLoverId = (req, res, next) => {
             res.json(result._services);
         })
         .catch((err) => {
-            res.status(500).send();
+            res.status(404).send();
             return next(err);
         });
 };
@@ -64,7 +64,7 @@ exports.getServicesAndPetLoversById = (req, res, next) => {
             res.json(service);
         })
         .catch((err) => {
-            res.status(500).send();
+            res.status(404).send();
             return next(err);
         });
 
@@ -96,7 +96,7 @@ exports.deleteServicesAndPetLoversById = (req, res, next) => {
             res.json(service);
         })
         .catch((err) => {
-            res.status(500).send();
+            res.status(502).send();
             return next(err);
         });
 };
