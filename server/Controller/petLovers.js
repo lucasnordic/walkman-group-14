@@ -10,7 +10,7 @@ exports.postPetLovers = (req, res, next) => {
     var petLover = new PetLover(req.body);
     petLover.save((err, petLover) => {
             if (err) { return next(err); }
-            res.status(502).json(petLover);
+            res.status(201).json(petLover);
         });
 };
 

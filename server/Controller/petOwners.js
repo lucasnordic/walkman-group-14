@@ -26,7 +26,7 @@ exports.getPetOwners = (req, res, next) => {
         res.json(result);
     })
     .catch ((err) => {
-        res.status(200).send();
+        res.status(404).send();
         return next(err);
     });
 };
@@ -42,7 +42,7 @@ exports.deletePetOwners = (req, res, next) => {
         res.json(result);
     })
     .catch ((err) => {
-        res.status(204).send();
+        res.status(502).send();
         return next(err);
     });
 };
@@ -58,7 +58,7 @@ exports.getPetOwnersById = (req, res, next) => {
         res.json(result);
     })
     .catch ((err) => {
-        res.status(200).send();
+        res.status(404).send();
         return next(err);
     });
 };

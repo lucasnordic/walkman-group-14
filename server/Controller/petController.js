@@ -16,10 +16,8 @@ exports.postPetsByPetOwnerId = async (req, res, next) => {
         .then((result) => {
             console.log(result); // debugging
             return result.save();
-
         }).then(() => {
             res.status(201).json(pet)
-
         }).catch((err) => {
             res.status(502).send();
             return next(err);
@@ -93,7 +91,7 @@ exports.deletePetOwnersAndPetsbyId = (req, res, next) => {
             res.json(result);
         })
     }).catch ((err) => {
-        res.status(204).send();
+        res.status(502).send();
         return next(err);
     });
 

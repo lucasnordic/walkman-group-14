@@ -79,19 +79,19 @@ exports.getServicesAndPetLoversById = (req, res, next) => {
 //(d) DELETE /petLovers/:petLoversId/services/:services_id
 exports.deleteServicesAndPetLoversById = (req, res, next) => {
 
-    PetLover.findByIdAndUpdate({_id : ObjectId(req.params.petLoverId)}, {$pull : {_services : ObjectId(req.params.serviceId)}}, {new : true})
-    .populate('_services')
-    .then((result) => {
-        Service.findByIdAndDelete(req.params.serviceId)
+    PetLover.findByIdAndUpdate({ _id: ObjectId(req.params.petLoverId) }, { $pull: { _services: ObjectId(req.params.serviceId) } }, { new: true })
+        .populate('_services')
         .then((result) => {
-            if (result === null) {
-                res.status(404).send({ message: "The service_Id not found." });
-                return;
-            }
-            res.json(result);
-        })
-    }).catch ((err) => {
-        res.status(204).send();
-        return next(err);
-    });
+            Service.findByIdAndDelete(req.params.serviceId)
+                .then((result) => {
+                    if (result === null) {
+                        res.status(404).send({ message: "The service_Id not found." });
+                        return;
+                    }
+                    res.json(result);
+                })
+        }).catch((err) => {
+            res.status(502).send();
+            return next(err);
+        });
 };
