@@ -6,6 +6,7 @@ var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
 var serviceRouter = require('./Router/serviceRouter');
+var petRouter = require('./Router/petRouter');
 var petLoverRouter = require('./Router/petLoverRouter');
 var petOwnerRouter = require('./Router/petOwnerRouter');
 
@@ -37,6 +38,7 @@ app.use(cors());
 app.use('/api/v1/petlovers', petLoverRouter);
 app.use('/api/v1/petlovers', serviceRouter);
 app.use('/api/v1/petowners', petOwnerRouter);
+app.use('/api/v1/petowners', petRouter);
 
 // Import routes
 app.get('/api/', function (req, res) {

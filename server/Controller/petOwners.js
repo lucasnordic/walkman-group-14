@@ -1,13 +1,14 @@
-var express = require('express');
-var router = express.Router();
-var PetOwner = require('../Models/PetOwner');
-var Pet = require('../Models/Pet');
-var ObjectId = require('mongodb').ObjectID;
+const express = require('express');
+const router = express.Router();
+const PetOwner = require('../Models/PetOwner');
+const Pet = require('../Models/Pets');
+const ObjectId = require('mongodb').ObjectID;
+const Pets = require('../Models/Pets');
 
 // TODO: go through'em once again before front-end
 //(a) POST /petOwners
 exports.postPetOwners = (req, res, next) => {
-    var petOwner = new PetOwner(req.body);
+    const petOwner = new PetOwner(req.body);
     petOwner.save(function (err, petOwner) {
         if (err) { return next(err); }
         res.status(201).json(petOwner);
@@ -124,68 +125,3 @@ exports.deletePetOwnersById = (req, res, next) => {
         return next(err);
     });
 };
-
-/*------------------------------------------------------------
-------------------------------------------------------------*/
-
-//(a) POST /petOwners/:petOwner_id/pets
-exports.postPetsByPetOwnerId = (req, res, next) => {
-    var newPet = new Pet(req.body);
-    newPet.save();
-    PetOwner.findByIdAndUpdate( {_id : ObjectId(req.params.userId)}, {$push : {_pets : newPet._id}}, {new : true})
-    .populate('_pets')
-    .then ((result) => {
-        res.json(result);
-    }).catch ((err) => {
-        res.status(201).send();
-        return next(err);
-    });
-};
-
-//(b) GET /petOwners/:petOwner_id/pets
-exports.getPetsByPetOwnerId = (req, res, next) => {
-    PetOwner.findById(req.params.userId).populate('_pets')
-    .then((result) => {
-        res.json(result._pets);
-    })
-    .catch ((err) => {
-        res.status(200).send();
-        return next(err);
-    });
-};
-
-//(c) GET /petOwners/:petOwner_id/pets/:pet_id
-exports.getPetOwnersAndPetsById = (req, res, next) => {
-    PetOwner.findById(req.params.userId)
-    .populate('_pets')
-    .then((result) => {
-        Pet.findById(req.params.petId)
-        .then ((result) => {
-            res.json(result);
-        }).catch ((err) => {
-            res.status(200).send();
-        return next(err);
-        });
-    }).catch ((err) => {
-        res.status(200).send();
-        return next(err);
-    });
-};
-
-//(d) DELETE /petOwners/:petOwner_id/pets/:pet_id
-exports.deletePetOwnersAndPetsbyId = (req, res, next) => {
-    PetOwner.findByIdAndUpdate({_id : ObjectId(req.params.userId)}, {$pull : {_pets : ObjectId(req.params.petId)}}, {new : true})
-    .populate('_pets')
-    .then((result) => {
-        Pet.findByIdAndDelete(req.params.petId)
-        .then((result) => {
-            res.json(result);
-        })
-    }).catch ((err) => {
-        res.status(204).send();
-        return next(err);
-    });
-};
-
-/*------------------------------------------------------------
-------------------------------------------------------------*/

@@ -14,28 +14,15 @@ exports.postPetLovers = (req, res, next) => {
         });
 };
 
-router.post('/api/patients/:patient_id/appointments', async function(req, res, next){
-    const patient=await Patient.findById(req.params.patient_id);
-    var appointment= new Appointment({
-        appointment_date:req.body.appointmentDate, 
-        time:req.body.time,
-        patient: patient,
-        is_confirmed:false
-    });
-    appointment.save(function(err, appointment){
-    
-    if (err) { return next(err); }
-    res.status(201).json(appointment);
-})
-});
-
-
 //(b) GET /petLovers
 exports.getPetLovers = (req, res, next) => {
     PetLover.find().sort({username : -1})
     .then((result) => {
+        if(result === null){
+            res.status(404).send({message: "The petLover_Id not found."});
+            return;
+        }
         res.json(result);
-        //res.send(result);
     })
     .catch ((err) => {
         res.status(404).send();
@@ -46,10 +33,12 @@ exports.getPetLovers = (req, res, next) => {
 //(c) DELETE /petLovers
 exports.deletePetLovers = (req, res, next) => {
     PetLover.deleteMany({})
-    .populate()
     .then((result) => {
+        if(result === null){
+            res.status(404).send({message: "The petLover_Id not found."});
+            return;
+        }
         res.json(result);
-        //res.send(result);
     })
     .catch ((err) => {
         res.status(502).send();
@@ -66,7 +55,6 @@ exports.getPetLoversById = (req, res, next) => {
             return;
         }
         res.json(result);
-        res.send(result);
     })
     .catch ((err) => {
         res.status(404).send();
@@ -78,6 +66,10 @@ exports.getPetLoversById = (req, res, next) => {
 exports.putPetLoversById = (req, res, next) => {
     PetLover.findByIdAndUpdate(req.params.userId, req.body, {new:true})
     .then((result) => {
+        if(result === null){
+            res.status(404).send({message: "The petLover_Id not found."});
+            return;
+        }
         res.json(result);
     }).catch ((err) => {
         res.status(502).send();
@@ -127,6 +119,10 @@ exports.patchPetLoversById = ({body, params}, res, next) => {
 exports.deletePetLoversbyId = (req, res, next) => {
     PetLover.findByIdAndDelete(req.params.userId)
     .then((result) => {
+        if(result === null){
+            res.status(404).send({message: "The petLover_Id not found."});
+            return;
+        }
         res.json(result);
     }).catch ((err) => {
         res.status(502).send();

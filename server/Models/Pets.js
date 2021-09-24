@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var PetSchema = new Schema({
+var petSchema = new Schema({
     name: { type: String, required: true },
     type: { type: String, required: true },
     gender: { type: String },
@@ -10,4 +10,4 @@ var PetSchema = new Schema({
     petItems: [{ type: String }]
 });
 
-module.exports = mongoose.model('pets', PetSchema);
+module.exports = mongoose.model('pets', petSchema);
