@@ -8,7 +8,7 @@ var petLoverSchema = new Schema({
     acceptablePets: [{ type: String }],
     _services: [{
         type: mongoose.Types.ObjectId,
-        ref: 'Services'
+        ref: 'services'
     }]
 });
 

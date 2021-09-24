@@ -7,6 +7,7 @@ var petOwnerSchema = new Schema({
     _pets: [{ 
         type: mongoose.Types.ObjectId, 
         ref: 'pets'}]
+        
 });
 
 module.exports = mongoose.model('petOwners', petOwnerSchema);
