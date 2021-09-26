@@ -5,11 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "pwa-chrome",
+            "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
+            "name": "Debug Client with Chrome",
             "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}","browserLaunchLocation": null
+            "webRoot": "${workspaceFolder}/client/src",
+            "breakOnLoad": true,
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/*"
+            }
         },
         {
             "type": "node",
