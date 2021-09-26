@@ -1,42 +1,49 @@
 <template>
   <div id="main-div">
     <b-jumbotron id="register_background">
-      <template #header>Register</template>
+      <template #header>
+        <b-form id="register_title"> Register</b-form></template
+      >
 
       <template #lead>
-        <ul>
-          <li><strong>Pet owner</strong>: You are looking for a caretaker</li>
-          <li><strong>Pet lover</strong>: You want to earn some cash</li>
-        </ul>
+        <b-form id="register_info">
+          <ul>
+            <li>
+              Select <strong>Pet owner</strong> if you are looking for a
+              caretaker for your pet
+            </li>
+            <li>
+              Select <strong>Pet lover</strong> if you would like to take care
+              of pets
+            </li>
+          </ul>
+          <hr class="my-4"
+        /></b-form>
       </template>
 
-      <hr class="my-4" />
-
-      <b-form id="register_form">
+      <b-form id="register_form" @submit="onSubmit">
         <b-form-group id="usertype" label="I want to be a," label-for="i-9">
           <b-form-select
             id="i-9"
-            v-model="form2.usertype"
+            v-model="form2.user"
             :options="userType"
             required
+            autofocus
           ></b-form-select>
         </b-form-group>
-      </b-form>
 
-      <b-form id="register_form" @submit="onSubmit">
-        <b-form-group id="username" label="Username" label-for="i-1">
+        <b-form-group id="userName" label="Username" label-for="i-1">
           <b-form-input
             id="i-1"
-            v-model="form.username"
+            v-model="form.userinfo.userName"
             required
-            autofocus
           ></b-form-input>
         </b-form-group>
 
         <b-form-group id="password" label="Password" label-for="i-2">
           <b-form-input
             id="i-2"
-            v-model="form.password"
+            v-model="form.userinfo.password"
             required
             selected
           ></b-form-input>
@@ -45,13 +52,13 @@
         <b-form-group id="fullname" label="Full name" label-for="i-3">
           <b-form-input
             id="i-3"
-            v-model="form.fullname"
+            v-model="form.userinfo.fullname"
             required
           ></b-form-input>
         </b-form-group>
 
         <div class="accordion" role="tablist">
-          <!-- TODO Add oprions for adding a pet or a service when registering -->
+          <!-- TODO Add options for adding a pet or a service when registering -->
           <!--<b-card no-body class="mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
               <b-button block v-b-toggle.accordion-2 variant="info"
@@ -83,7 +90,10 @@
             >
               <b-card-body>
                 <b-form-group id="email" label="Email" label-for="i-4">
-                  <b-form-input id="i-4" v-model="form.email"></b-form-input>
+                  <b-form-input
+                    id="i-4"
+                    v-model="form.userinfo.contactInfo.email"
+                  ></b-form-input>
                 </b-form-group>
 
                 <b-form-group
@@ -93,12 +103,15 @@
                 >
                   <b-form-input
                     id="i-5"
-                    v-model="form.phoneNumber"
+                    v-model="form.userinfo.contactInfo.phoneNumber"
                   ></b-form-input>
                 </b-form-group>
 
                 <b-form-group id="city" label="City" label-for="i-6">
-                  <b-form-input id="i-6" v-model="form.city"></b-form-input>
+                  <b-form-input
+                    id="i-6"
+                    v-model="form.userinfo.contactInfo.address.city"
+                  ></b-form-input>
                 </b-form-group>
 
                 <b-form-group
@@ -108,7 +121,7 @@
                 >
                   <b-form-input
                     id="i-7"
-                    v-model="form.streetName"
+                    v-model="form.userinfo.contactInfo.address.streetName"
                     placeholder=""
                   ></b-form-input>
                 </b-form-group>
@@ -120,7 +133,7 @@
                 >
                   <b-form-input
                     id="i-8"
-                    v-model="form.streetNumber"
+                    v-model="form.userinfo.contactInfo.address.streetNumber"
                   ></b-form-input>
                 </b-form-group>
               </b-card-body>
@@ -136,6 +149,11 @@
           style="text-align: center"
           >Register Account</b-button
         >
+        <hr class="my-4" />
+        <p>
+          Do you already have an account?
+          <router-link to="/login">Login here</router-link>
+        </p>
       </b-form>
     </b-jumbotron>
 
@@ -149,27 +167,30 @@
 <script>
 import { Api } from '@/Api'
 
+// TODO Input error handling
 export default {
   name: 'register',
   data() {
     return {
       form: {
         userinfo: {
-          username: '',
+          userName: '',
           password: '',
           fullname: '',
           contactInfo: {
             email: '',
-            phoneNumber: '',
+            phoneNumber: null,
             address: {
               city: '',
               streetName: '',
-              streetNumber: ''
+              streetNumber: null
             }
           }
         }
       },
-      form2: {},
+      form2: {
+        user: null
+      },
       userType: [{ text: 'Select One', value: null }, 'Pet owner', 'Pet lover'],
       show: true
     }
@@ -185,7 +206,8 @@ export default {
       // alert(this.form.email)
       // if (userType === 'Pet owner') {
       // }
-      if (this.form2.userType === 'Pet owner') {
+      console.log(this.form2.user)
+      if (this.form2.user === 'Pet owner') {
         Api.post('/v1/petowners', this.form)
           .then((response) => this.form)
           .catch((error) => {
@@ -195,18 +217,17 @@ export default {
           .then(() => {
             console.log('This always runs')
           })
+      } else if (this.form2.user === 'Pet lover') {
+        Api.post('/v1/petlovers', this.form)
+          .then((response) => this.form)
+          .catch((error) => {
+            console.log(error)
+            // TODO Display error message
+          })
+          .then(() => {
+            console.log('This always runs')
+          })
       }
-      // else if (this.form2.userType === 'Pet lover') {
-      Api.post('/v1/petlovers', this.form)
-        .then((response) => this.form)
-        .catch((error) => {
-          console.log(error)
-          // TODO Display error message
-        })
-        .then(() => {
-          console.log('This always runs')
-        })
-      // }
     }
   }
 }
@@ -231,13 +252,34 @@ export default {
 }
 
 #register_form {
-  margin-top: 25px;
+  margin-top: -25px;
   padding-top: 25px;
   padding-bottom: 25px;
   padding-left: 25px;
   padding-right: 25px;
   background-color: white;
   border-radius: 5px;
+}
+
+#register_info {
+  margin-top: -25px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+#register_title {
+  margin-top: -25px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: white;
+  border-radius: 5px;
+  text-align: center;
 }
 
 #user_type_select {

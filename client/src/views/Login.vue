@@ -12,7 +12,7 @@
 
       <hr class="my-4" />
 
-      <b-form id="login_form" @submit="onSubmit" @reset="onReset">
+      <b-form id="login_form" @submit="onSubmit">
         <b-form-group id="username" label="Username" label-for="i-1">
           <b-form-input
             id="i-1"
