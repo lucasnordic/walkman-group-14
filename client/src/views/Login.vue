@@ -16,6 +16,7 @@
                 id="i-1"
                 v-model="form.username"
                 required
+                autofocus
               ></b-form-input>
             </b-form-group>
 
@@ -24,6 +25,7 @@
                 id="i-2"
                 v-model="form.password"
                 required
+                type="password"
               ></b-form-input>
             </b-form-group>
 

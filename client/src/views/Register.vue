@@ -18,36 +18,59 @@
                 required
                 autofocus
               ></b-form-select>
-            </b-form-group>
 
-            <b-form>
-              <ul>
-                <li>
-                  Select <strong>Pet owner</strong> if you are looking for a
-                  caretaker for your pet
-                </li>
-                <li>
-                  Select <strong>Pet lover</strong> if you would like to take
-                  care of pets
-                </li>
-              </ul>
-            </b-form>
+              <div
+                v-if="
+                  !(form2.user === 'Pet owner') && !(form2.user === 'Pet lover')
+                "
+              >
+                <b-form-text
+                  id="usertype-help-block"
+                  style="margin-left: -15px"
+                >
+                  <ul>
+                    <li>
+                      Select <strong>Pet owner</strong> if you are looking for a
+                      caretaker for your pet
+                    </li>
+                    <li>
+                      Select <strong>Pet lover</strong> if you would like to
+                      take care of pets
+                    </li>
+                  </ul>
+                </b-form-text>
+              </div>
+            </b-form-group>
 
             <b-form-group id="userName" label="Username" label-for="i-1">
               <b-form-input
                 id="i-1"
                 v-model="form.userinfo.userName"
+                :state="userName_validation"
                 required
               ></b-form-input>
+              <b-form-invalid-feedback :state="userName_validation">
+                Your username must be 5-12 characters long.
+              </b-form-invalid-feedback>
+              <b-form-valid-feedback :state="userName_validation">
+                Your username is mighty.
+              </b-form-valid-feedback>
             </b-form-group>
 
             <b-form-group id="password" label="Password" label-for="i-2">
               <b-form-input
                 id="i-2"
                 v-model="form.userinfo.password"
+                :state="password_validation"
                 required
-                selected
+                type="password"
               ></b-form-input>
+              <b-form-invalid-feedback :state="password_validation">
+                Your password must be 6-20 characters long.
+              </b-form-invalid-feedback>
+              <b-form-valid-feedback :state="password_validation">
+                Your password is mighty.
+              </b-form-valid-feedback>
             </b-form-group>
 
             <b-form-group id="fullname" label="Full name" label-for="i-3">
@@ -56,6 +79,17 @@
                 v-model="form.userinfo.fullname"
                 required
               ></b-form-input>
+
+              <transition name="slide-fade">
+                <div v-if="form.userinfo.fullname.length > 10">
+                  <b-form-text
+                    id="usertype-help-block"
+                    style="margin-left: 0px"
+                  >
+                    All hail the mighty {{ form.userinfo.fullname }}.
+                  </b-form-text>
+                </div>
+              </transition>
             </b-form-group>
 
             <div class="accordion" role="tablist">
@@ -105,7 +139,8 @@
                       <b-form-input
                         id="i-5"
                         v-model="form.userinfo.contactInfo.phoneNumber"
-                      ></b-form-input>
+                      >
+                      </b-form-input>
                     </b-form-group>
 
                     <b-form-group id="city" label="City" label-for="i-6">
@@ -171,7 +206,6 @@
             </div>
           </b-form>
         </b-jumbotron>
-
         <!-- debugging -->
         <!-- <b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">FORM DATA</pre>
@@ -197,11 +231,11 @@ export default {
           fullname: '',
           contactInfo: {
             email: '',
-            phoneNumber: null,
+            phoneNumber: '',
             address: {
               city: '',
               streetName: '',
-              streetNumber: null
+              streetNumber: ''
             }
           }
         }
@@ -210,7 +244,6 @@ export default {
         user: null
       },
       userType: [{ text: 'Select One', value: null }, 'Pet owner', 'Pet lover'],
-      show: true,
       image: '@/assets/images/sammy-delivery.png'
     }
   },
@@ -244,6 +277,20 @@ export default {
           })
       }
     }
+  },
+  computed: {
+    userName_validation() {
+      return (
+        this.form.userinfo.userName.length > 4 &&
+        this.form.userinfo.userName.length < 13
+      )
+    },
+    password_validation() {
+      return (
+        this.form.userinfo.password.length > 5 &&
+        this.form.userinfo.password.length < 21
+      )
+    }
   }
 }
 </script>
@@ -257,5 +304,17 @@ export default {
   margin-right: auto;
   width: 45%;
   display: block;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>
