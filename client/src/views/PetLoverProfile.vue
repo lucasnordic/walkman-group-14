@@ -13,14 +13,12 @@
     <p>City: {{petLover.userinfo.contactInfo.address.city}}</p>
     <p>Street Name: {{petLover.userinfo.contactInfo.address.streetName}}</p>
     <p>Street Number: {{petLover.userinfo.contactInfo.address.streetNum}}</p>
-    <p>Available Hours: {{petLover.availableHours}}</p>
 
   </div>
-  <div id="hours">
-  </div>
+  <div id="hours"></div>
   <div id="acceptable pets"></div>
-  <div id="header">
- <button type="button" class="btn btn-danger">Delete Account</button>
+  <div id="delete-user">
+    <button type="button" class="btn btn-danger">Delete Account</button>
   </div>
 </div>
 </template>
