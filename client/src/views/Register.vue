@@ -150,6 +150,7 @@
               style="text-align: center"
               >Register Account</b-button
             >
+
             <hr class="my-4" />
             <p style="text-align: center">
               Do you already have an account?

@@ -6,14 +6,11 @@
           <template #header>
             <div id="main_title">
               <b-form> Log-in</b-form>
-              <hr class="my-4" />
             </div>
           </template>
-          <div id="display_json">
-            <pre>{{ petLover }}</pre>
-          </div>
 
           <b-form id="main_form" @submit="onSubmit">
+            <hr class="my-4" />
             <b-form-group id="username" label="Username" label-for="i-1">
               <b-form-input
                 id="i-1"
@@ -38,6 +35,25 @@
               style="text-align: center"
               >Login</b-button
             >
+
+            <hr class="my-4" />
+            <p style="text-align: center">
+              Don't have an account yet?
+              <router-link to="/register">Register here</router-link>
+            </p>
+
+            <div id="test_image">
+              <img
+                src="../assets/images/sammy-searching.png"
+                alt="..."
+                style="
+                  display: block;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 100%;
+                "
+              />
+            </div>
           </b-form>
 
           <!-- debugging -->
@@ -77,4 +93,12 @@ export default {
 
 <style>
 @import '../assets/styles/login-register_light.css';
+
+#test_image {
+  margin-top: -25px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 45%;
+  display: block;
+}
 </style>
