@@ -3,15 +3,15 @@ const { request } = require('../app');
 var router = express.Router();
 var PetLover = require('../Models/PetLover');
 var Service = require('../Models/Services');
+const PetLover = require('../Models/PetLover');
 
-// TODO: go through'em once again before front-end
 //(a) POST /petLovers
 exports.postPetLovers = (req, res, next) => {
-    var petLover = new PetLover(req.body);
+    const petLover = new PetLover(req.body);
     petLover.save((err, petLover) => {
-            if (err) { return next(err); }
-            res.status(201).json(petLover);
-        });
+        if (err) { return next(err); }
+        res.status(201).json(petLover);
+    });
 };
 
 //(b) GET /petLovers
@@ -129,6 +129,3 @@ exports.deletePetLoversbyId = (req, res, next) => {
         return next(err);
     });
 };
-
-/*------------------------------------------------------------
-------------------------------------------------------------*/

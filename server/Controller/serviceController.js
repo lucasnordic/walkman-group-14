@@ -4,11 +4,11 @@ const PetLover = require('../Models/PetLover');
 const ObjectId = require('mongodb').ObjectID;
 
 //(a) POST /petLovers/:petLoverid/services
-exports.postServicesByPetLoverId = async (req, res, next) => {
+exports.postServicesByPetLoverId = (req, res, next) => {
 
     const service = new Service(req.body);
     const petLoverId = req.params['petLoverId'];
-    await service.save();
+    service.save();
 
     PetLover
         .findByIdAndUpdate(petLoverId, { $push: { _services: service._id } })
@@ -47,7 +47,7 @@ exports.getServicesByPetLoverId = (req, res, next) => {
 };
 
 //(c) GET /petLovers/:petLoverId/services/:serviceId
-exports.getServicesAndPetLoversById = (req, res, next) => {
+exports.getServiceByPetLoverById = (req, res, next) => {
     const petLoverId = req.params['petLoverId'];
     const serviceId = req.params['serviceId'];
 
@@ -77,7 +77,7 @@ exports.getServicesAndPetLoversById = (req, res, next) => {
 };
 
 //(d) DELETE /petLovers/:petLoversId/services/:services_id
-exports.deleteServicesAndPetLoversById = (req, res, next) => {
+exports.deleteServiceByPetLoverId = (req, res, next) => {
 
     PetLover.findByIdAndUpdate({ _id: ObjectId(req.params.petLoverId) }, { $pull: { _services: ObjectId(req.params.serviceId) } }, { new: true })
         .populate('_services')

@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var UserInfo = require('./UserInfo');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const UserInfo = require('./UserInfo');
 
-var petLoverSchema = new Schema({
+const petLoverSchema = new Schema({
     userinfo: { type: UserInfo, required: true },
     availableHours: [{ type: String, required: true }],
     acceptablePets: [{ type: String }],

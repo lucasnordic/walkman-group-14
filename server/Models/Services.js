@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var serviceSchema = new Schema({
-    price: { type: String, required: true },
+const serviceSchema = new Schema({
+    price: { type: Number, required: true },
     beauty:
     {
         brush: { type: Boolean, required: true },
