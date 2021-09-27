@@ -7,7 +7,7 @@
   background-position: center center;
   position: absolute;
   width:100%;
-  height: 100%; /* Enable or disable? */
+  /* height: 100%; Enable or disable? */
 }
 
 #main_div {
@@ -41,7 +41,7 @@
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
   text-align: center;
-  font-size: xx-large;
+  /* font-size: xx-large; */
 }
  
  #main_info {
@@ -49,7 +49,7 @@
    padding-top: 25px;
    padding-bottom: 25px;
    padding-left: 25px;
-   padding-right: 25px;
+   padding-right: 25px; 
    background-color: rgb(252, 252, 252, 1);
    border-radius: 5px;
    text-align: left;
@@ -57,7 +57,7 @@
  }
 
  #main_form {
-  margin-top: -25px;
+  margin-top: -55px;
   padding-top: 25px;
   padding-bottom: 25px;
   padding-left: 25px;

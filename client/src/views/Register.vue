@@ -5,7 +5,9 @@
       <div id="main_div">
         <b-jumbotron id="main_jumbo">
           <template #header>
-            <b-form id="main_title"> Register</b-form>
+            <b-form id="main_title">
+              <p class="animate__animated animate__pulse">Register</p>
+            </b-form>
           </template>
 
           <b-form id="main_form" @submit="onSubmit">
@@ -49,7 +51,10 @@
                 :state="userName_validation"
                 required
               ></b-form-input>
-              <b-form-invalid-feedback :state="userName_validation">
+              <b-form-invalid-feedback
+                :state="userName_validation"
+                style="color: gray"
+              >
                 Your username must be 5-12 characters long.
               </b-form-invalid-feedback>
               <b-form-valid-feedback :state="userName_validation">
@@ -65,7 +70,10 @@
                 required
                 type="password"
               ></b-form-input>
-              <b-form-invalid-feedback :state="password_validation">
+              <b-form-invalid-feedback
+                :state="password_validation"
+                style="color: gray"
+              >
                 Your password must be 6-20 characters long.
               </b-form-invalid-feedback>
               <b-form-valid-feedback :state="password_validation">
@@ -183,6 +191,10 @@
               type="submit"
               variant="success"
               style="text-align: center"
+              @click="
+                registeringDone.animateTestImage =
+                  'animate__animated animate__bounceOutRight'
+              "
               >Register Account</b-button
             >
 
@@ -192,7 +204,7 @@
               <router-link to="/login">Login here</router-link>
             </p>
 
-            <div id="test_image">
+            <div id="test_image" :class="registeringDone.animateTestImage">
               <img
                 src="../assets/images/sammy-delivery.png"
                 alt="..."
@@ -244,7 +256,10 @@ export default {
         user: null
       },
       userType: [{ text: 'Select One', value: null }, 'Pet owner', 'Pet lover'],
-      image: '@/assets/images/sammy-delivery.png'
+      image: '@/assets/images/sammy-delivery.png',
+      registeringDone: {
+        animateTestImage: ''
+      }
     }
   },
   mounted() {

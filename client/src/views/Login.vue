@@ -5,7 +5,9 @@
         <b-jumbotron id="main_jumbo">
           <template #header>
             <div id="main_title">
-              <b-form> Log-in</b-form>
+              <b-form>
+                <p class="animate__animated animate__pulse">Log-in</p>
+              </b-form>
             </div>
           </template>
 
@@ -95,6 +97,12 @@ export default {
 
 <style>
 @import '../assets/styles/login-register_light.css';
+
+/* Override */
+#bg_page {
+  height: 100%;
+}
+/* Override */
 
 #test_image {
   margin-top: -25px;
