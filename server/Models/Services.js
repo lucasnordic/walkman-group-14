@@ -2,24 +2,24 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var serviceSchema = new Schema({
-    price: { type: Number, required: true },
+    price: { type: String, required: true },
     beauty:
     {
-        brush: { type: Boolean },
-        nailclips: { type: Boolean },
-        washing: { type: Boolean },
+        brush: { type: Boolean, required: true },
+        nailclips: { type: Boolean, required: true },
+        washing: { type: Boolean, required: true },
     },
     veterinary:
     {
-        examination: { type: Boolean },
-        examinationSubject: { type: String },
-        xRay: { type: Boolean },
+        examination: { type: Boolean, required: true },
+        examinationSubject: { type: String, required: true },
+        xRay: { type: Boolean, required: true },
     },
-    hostel: { type: Boolean },
+    hostel: { type: Boolean, required: true },
     walking:
     {
-        location: { type: String },
-        hours: { type: Number },
+        location: { type: String, required: true },
+        hours: { type: Number, required: true },
     },
 });
 
