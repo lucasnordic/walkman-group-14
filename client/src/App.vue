@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <div id="nav">
+      <a href="linking to someewhere"></a>
       <router-link to="/">Home</router-link> |
-      <router-link to="/petOwnerProfile">Pet Owner Profile</router-link>
+      <router-link to="/profile/petlovers/6151c0feafbbdcd69f37e85b">Pet Owner Profile</router-link> | <!--this is here temporarily-->
+      <router-link to="/profile/petowners/6151b8bdc29eb5c29769e0e1">Pet Lover Profile</router-link>
     </div>
     <!-- Render the content of the current page view -->
     <router-view/>

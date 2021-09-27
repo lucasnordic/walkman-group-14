@@ -15,7 +15,6 @@ exports.getPetLovers = (req, res, next) => {
     PetLover.find().sort({ username: -1 })
         .then((result) => {
             res.json(result);
-            res.send(result);
         })
         .catch((err) => {
             res.status(200).send();
@@ -28,7 +27,6 @@ exports.deletePetLovers = (req, res, next) => {
     PetLover.deleteMany({})
         .then((result) => {
             res.json(result);
-            res.send(result);
         })
         .catch((err) => {
             res.status(204).send();
@@ -41,7 +39,6 @@ exports.getPetLoversById = (req, res, next) => {
     PetLover.findById(req.params.userId)
         .then((result) => {
             res.json(result);
-            res.send(result);
         })
         .catch((err) => {
             res.status(200).send();
@@ -54,7 +51,6 @@ exports.putPetLoversById = (req, res, next) => {
     PetLover.findByIdAndUpdate(req.params.userId, req.body, { new: true })
         .then((result) => {
             res.json(result);
-            res.send(result);
         }).catch((err) => {
             res.status(204).send();
             return next(err);
@@ -65,7 +61,6 @@ exports.patchPetLoversById = (req, res, next) => {
     PetLover.findByIdAndUpdate(req.params.userId, req.body, { new: true })
         .then((result) => {
             res.json(result);
-            res.send(result);
         }).catch((err) => {
             res.status(204).send();
             return next(err);
@@ -76,7 +71,6 @@ exports.deletePetLoversbyId = (req, res, next) => {
     PetLover.findByIdAndDelete(req.params.userId)
         .then((result) => {
             res.json(result);
-            res.send(result);
         }).catch((err) => {
             res.status(204).send();
             return next(err);

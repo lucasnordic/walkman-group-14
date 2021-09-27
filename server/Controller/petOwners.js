@@ -17,7 +17,6 @@ exports.getPetOwners = (req, res, next) => {
     PetOwner.find().sort({ username: -1 })
         .then((result) => {
             res.json(result);
-            res.send(result);
         })
         .catch((err) => {
             res.status(200).send();
@@ -30,7 +29,6 @@ exports.deletePetOwners = (req, res, next) => {
     PetOwner.deleteMany({})
         .then((result) => {
             res.json(result);
-            res.send(result);
         })
         .catch((err) => {
             res.status(204).send();
@@ -43,7 +41,6 @@ exports.getPetOwnersById = (req, res, next) => {
     PetOwner.findById(req.params.userId)
         .then((result) => {
             res.json(result);
-            res.send(result);
         })
         .catch((err) => {
             res.status(200).send();
@@ -56,7 +53,6 @@ exports.putPetOwnersById = (req, res, next) => {
     PetOwner.findByIdAndUpdate(req.params.userId, req.body, { new: true })
         .then((result) => {
             res.json(result);
-            res.send(result);
         }).catch((err) => {
             res.status(204).send();
             return next(err);
@@ -69,7 +65,6 @@ exports.patchPetOwnersById = (req, res, next) => {
     PetOwner.findByIdAndUpdate(req.params.userId, req.body, { new: true })
         .then((result) => {
             res.json(result);
-            res.send(result);
         }).catch((err) => {
             res.status(204).send();
             return next(err);
@@ -82,7 +77,6 @@ exports.deletePetOwnersById = (req, res, next) => {
     PetOwner.findByIdAndDelete(req.params.userId)
         .then((result) => {
             res.json(result);
-            res.send(result);
         }).catch((err) => {
             res.status(204).send();
             return next(err);
@@ -101,7 +95,6 @@ exports.postPetsByPetOwnerId = (req, res, next) => {
         .populate('_pets')
         .then((result) => {
             res.json(result);
-            res.send(result);
         }).catch((err) => {
             res.status(201).send();
             return next(err);
@@ -113,7 +106,6 @@ exports.getPetsByPetOwnerId = (req, res, next) => {
     PetOwner.findById(req.params.userId).populate('_pets')
         .then((result) => {
             res.json(result._pets);
-            res.send(result._pets);
         })
         .catch((err) => {
             res.status(200).send();
