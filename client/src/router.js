@@ -16,12 +16,12 @@ export default new Router({
       component: Home
     },
     {
-      path: '/profile/petlovers/6151c0feafbbdcd69f37e85b',
+      path: '/profile/petlovers/:id',
       name: 'pet lover profile',
       component: PetLover
     },
     {
-      path: '/profile/petowners/6151b8bdc29eb5c29769e0e1',
+      path: '/profile/petowners/:id',
       name: 'pet owner profile',
       component: PetOwner
     }

@@ -1,11 +1,12 @@
 <template>
     <div id="background">
         <div id="header">
-            <h2 id="greeting">Welcome {{petOwner.username}}!</h2>
+            <h2 id="greeting">Welcome {{petOwner.userinfo.userName}}!</h2>
         </div>
         <div id="userInfo">
             <p>Username: {{petOwner.userinfo.userName}}</p>
             <p>Password: {{petOwner.userinfo.password}}</p>
+            <p>Full Name: {{petOwner.userinfo.fullName}}</p>
             <p>Contact Information:</p>
             <p>Email: {{petOwner.userinfo.contactInfo.email}}</p>
             <p>Phone Number: {{petOwner.userinfo.contactInfo.phoneNumber}}</p>
@@ -28,7 +29,7 @@ export default {
   name: 'petowner',
   mounted() {
     console.log('Im a happy petowner')
-    Api.get('/v1/petowners/6151b8bdc29eb5c29769e0e1')
+    Api.get('/v1/petowners/' + this.$route.params.id)
       .then(res => {
         console.log(res)
         this.petOwner = res.data

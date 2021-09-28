@@ -6,6 +6,7 @@
   <div id="userInfo">
     <p>Username: {{petLover.userinfo.userName}}</p>
     <p>Password: {{petLover.userinfo.password}}</p>
+    <p>Full Name: {{petLover.userinfo.fullName}}</p>
     <p>Contact Information:</p>
     <p>Email: {{petLover.userinfo.contactInfo.email}}</p>
     <p>Phone Number: {{petLover.userinfo.contactInfo.phoneNumber}}</p>
@@ -30,8 +31,8 @@ import { Api } from '@/Api'
 export default {
   name: 'petlover',
   mounted() { // Happens when page is loaded
-    console.log('Hi!')
-    Api.get('/v1/petlovers/6151c0feafbbdcd69f37e85b')
+    console.log('Yoyo!')
+    Api.get('/v1/petlovers/' + this.$route.params.id)
       .then(res => {
         console.log(res)
         this.petLover = res.data
