@@ -11,7 +11,7 @@
                 <th scope="row">Username</th>
                 <td>
                   {{petOwner.userinfo.userName}}
-                  <button type="button" class="btn btn-light">Edit</button>
+                  <button type="button" class="btn btn-light" @click="openDialog">Edit</button>
                 </td>
               </tr>
               <tr>
@@ -57,6 +57,14 @@
                 </td>
               </tr>
             </tbody>
+            <a11y-dialog id="app-dialog" app-root="#app" dialog-root="#dialog-root" @dialog-ref="assignDialogRef">
+              <template v-slot:title>
+                <span>Your dialog title</span>
+              </template>
+              <div>
+                <p>Your content</p>
+              </div>
+            </a11y-dialog>
           </table>
         </div>
         <div id="petsList"></div>
@@ -85,13 +93,10 @@ export default {
     }
   },
   methods: {
-    sth() {
-      console.log('Im doing sthhh')
-    }
-  },
-  actions: {
-    sth() {
-
+    openDialog() {
+      if (this.dialog) {
+        this.dialog.show()
+      }
     }
   }
 }

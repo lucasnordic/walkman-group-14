@@ -1,30 +1,54 @@
 <template>
-<div id="profile-background">
-  <div id="header?">
-    <h1>Hi {{petLover.userinfo.userName}}!</h1>
+  <div>
+    <div class="jumbotron">
+      <h1 class="display-4" id="greeting">Welcome {{petLover.userinfo.userName}}!</h1>
+    </div>
+    <table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th scope="row">User Name</th>
+      <td>{{petLover.userinfo.userName}}</td>
+      <td>#</td>
+    </tr>
+    <tr>
+      <th scope="row">Password</th>
+      <td>{{petLover.userinfo.password}}</td>
+      <td>#</td>
+    </tr>
+    <tr>
+      <th scope="row">Full Name</th>
+      <td>{{petLover.userinfo.fullName}}</td>
+      <td>#</td>
+    </tr>
+    <tr>
+      <th scope="row">Email</th>
+      <td>{{petLover.userinfo.contactInfo.email}}</td>
+      <td>#</td>
+    </tr>
+    <tr>
+      <th scope="row">Phone Number</th>
+      <td>{{petLover.userinfo.contactInfo.phoneNumber}}</td>
+      <td>#</td>
+    </tr>
+    <tr>
+      <th scope="row">City</th>
+      <td>{{petLover.userinfo.contactInfo.address.city}}</td>
+      <td>#</td>
+    </tr>
+    <tr>
+      <th scope="row">Street Name</th>
+      <td>{{petLover.userinfo.contactInfo.address.streetName}}</td>
+      <td>#</td>
+    </tr>
+    <tr>
+      <th scope="row">Street Name</th>
+      <td>{{petLover.userinfo.contactInfo.address.streetNum}}</td>
+      <td>#</td>
+    </tr>
+  </tbody>
+</table>
   </div>
-  <div id="userInfo">
-    <p>Username: {{petLover.userinfo.userName}}</p>
-    <p>Password: {{petLover.userinfo.password}}</p>
-    <p>Full Name: {{petLover.userinfo.fullName}}</p>
-    <p>Contact Information:</p>
-    <p>Email: {{petLover.userinfo.contactInfo.email}}</p>
-    <p>Phone Number: {{petLover.userinfo.contactInfo.phoneNumber}}</p>
-    <p>Address: </p>
-    <p>City: {{petLover.userinfo.contactInfo.address.city}}</p>
-    <p>Street Name: {{petLover.userinfo.contactInfo.address.streetName}}</p>
-    <p>Street Number: {{petLover.userinfo.contactInfo.address.streetNum}}</p>
-
-  </div>
-  <div id="hours"></div>
-  <div id="acceptable pets"></div>
-  <div id="delete-user">
-    <button type="button" class="btn btn-danger">Delete Account</button>
-  </div>
-</div>
 </template>
-
-// JAVASCRIPT
 <script>
 import { Api } from '@/Api'
 
