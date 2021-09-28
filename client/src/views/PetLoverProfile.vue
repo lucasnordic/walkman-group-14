@@ -8,42 +8,74 @@
     <tr>
       <th scope="row">User Name</th>
       <td>{{petLover.userinfo.userName}}</td>
-      <td>#</td>
+      <td>
+        <div class="text-center">
+          <span class="fa fa-pen"></span>
+        </div>
+      </td>
     </tr>
     <tr>
       <th scope="row">Password</th>
       <td>{{petLover.userinfo.password}}</td>
-      <td>#</td>
+      <td>
+        <div class="text-center">
+          <span class="fa fa-pen"></span>
+        </div>
+      </td>
     </tr>
     <tr>
       <th scope="row">Full Name</th>
       <td>{{petLover.userinfo.fullName}}</td>
-      <td>#</td>
+      <td>
+        <div class="text-center">
+          <span class="fa fa-pen"></span>
+        </div>
+      </td>
     </tr>
     <tr>
       <th scope="row">Email</th>
       <td>{{petLover.userinfo.contactInfo.email}}</td>
-      <td>#</td>
+      <td>
+        <div class="text-center">
+          <span class="fa fa-pen"></span>
+        </div>
+      </td>
     </tr>
     <tr>
       <th scope="row">Phone Number</th>
       <td>{{petLover.userinfo.contactInfo.phoneNumber}}</td>
-      <td>#</td>
+      <td>
+        <div class="text-center">
+          <span class="fa fa-pen"></span>
+        </div>
+      </td>
     </tr>
     <tr>
       <th scope="row">City</th>
       <td>{{petLover.userinfo.contactInfo.address.city}}</td>
-      <td>#</td>
+      <td>
+        <div class="text-center">
+          <span class="fa fa-pen"></span>
+        </div>
+      </td>
     </tr>
     <tr>
       <th scope="row">Street Name</th>
       <td>{{petLover.userinfo.contactInfo.address.streetName}}</td>
-      <td>#</td>
+      <td>
+        <div class="text-center">
+          <span class="fa fa-pen"></span>
+        </div>
+      </td>
     </tr>
     <tr>
       <th scope="row">Street Name</th>
       <td>{{petLover.userinfo.contactInfo.address.streetNum}}</td>
-      <td>#</td>
+      <td>
+        <div class="text-center">
+          <span class="fa fa-pen"></span>
+        </div>
+      </td>
     </tr>
   </tbody>
 </table>
