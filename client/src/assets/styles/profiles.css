@@ -1,0 +1,12 @@
+.jumbotron {
+    margin-bottom: 0px;
+    background-position: 0% 25%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: rgb(7, 7, 7);
+    text-shadow: black 0.1em 0.1em 0.2em;
+    background: black;
+    border-style: solid;
+    border: 5px;
+    border-color: rgb(15, 15, 15);
+}

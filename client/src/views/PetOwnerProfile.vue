@@ -1,19 +1,63 @@
 <template>
     <div id="background">
-        <div id="header">
-            <h2 id="greeting">Welcome {{petOwner.userinfo.userName}}!</h2>
+        <div class="jumbotron" >
+            <h1 class="display-4" id="greeting">Welcome {{petOwner.userinfo.userName}}!</h1>
+            <p class="lead">Here you can see and edit all your information</p>
         </div>
-        <div id="userInfo">
-            <p>Username: {{petOwner.userinfo.userName}}</p>
-            <p>Password: {{petOwner.userinfo.password}}</p>
-            <p>Full Name: {{petOwner.userinfo.fullName}}</p>
-            <p>Contact Information:</p>
-            <p>Email: {{petOwner.userinfo.contactInfo.email}}</p>
-            <p>Phone Number: {{petOwner.userinfo.contactInfo.phoneNumber}}</p>
-            <p>Address: </p>
-            <p>City: {{petOwner.userinfo.contactInfo.address.city}}</p>
-            <p>Street Name: {{petOwner.userinfo.contactInfo.address.streetName}}</p>
-            <p>Street Number: {{petOwner.userinfo.contactInfo.address.streetNum}}</p>
+        <div id="info_table">
+          <table class="table table-hover table-dark">
+            <tbody>
+              <tr>
+                <th scope="row">Username</th>
+                <td>
+                  {{petOwner.userinfo.userName}}
+                  <button type="button" class="btn btn-light">Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Password</th>
+                <td>{{petOwner.userinfo.password}}
+                  <button type="button" class="btn btn-light">Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Full Name</th>
+                <td>{{petOwner.userinfo.fullName}}
+                  <button type="button" class="btn btn-light">Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Email</th>
+                <td>{{petOwner.userinfo.contactInfo.email}}
+                  <button type="button" class="btn btn-light">Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Phone Number</th>
+                <td>{{petOwner.userinfo.contactInfo.phoneNumber}}
+                  <button type="button" class="btn btn-light">Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">City</th>
+                <td>{{petOwner.userinfo.contactInfo.address.city}}
+                  <button type="button" class="btn btn-light">Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Street Name</th>
+                <td>{{petOwner.userinfo.contactInfo.address.streetName}}
+                  <button type="button" class="btn btn-light">Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Street Number</th>
+                <td>{{petOwner.userinfo.contactInfo.address.streetNum}}
+                  <button type="button" class="btn btn-light">Edit</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div id="petsList"></div>
         <div id="delete-user">
@@ -39,6 +83,20 @@ export default {
     return {
       petOwner: {}
     }
+  },
+  methods: {
+    sth() {
+      console.log('Im doing sthhh')
+    }
+  },
+  actions: {
+    sth() {
+
+    }
   }
 }
 </script>
+
+<style>
+@import '../assets/styles/profiles.css';
+</style>
