@@ -18,8 +18,13 @@
       <th scope="row">Password</th>
       <td>{{petLover.userinfo.password}}</td>
       <td>
-        <div class="text-center">
-          <span class="fa fa-pen"></span>
+        <div class="d-flex">
+          <input v-model="newUpdate" type="text" placeholder="Enter your edit value" class="form-control">
+          <button @click="submitEdit()" class="btn btn-warning rounded-10">
+            <div class="text-center">
+              <span class="fa fa-pen"></span>
+            </div> Edit
+          </button>
         </div>
       </td>
     </tr>
@@ -81,6 +86,7 @@
 </table>
   </div>
 </template>
+
 <script>
 import { Api } from '@/Api'
 
@@ -96,12 +102,16 @@ export default {
   },
   data() {
     return {
+      newUpdate: null,
       petLover: {}
     }
   },
   methods: {
-    userInfo() {
-      return this.petLover.userinfo
+    submitEdit() {
+      this.petLover.userinfo.password = this.newUpdate
+      Api.patch('/v1/petlovers/' + this.$route.params.id, this.petLover)
+        .then(res => this.petLover)
+      this.newUpdate = null
     }
   }
 }
