@@ -63,7 +63,6 @@
                 id="i-1"
                 v-model="form.userinfo.userName"
                 :state="userName_validation"
-                @change="usernameInputHandler"
                 required
               ></b-form-input>
               <b-form-invalid-feedback
@@ -308,25 +307,16 @@ export default {
         .then(() => {
           console.log('This always runs')
         })
-    },
-    usernameInputHandler() {}, // TODO create a component
-    add() {
-      this.items.splice(this.index, 0, this.form.userinfo.userName[this.index])
-      this.index++
-    },
-    remove() {
-      this.items.splice(this.index, 1, this.form.userinfo.userName[this.index])
-      this.index--
     }
   },
   computed: {
-    userName_validation() {
+    userName_validation(event) {
       return (
         this.form.userinfo.userName.length > 4 &&
         this.form.userinfo.userName.length < 13
       )
     },
-    password_validation() {
+    password_validation(event) {
       return (
         this.form.userinfo.password.length > 5 &&
         this.form.userinfo.password.length < 21
