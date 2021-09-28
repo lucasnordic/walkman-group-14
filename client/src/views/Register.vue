@@ -4,6 +4,20 @@
     <div id="bg_page">
       <div id="main_div">
         <b-jumbotron id="main_jumbo">
+          <div id="list-username">
+            <transition-group name="list" tag="p">
+              <!-- TODO fix this usertype bind to display to left of username -->
+              <!-- <div v-bind:key="form2.user">{{ form2.user }}</div> -->
+              <span
+                v-for="item in form.userinfo.userName"
+                v-bind:key="item"
+                class="list-item"
+              >
+                {{ item }}
+              </span>
+            </transition-group>
+          </div>
+
           <template #header>
             <b-form id="main_title">
               <p class="animate__animated animate__pulse">Register</p>
@@ -16,7 +30,7 @@
               <b-form-select
                 id="i-9"
                 v-model="form2.user"
-                :options="userType"
+                :options="userTypeSelected"
                 required
                 autofocus
               ></b-form-select>
@@ -49,6 +63,7 @@
                 id="i-1"
                 v-model="form.userinfo.userName"
                 :state="userName_validation"
+                @change="usernameInputHandler"
                 required
               ></b-form-input>
               <b-form-invalid-feedback
@@ -255,11 +270,16 @@ export default {
       form2: {
         user: null
       },
-      userType: [{ text: 'Select One', value: null }, 'Pet owner', 'Pet lover'],
+      userTypeSelected: [
+        { text: 'Select One', value: null },
+        'Pet owner',
+        'Pet lover'
+      ],
       image: '@/assets/images/sammy-delivery.png',
       registeringDone: {
         animateTestImage: ''
-      }
+      },
+      index: 0
     }
   },
   mounted() {
@@ -267,30 +287,36 @@ export default {
   },
   methods: {
     onSubmit(event) {
-      // TODO Add working method to POST PetLover and PetOwner
+      // Method that handles form submission
       event.preventDefault()
       console.log(this.form2.user) // debugging
       if (this.form2.user === 'Pet owner') {
-        Api.post('/v1/petowners', this.form)
-          .then((response) => this.form)
-          .catch((error) => {
-            console.log(error)
-            // TODO Display error message
-          })
-          .then(() => {
-            console.log('This always runs')
-          })
+        this.postUser('petowners')
       } else if (this.form2.user === 'Pet lover') {
-        Api.post('/v1/petlovers', this.form)
-          .then((response) => this.form)
-          .catch((error) => {
-            console.log(error)
-            // TODO Display error message
-          })
-          .then(() => {
-            console.log('This always runs')
-          })
+        this.postUser('petlovers')
       }
+    },
+    postUser(route = 'route') {
+      // TODO create a component?
+      // Method that handles posting a user to a specific route
+      Api.post('/v1/' + route, this.form)
+        .then((response) => this.form)
+        .catch((error) => {
+          console.log(error) // debugging
+          // TODO throw error to user
+        })
+        .then(() => {
+          console.log('This always runs')
+        })
+    },
+    usernameInputHandler() {}, // TODO create a component
+    add() {
+      this.items.splice(this.index, 0, this.form.userinfo.userName[this.index])
+      this.index++
+    },
+    remove() {
+      this.items.splice(this.index, 1, this.form.userinfo.userName[this.index])
+      this.index--
     }
   },
   computed: {
@@ -331,5 +357,27 @@ export default {
 /* .slide-fade-leave-active below version 2.1.8 */ {
   transform: translateX(10px);
   opacity: 0;
+}
+
+.animate__animated.animate__bounceOutRight {
+  --animate-duration: 1.25s;
+}
+
+#list-username {
+  margin-top: -32px;
+  color: gray;
+}
+
+.list-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>
