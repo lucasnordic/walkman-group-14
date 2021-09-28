@@ -1,8 +1,7 @@
-var express = require('express');
+const express = require('express');
 const { request } = require('../app');
-var router = express.Router();
-var PetLover = require('../Models/PetLover');
-var Service = require('../Models/Services');
+const router = express.Router();
+const Service = require('../Models/Services');
 const PetLover = require('../Models/PetLover');
 
 //(a) POST /petLovers
