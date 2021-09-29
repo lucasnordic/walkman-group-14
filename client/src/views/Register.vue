@@ -32,7 +32,7 @@
             <hr class="my-4" />
 
             <!-- Select User Type. PetOwner/PetLover -->
-            <b-form-group id="usertype" label="I want to be a," label-for="i-9">
+            <b-form-group id="usertype" label="Account role*" label-for="i-9">
               <b-form-select
                 id="i-9"
                 v-model="form2.user"
@@ -41,39 +41,73 @@
                 autofocus
               ></b-form-select>
 
-              <!-- Text displayed under User type selection -->
-              <div
-                v-if="
-                  !(form2.user === 'Pet owner') && !(form2.user === 'Pet lover')
-                "
-              >
-                <b-form-text
-                  id="usertype-help-block"
-                  style="margin-left: -15px"
+              <!--title="Info"-->
+              <!-- Selected user type info box -->
+              <div id="user_type_info_box" v-if="form2.user === 'Pet owner'">
+                <b-card title="PetOwner Info">
+                  <b-card-text>
+                    Become a <em>Pet Owner</em> if you are looking for someone
+                    that can take care of your pet!
+                  </b-card-text>
+                  <!-- TODO: Implement more info page -->
+                  <!-- <a href="#" class="card-link">More Info</a> -->
+                </b-card>
+                <div
+                  id="animated_image"
+                  :class="registeringDone.animateTestImage"
                 >
-                  <ul>
-                    <li>
-                      Select <strong>Pet owner</strong> if you are looking for a
-                      caretaker for your pet
-                    </li>
-                    <li>
-                      Select <strong>Pet lover</strong> if you would like to
-                      take care of pets
-                    </li>
-                  </ul>
-                </b-form-text>
+                  <img
+                    src="../assets/images/sammy-remote-work.png"
+                    alt="..."
+                    style="
+                      display: block;
+                      margin-left: auto;
+                      margin-right: auto;
+                      width: 100%;
+                    "
+                  />
+                </div>
+              </div>
+
+              <!-- Selected user type info box -->
+              <div id="user_type_info_box" v-if="form2.user === 'Pet lover'">
+                <b-card title="PetLover Info">
+                  <b-card-text>
+                    Become a <em>Pet Lover</em> if you want to offer pet care
+                    services to <em>Pet Owners</em>. Create an account, start
+                    offering a service, and get ready to make some cash! ..and
+                    meet some lovely pets of course ;)
+                  </b-card-text>
+                  <!-- TODO: Implement more info page -->
+                  <!-- <b-link href="#" class="card-link">More Info</b-link> -->
+                </b-card>
+                <div
+                  id="animated_image"
+                  :class="registeringDone.animateTestImage"
+                >
+                  <img
+                    src="../assets/images/sammy-message-sent.png"
+                    alt="..."
+                    style="
+                      display: block;
+                      margin-left: auto;
+                      margin-right: auto;
+                      width: 88.7%;
+                    "
+                  />
+                </div>
               </div>
             </b-form-group>
 
             <!-- input field -->
-            <b-form-group id="userName" label="Username" label-for="i-1">
+            <!-- TODO: Add :state to input, and implement input validation -->
+            <b-form-group id="userName" label="Username*" label-for="i-1">
               <b-form-input
                 id="i-1"
                 v-model="form.userinfo.userName"
-                :state="userName_validation"
                 required
               ></b-form-input>
-              <b-form-invalid-feedback
+              <!-- <b-form-invalid-feedback
                 :state="userName_validation"
                 style="color: gray"
               >
@@ -81,19 +115,18 @@
               </b-form-invalid-feedback>
               <b-form-valid-feedback :state="userName_validation">
                 Your username is mighty.
-              </b-form-valid-feedback>
+              </b-form-valid-feedback> -->
             </b-form-group>
 
             <!-- input field -->
-            <b-form-group id="password" label="Password" label-for="i-2">
+            <b-form-group id="password" label="Password*" label-for="i-2">
               <b-form-input
                 id="i-2"
                 v-model="form.userinfo.password"
-                :state="password_validation"
                 required
                 type="password"
               ></b-form-input>
-              <b-form-invalid-feedback
+              <!-- <b-form-invalid-feedback
                 :state="password_validation"
                 style="color: gray"
               >
@@ -101,11 +134,11 @@
               </b-form-invalid-feedback>
               <b-form-valid-feedback :state="password_validation">
                 Your password is mighty.
-              </b-form-valid-feedback>
+              </b-form-valid-feedback> -->
             </b-form-group>
 
             <!-- input field -->
-            <b-form-group id="fullname" label="Full name" label-for="i-3">
+            <b-form-group id="fullname" label="Full name*" label-for="i-3">
               <b-form-input
                 id="i-3"
                 v-model="form.userinfo.fullname"
@@ -124,19 +157,26 @@
               </transition>
             </b-form-group>
 
+            <hr class="my-4" />
+
             <!-- input fields for Contact Info -->
-            <div class="accordion" role="tablist">
+            <div class="accordion" role="tablist" style="margin-top: 25px">
               <!-- TODO Add options for adding a pet or a service when registering -->
               <b-card no-body class="mb-1">
                 <b-card-header header-tag="header" class="p-1" role="tab">
-                  <b-button block v-b-toggle.accordion-1 variant="primary"
-                    >Contact Info (optional)
+                  <b-button
+                    block
+                    v-b-toggle.accordion-1
+                    variant="light"
+                    size="sm"
+                    >Contact Info
                   </b-button></b-card-header
                 >
                 <b-collapse
                   id="accordion-1"
                   accordion="my-accordion"
                   role="tabpanel"
+                  visible
                 >
                   <b-card-body>
                     <!-- input field -->
@@ -210,15 +250,14 @@
               "
               >Register Account</b-button
             >
-
             <hr class="my-4" />
 
             <!-- Bottom text and image -->
             <p style="text-align: center">
               Do you already have an account?
               <router-link to="/login">Login here</router-link>
+              <test-component></test-component>
             </p>
-
             <div id="test_image" :class="registeringDone.animateTestImage">
               <img
                 src="../assets/images/sammy-delivery.png"
@@ -250,10 +289,14 @@
 
 <script>
 import { Api } from '@/Api'
+import TestComponent from '../components/TestComponent.vue'
 
 // TODO Input error handling
 export default {
   name: 'register',
+  components: {
+    'test-component': TestComponent
+  },
   data() {
     return {
       form: {
@@ -336,6 +379,43 @@ export default {
 <style>
 @import '../assets/styles/login-register_light.css';
 
+/* Overrides imported .css */
+#page_background {
+  height: 100%;
+}
+
+#page_content {
+  height: 100%;
+}
+/* Overrides imported .css */
+
+#user_type_info_box {
+  margin-top: 12.5px;
+  text-align: center;
+}
+
+#animated_image {
+  margin-left: auto;
+  margin-right: auto;
+  width: 65%;
+  display: block;
+  overflow: hidden;
+  transform: translatey(0px);
+  animation: float 6s ease-in-out infinite;
+}
+/* Animate image above */
+@keyframes float {
+  0% {
+    transform: translatey(0px);
+  }
+  50% {
+    transform: translatey(-20px);
+  }
+  100% {
+    transform: translatey(0px);
+  }
+}
+
 /* Bottom image */
 #test_image {
   margin-top: -25px;
@@ -343,10 +423,11 @@ export default {
   margin-right: auto;
   width: 45%;
   display: block;
+  overflow: hidden;
 }
 
 /**
-Animation Related below:
+Only Animation Related below:
 */
 .slide-fade-enter-active {
   transition: all 0.3s ease;
@@ -371,7 +452,7 @@ Animation Related below:
 
 .list-item {
   display: inline-block;
-  margin-right: 10px;
+  margin-right: 2.5px;
 }
 .list-enter-active,
 .list-leave-active {

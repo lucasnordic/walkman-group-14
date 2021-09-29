@@ -79,8 +79,7 @@
         </b-jumbotron>
       </div>
     </div>
-    <!-- TODO: implement -->
-    <!-- <div id="footer"></div> -->
+    <div class="footer"></div>
   </div>
 </template>
 
@@ -112,7 +111,11 @@ export default {
 @import '../assets/styles/login-register_light.css';
 
 /* Overrides imported .css */
-#bg_page {
+#page_background {
+  height: 100%;
+}
+
+#page_content {
   height: 100%;
 }
 /* Overrides imported .css */
