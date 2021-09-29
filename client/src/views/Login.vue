@@ -1,18 +1,24 @@
 <template>
   <div>
-    <div id="bg_page">
-      <div id="main_div">
-        <b-jumbotron id="main_jumbo">
+    <!-- <div class="header"></div> -->
+    <!-- TODO: implement -->
+    <div id="page_background">
+      <div id="page_content">
+        <b-jumbotron id="form_content">
+          <!-- Title -->
           <template #header>
-            <div id="main_title">
+            <div id="form_title">
               <b-form>
                 <p class="animate__animated animate__pulse">Log-in</p>
               </b-form>
             </div>
           </template>
 
-          <b-form id="main_form" @submit="onSubmit">
+          <!-- form = Where a user inputs data -->
+          <b-form id="form_inputs" @submit="onSubmit">
             <hr class="my-4" />
+
+            <!-- input field -->
             <b-form-group id="username" label="Username" label-for="i-1">
               <b-form-input
                 id="i-1"
@@ -22,6 +28,7 @@
               ></b-form-input>
             </b-form-group>
 
+            <!-- input field -->
             <b-form-group id="password" label="Password" label-for="i-2">
               <b-form-input
                 id="i-2"
@@ -31,6 +38,7 @@
               ></b-form-input>
             </b-form-group>
 
+            <!-- Submit form -->
             <b-button
               id="submit_btn"
               block
@@ -41,11 +49,12 @@
             >
 
             <hr class="my-4" />
+
+            <!-- Bottom text and image -->
             <p style="text-align: center">
               Don't have an account yet?
               <router-link to="/register">Register here</router-link>
             </p>
-
             <div id="test_image">
               <img
                 src="../assets/images/sammy-searching.png"
@@ -59,15 +68,11 @@
               />
             </div>
           </b-form>
-
-          <!-- debugging -->
-          <!-- <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">FORM DATA</pre>
-    </b-card> -->
         </b-jumbotron>
       </div>
     </div>
-    <div id="page_bottom"></div>
+    <!-- TODO: implement -->
+    <!-- <div id="footer"></div> -->
   </div>
 </template>
 
@@ -98,12 +103,13 @@ export default {
 <style>
 @import '../assets/styles/login-register_light.css';
 
-/* Override */
+/* Overrides imported .css */
 #bg_page {
   height: 100%;
 }
-/* Override */
+/* Overrides imported .css */
 
+/* Bottom image */
 #test_image {
   margin-top: -25px;
   margin-left: auto;

@@ -1,4 +1,4 @@
-#bg_page {
+#page_background {
   margin: 0 auto;
   /* text-align: center; */
   background-image: url(../images/bg_dog-walker.png);
@@ -11,7 +11,7 @@
   overflow-x: hidden;
 }
 
-#main_div {
+#page_content {
    padding-top: 50px;
    padding-left: 25px;
    padding-right: 25px;
@@ -24,14 +24,14 @@
    /* height: 100%; */ /* Enable or disable? */
  }
  
- #main_jumbo {
+ #form_content {
    color: black;
    padding-bottom: 35px;
    background-color: rgba(230, 232, 233, 0.4);
  }
 
 
- #main_title {
+ #form_title {
   margin-top: -25px;
   padding-top: 25px;
   padding-bottom: 25px;
@@ -44,20 +44,8 @@
   text-align: center;
   /* font-size: xx-large; */
 }
- 
- #main_info {
-   margin-top: -25px;
-   padding-top: 25px;
-   padding-bottom: 25px;
-   padding-left: 25px;
-   padding-right: 25px; 
-   background-color: rgb(252, 252, 252, 1);
-   border-radius: 5px;
-   text-align: left;
-   font-size: large;
- }
 
- #main_form {
+ #form_inputs {
   margin-top: -55px;
   padding-top: 25px;
   padding-bottom: 25px;
@@ -96,6 +84,7 @@
   width:100%;
 }
 
+/* Overrides the css above, when page width is below x.px */
 @media screen and (max-width: 575.98px) {
   #bg_page {
     background-image: url(); /* TODO find better way to remove image */

@@ -1,31 +1,37 @@
 <template>
   <div>
-    <div class="header"></div>
-    <div id="bg_page">
-      <div id="main_div">
-        <b-jumbotron id="main_jumbo">
+    <!-- <div class="header"></div> -->
+    <!-- TODO: implement -->
+    <div id="page_background">
+      <div id="page_content">
+        <b-jumbotron id="form_content">
+          <!-- Title -->
+          <template #header>
+            <b-form id="form_title">
+              <p class="animate__animated animate__pulse">Register</p>
+            </b-form>
+          </template>
+
+          <!-- For displaying typed Username under "Register" title -->
           <div id="list-username">
             <transition-group name="list" tag="p">
               <!-- TODO fix this usertype bind to display to left of username -->
               <!-- <div v-bind:key="form2.user">{{ form2.user }}</div> -->
-              <span
+              <div
                 v-for="item in form.userinfo.userName"
                 v-bind:key="item"
                 class="list-item"
               >
                 {{ item }}
-              </span>
+              </div>
             </transition-group>
           </div>
 
-          <template #header>
-            <b-form id="main_title">
-              <p class="animate__animated animate__pulse">Register</p>
-            </b-form>
-          </template>
-
-          <b-form id="main_form" @submit="onSubmit">
+          <!-- form = Where a user inputs data -->
+          <b-form id="form_inputs" @submit="onSubmit">
             <hr class="my-4" />
+
+            <!-- Select User Type. PetOwner/PetLover -->
             <b-form-group id="usertype" label="I want to be a," label-for="i-9">
               <b-form-select
                 id="i-9"
@@ -35,6 +41,7 @@
                 autofocus
               ></b-form-select>
 
+              <!-- Text displayed under User type selection -->
               <div
                 v-if="
                   !(form2.user === 'Pet owner') && !(form2.user === 'Pet lover')
@@ -58,6 +65,7 @@
               </div>
             </b-form-group>
 
+            <!-- input field -->
             <b-form-group id="userName" label="Username" label-for="i-1">
               <b-form-input
                 id="i-1"
@@ -76,6 +84,7 @@
               </b-form-valid-feedback>
             </b-form-group>
 
+            <!-- input field -->
             <b-form-group id="password" label="Password" label-for="i-2">
               <b-form-input
                 id="i-2"
@@ -95,6 +104,7 @@
               </b-form-valid-feedback>
             </b-form-group>
 
+            <!-- input field -->
             <b-form-group id="fullname" label="Full name" label-for="i-3">
               <b-form-input
                 id="i-3"
@@ -114,26 +124,9 @@
               </transition>
             </b-form-group>
 
+            <!-- input fields for Contact Info -->
             <div class="accordion" role="tablist">
               <!-- TODO Add options for adding a pet or a service when registering -->
-              <!--<b-card no-body class="mb-1">
-            <b-card-header header-tag="header" class="p-1" role="tab">
-              <b-button block v-b-toggle.accordion-2 variant="info"
-                >Pet owner/lover Info</b-button
-              >
-            </b-card-header>
-            <b-collapse
-              id="accordion-2"
-              accordion="my-accordion"
-              role="tabpanel"
-              visible
-            >
-              <b-card-body>
-                <b-card-text>Petowner</b-card-text>
-              </b-card-body>
-            </b-collapse>
-          </b-card> -->
-
               <b-card no-body class="mb-1">
                 <b-card-header header-tag="header" class="p-1" role="tab">
                   <b-button block v-b-toggle.accordion-1 variant="primary"
@@ -146,6 +139,7 @@
                   role="tabpanel"
                 >
                   <b-card-body>
+                    <!-- input field -->
                     <b-form-group id="email" label="Email" label-for="i-4">
                       <b-form-input
                         id="i-4"
@@ -153,6 +147,7 @@
                       ></b-form-input>
                     </b-form-group>
 
+                    <!-- input field -->
                     <b-form-group
                       id="phoneNumber"
                       label="Phone number"
@@ -165,6 +160,7 @@
                       </b-form-input>
                     </b-form-group>
 
+                    <!-- input field -->
                     <b-form-group id="city" label="City" label-for="i-6">
                       <b-form-input
                         id="i-6"
@@ -172,6 +168,7 @@
                       ></b-form-input>
                     </b-form-group>
 
+                    <!-- input field -->
                     <b-form-group
                       id="streetName"
                       label="Street name"
@@ -184,6 +181,7 @@
                       ></b-form-input>
                     </b-form-group>
 
+                    <!-- input field -->
                     <b-form-group
                       id="streetNumber"
                       label="Street Number"
@@ -199,6 +197,7 @@
               </b-card>
             </div>
 
+            <!-- Submit form -->
             <b-button
               id="submit_btn"
               block
@@ -213,6 +212,8 @@
             >
 
             <hr class="my-4" />
+
+            <!-- Bottom text and image -->
             <p style="text-align: center">
               Do you already have an account?
               <router-link to="/login">Login here</router-link>
@@ -232,13 +233,10 @@
             </div>
           </b-form>
         </b-jumbotron>
-        <!-- debugging -->
-        <!-- <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">FORM DATA</pre>
-    </b-card> -->
       </div>
     </div>
-    <div class="footer"></div>
+    <!-- TODO: implement -->
+    <!-- <div class="footer"></div> -->
   </div>
 </template>
 
@@ -282,11 +280,12 @@ export default {
     }
   },
   mounted() {
+    // Happens when page is loaded
     console.log('Page has loaded!') // debugging
   },
   methods: {
+    // Method that handles form submission
     onSubmit(event) {
-      // Method that handles form submission
       event.preventDefault()
       console.log(this.form2.user) // debugging
       if (this.form2.user === 'Pet owner') {
@@ -295,9 +294,8 @@ export default {
         this.postUser('petlovers')
       }
     },
+    // Method that handles posting a user to a specific route
     postUser(route = 'route') {
-      // TODO create a component?
-      // Method that handles posting a user to a specific route
       Api.post('/v1/' + route, this.form)
         .then((response) => this.form)
         .catch((error) => {
@@ -310,6 +308,7 @@ export default {
     }
   },
   computed: {
+    // Validate inputs:
     userName_validation(event) {
       return (
         this.form.userinfo.userName.length > 4 &&
@@ -329,6 +328,7 @@ export default {
 <style>
 @import '../assets/styles/login-register_light.css';
 
+/* Bottom image */
 #test_image {
   margin-top: -25px;
   margin-left: auto;
@@ -337,6 +337,9 @@ export default {
   display: block;
 }
 
+/**
+Animation Related below:
+*/
 .slide-fade-enter-active {
   transition: all 0.3s ease;
 }
