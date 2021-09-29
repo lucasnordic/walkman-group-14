@@ -5,9 +5,10 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
-const serviceRouter = require('./Router/serviceRouter');
-const petLoverRouter = require('./Router/petLoverRouter');
-const petOwnerRouter = require('./Router/petOwnerRouter');
+var serviceRouter = require('./Router/serviceRouter');
+var petRouter = require('./Router/petRouter');
+var petLoverRouter = require('./Router/petLoverRouter');
+var petOwnerRouter = require('./Router/petOwnerRouter');
 
 // Variables
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
@@ -37,6 +38,7 @@ app.use(cors());
 app.use('/api/v1/petlovers', petLoverRouter);
 app.use('/api/v1/petlovers', serviceRouter);
 app.use('/api/v1/petowners', petOwnerRouter);
+app.use('/api/v1/petowners', petRouter);
 
 // Import routes
 app.get('/api/', function (req, res) {
@@ -46,6 +48,10 @@ app.get('/api/', function (req, res) {
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
     res.status(404).json({ 'message': 'Not Found' });
+});
+
+app.get('/api', function(req, res){
+    res.json({'meessage':'This route is used for newman-wait that runs with the npm test commened.'});
 });
 
 // Configuration for serving frontend in production mode
