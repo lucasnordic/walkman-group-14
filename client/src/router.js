@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import PetLover from './views/PetLoverProfile.vue'
 import PetOwner from './views/PetOwnerProfile.vue'
+import Pets from './views/Pets.vue'
 
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/profile/petowners/:id',
       name: 'pet owner profile',
       component: PetOwner
+    },
+    {
+      path: '/profile/petowners/:id/pets',
+      name: 'pets',
+      component: Pets
     }
   ]
 })

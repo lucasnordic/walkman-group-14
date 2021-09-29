@@ -159,7 +159,7 @@ exports.getPetsByPetOwnerId = (req, res, next) => {
 };
 
 //(c) GET /petOwners/:petOwner_id/pets/:pet_id
-exports.getPetOwnersAndPetsById = (req, res, next) => {
+exports.getPetsById = (req, res, next) => {
     PetOwner.findById(req.params.userId).populate('_pets')
         .then((result) => {
             Pet.findById(req.params.petId)
@@ -176,7 +176,7 @@ exports.getPetOwnersAndPetsById = (req, res, next) => {
 };
 
 //(d) DELETE /petOwners/:petOwner_id/pets/:pet_id
-exports.deletePetOwnersAndPetsbyId = (req, res, next) => {
+exports.deletePetsbyId = (req, res, next) => {
     PetOwner.findByIdAndUpdate({ _id: ObjectId(req.params.userId) }, { $pull: { _pets: ObjectId(req.params.petId) } }, { new: true }).populate('_pets')
         .then((result) => {
             Pet.findByIdAndDelete(req.params.petId)

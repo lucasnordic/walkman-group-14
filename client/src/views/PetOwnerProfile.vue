@@ -1,8 +1,8 @@
 <template>
   <div v-if="petOwner">
-    <div class="jumbotron">
+    <b-jumbotron id="header">
       <h1 class="display-4" id="greeting">Welcome {{petOwner.userinfo.userName}}!</h1>
-    </div>
+    </b-jumbotron>
     <table class="table table-bordered">
   <tbody>
     <tr>
@@ -110,6 +110,10 @@
     </tr>
   </tbody>
 </table>
+<div id="bottom-btns">
+  <b-button @click="petPage()" id="pet-btn" variant="primary">Your Pets</b-button>
+    <b-button @click="deleteAcc()" variant="danger">Delete Account</b-button>
+</div>
   </div>
 </template>
 
@@ -135,7 +139,7 @@ export default {
       cityUpdate: null,
       sNameUpdate: null,
       sNumUpdate: null,
-      petOwner: {}
+      petOwner: null
     }
   },
   methods: {
@@ -180,7 +184,18 @@ export default {
       Api.put('/v1/petowners/' + this.$route.params.id, this.petOwner)
         .then(res => this.petLover)
       this.sNumUpdate = null
+    },
+    deleteAcc() {
+      Api.delete('/v1/petowners/' + this.$route.params.id)
+    },
+    petPage() {
+      this.$router.push('/profile/petowners/' + this.$route.params.id + '/pets')
     }
   }
 }
 </script>
+
+<style>
+@import '../assets/styles/profiles.css';
+
+</style>

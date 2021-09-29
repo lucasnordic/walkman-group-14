@@ -1,8 +1,8 @@
 <template>
   <div v-if="petLover">
-    <div class="jumbotron">
+    <b-jumbotron id="header">
       <h1 class="display-4" id="greeting">Welcome {{petLover.userinfo.userName}}!</h1>
-    </div>
+    </b-jumbotron>
     <table class="table table-bordered">
   <tbody>
     <tr>
@@ -184,3 +184,8 @@ export default {
   }
 }
 </script>
+
+<style>
+@import '../assets/styles/profiles.css';
+
+</style>
