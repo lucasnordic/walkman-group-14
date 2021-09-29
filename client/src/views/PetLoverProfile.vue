@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="petLover">
     <div class="jumbotron">
       <h1 class="display-4" id="greeting">Welcome {{petLover.userinfo.userName}}!</h1>
     </div>
@@ -8,19 +8,15 @@
     <tr>
       <th scope="row">User Name</th>
       <td>{{petLover.userinfo.userName}}</td>
-      <td>
-        <div class="text-center">
-          <span class="fa fa-pen"></span>
-        </div>
-      </td>
+      <td>User Name is not changable!</td>
     </tr>
     <tr>
       <th scope="row">Password</th>
       <td>{{petLover.userinfo.password}}</td>
       <td>
         <div class="d-flex">
-          <input v-model="newUpdate" type="text" placeholder="Enter your edit value" class="form-control">
-          <button @click="submitEdit()" class="btn btn-warning rounded-10">
+          <input v-model="passUpdate" type="text" placeholder="Enter your edit value" class="form-control">
+          <button @click="editPass()" class="btn btn-warning rounded-10">
             <div class="text-center">
               <span class="fa fa-pen"></span>
             </div> Edit
@@ -32,8 +28,13 @@
       <th scope="row">Full Name</th>
       <td>{{petLover.userinfo.fullName}}</td>
       <td>
-        <div class="text-center">
-          <span class="fa fa-pen"></span>
+        <div class="d-flex">
+          <input v-model="fullNameUpdate" type="text" placeholder="Enter your edit value" class="form-control">
+          <button @click="editFullName()" class="btn btn-warning rounded-10">
+            <div class="text-center">
+              <span class="fa fa-pen"></span>
+            </div> Edit
+          </button>
         </div>
       </td>
     </tr>
@@ -41,8 +42,13 @@
       <th scope="row">Email</th>
       <td>{{petLover.userinfo.contactInfo.email}}</td>
       <td>
-        <div class="text-center">
-          <span class="fa fa-pen"></span>
+        <div class="d-flex">
+          <input v-model="emailUpdate" type="text" placeholder="Enter your edit value" class="form-control">
+          <button @click="editEmail()" class="btn btn-warning rounded-10">
+            <div class="text-center">
+              <span class="fa fa-pen"></span>
+            </div> Edit
+          </button>
         </div>
       </td>
     </tr>
@@ -50,8 +56,13 @@
       <th scope="row">Phone Number</th>
       <td>{{petLover.userinfo.contactInfo.phoneNumber}}</td>
       <td>
-        <div class="text-center">
-          <span class="fa fa-pen"></span>
+        <div class="d-flex">
+          <input v-model="phoneUpdate" type="text" placeholder="Enter your edit value" class="form-control">
+          <button @click="editPhone()" class="btn btn-warning rounded-10">
+            <div class="text-center">
+              <span class="fa fa-pen"></span>
+            </div> Edit
+          </button>
         </div>
       </td>
     </tr>
@@ -59,8 +70,13 @@
       <th scope="row">City</th>
       <td>{{petLover.userinfo.contactInfo.address.city}}</td>
       <td>
-        <div class="text-center">
-          <span class="fa fa-pen"></span>
+        <div class="d-flex">
+          <input v-model="cityUpdate" type="text" placeholder="Enter your edit value" class="form-control">
+          <button @click="editCity()" class="btn btn-warning rounded-10">
+            <div class="text-center">
+              <span class="fa fa-pen"></span>
+            </div> Edit
+          </button>
         </div>
       </td>
     </tr>
@@ -68,17 +84,27 @@
       <th scope="row">Street Name</th>
       <td>{{petLover.userinfo.contactInfo.address.streetName}}</td>
       <td>
-        <div class="text-center">
-          <span class="fa fa-pen"></span>
+        <div class="d-flex">
+          <input v-model="sNameUpdate" type="text" placeholder="Enter your edit value" class="form-control">
+          <button @click="editSName()" class="btn btn-warning rounded-10">
+            <div class="text-center">
+              <span class="fa fa-pen"></span>
+            </div> Edit
+          </button>
         </div>
       </td>
     </tr>
     <tr>
-      <th scope="row">Street Name</th>
+      <th scope="row">Street Number</th>
       <td>{{petLover.userinfo.contactInfo.address.streetNum}}</td>
       <td>
-        <div class="text-center">
-          <span class="fa fa-pen"></span>
+        <div class="d-flex">
+          <input v-model="sNumUpdate" type="text" placeholder="Enter your edit value" class="form-control">
+          <button @click="editSNum()" class="btn btn-warning rounded-10">
+            <div class="text-center">
+              <span class="fa fa-pen"></span>
+            </div> Edit
+          </button>
         </div>
       </td>
     </tr>
@@ -102,16 +128,58 @@ export default {
   },
   data() {
     return {
-      newUpdate: null,
-      petLover: {}
+      passUpdate: null,
+      fullNameUpdate: null,
+      emailUpdate: null,
+      phoneUpdate: null,
+      cityUpdate: null,
+      sNameUpdate: null,
+      sNumUpdate: null,
+      petLover: null
     }
   },
   methods: {
-    submitEdit() {
-      this.petLover.userinfo.password = this.newUpdate
+    editPass() {
+      this.petLover.userinfo.password = this.passUpdate
       Api.patch('/v1/petlovers/' + this.$route.params.id, this.petLover)
         .then(res => this.petLover)
-      this.newUpdate = null
+      this.passUpdate = null
+    },
+    editFullName() {
+      this.petLover.userinfo.fullName = this.fullNameUpdate
+      Api.patch('/v1/petlovers/' + this.$route.params.id, this.petLover)
+        .then(res => this.petLover)
+      this.fullNameUpdate = null
+    },
+    editEmail() {
+      this.petLover.userinfo.contactInfo.email = this.emailUpdate
+      Api.patch('/v1/petlovers/' + this.$route.params.id, this.petLover)
+        .then(res => this.petLover)
+      this.emailUpdate = null
+    },
+    editPhone() {
+      this.petLover.userinfo.contactInfo.phoneNumber = this.phoneUpdate
+      Api.patch('/v1/petlovers/' + this.$route.params.id, this.petLover)
+        .then(res => this.petLover)
+      this.phoneUpdate = null
+    },
+    editCity() {
+      this.petLover.userinfo.contactInfo.address.city = this.cityUpdate
+      Api.patch('/v1/petlovers/' + this.$route.params.id, this.petLover)
+        .then(res => this.petLover)
+      this.cityUpdate = null
+    },
+    editSName() {
+      this.petLover.userinfo.contactInfo.address.streetName = this.sNameUpdate
+      Api.patch('/v1/petlovers/' + this.$route.params.id, this.petLover)
+        .then(res => this.petLover)
+      this.sNameUpdate = null
+    },
+    editSNum() {
+      this.petLover.userinfo.contactInfo.address.streetNum = this.sNumUpdate
+      Api.patch('/v1/petlovers/' + this.$route.params.id, this.petLover)
+        .then(res => this.petLover)
+      this.sNumUpdate = null
     }
   }
 }
