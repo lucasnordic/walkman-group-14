@@ -135,49 +135,49 @@ export default {
       cityUpdate: null,
       sNameUpdate: null,
       sNumUpdate: null,
-      petLover: null
+      petLover: {}
     }
   },
   methods: {
     editPass() {
       this.petLover.userinfo.password = this.passUpdate
-      Api.patch('/v1/petlovers/' + this.$route.params.id, this.petLover)
+      Api.put('/v1/petlovers/' + this.$route.params.id, this.petLover)
         .then(res => this.petLover)
       this.passUpdate = null
     },
     editFullName() {
       this.petLover.userinfo.fullName = this.fullNameUpdate
-      Api.patch('/v1/petlovers/' + this.$route.params.id, this.petLover)
+      Api.put('/v1/petlovers/' + this.$route.params.id, this.petLover)
         .then(res => this.petLover)
       this.fullNameUpdate = null
     },
     editEmail() {
       this.petLover.userinfo.contactInfo.email = this.emailUpdate
-      Api.patch('/v1/petlovers/' + this.$route.params.id, this.petLover)
+      Api.put('/v1/petlovers/' + this.$route.params.id, this.petLover)
         .then(res => this.petLover)
       this.emailUpdate = null
     },
     editPhone() {
       this.petLover.userinfo.contactInfo.phoneNumber = this.phoneUpdate
-      Api.patch('/v1/petlovers/' + this.$route.params.id, this.petLover)
+      Api.put('/v1/petlovers/' + this.$route.params.id, this.petLover)
         .then(res => this.petLover)
       this.phoneUpdate = null
     },
     editCity() {
       this.petLover.userinfo.contactInfo.address.city = this.cityUpdate
-      Api.patch('/v1/petlovers/' + this.$route.params.id, this.petLover)
+      Api.put('/v1/petlovers/' + this.$route.params.id, this.petLover)
         .then(res => this.petLover)
       this.cityUpdate = null
     },
     editSName() {
       this.petLover.userinfo.contactInfo.address.streetName = this.sNameUpdate
-      Api.patch('/v1/petlovers/' + this.$route.params.id, this.petLover)
+      Api.put('/v1/petlovers/' + this.$route.params.id, this.petLover)
         .then(res => this.petLover)
       this.sNameUpdate = null
     },
     editSNum() {
       this.petLover.userinfo.contactInfo.address.streetNum = this.sNumUpdate
-      Api.patch('/v1/petlovers/' + this.$route.params.id, this.petLover)
+      Api.put('/v1/petlovers/' + this.$route.params.id, this.petLover)
         .then(res => this.petLover)
       this.sNumUpdate = null
     }
