@@ -231,6 +231,14 @@
                 "
               />
             </div>
+            <div style="text-align: center; color: gray">
+              Illustration by
+              <a
+                href="https://icons8.com/illustrations/author/6101992cfc3ba40007aa1554"
+                >Fruzka</a
+              >
+              from <a href="https://icons8.com/illustrations">Ouch!</a>
+            </div>
           </b-form>
         </b-jumbotron>
       </div>
