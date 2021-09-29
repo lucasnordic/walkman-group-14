@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const serviceSchema = new Schema({
     price: { type: Number, required: true },
+    description: { type: String, required: true },
     beauty:
     {
         brush: { type: Boolean, required: true },
