@@ -5,10 +5,10 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
-var serviceRouter = require('./Router/serviceRouter');
-var petRouter = require('./Router/petRouter');
-var petLoverRouter = require('./Router/petLoverRouter');
-var petOwnerRouter = require('./Router/petOwnerRouter');
+const serviceRouter = require('./Router/serviceRouter');
+const petRouter = require('./Router/petRouter');
+const petLoverRouter = require('./Router/petLoverRouter');
+const petOwnerRouter = require('./Router/petOwnerRouter');
 
 // Variables
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
