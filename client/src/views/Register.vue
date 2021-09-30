@@ -353,7 +353,8 @@ export default {
               streetNumber: ''
             }
           }
-        }
+        },
+        aboutMe: '...'
       },
       form2: {
         user: null
@@ -382,13 +383,17 @@ export default {
       if (this.form2.user === 'Pet Owner') {
         this.postUser('petowners')
       } else if (this.form2.user === 'Pet Lover') {
+        this.form.availableHours = []
         this.postUser('petlovers')
       }
     },
     // Method that handles posting a user to a specific route
     postUser(route = 'route') {
       Api.post('/' + route, this.form)
-        .then((response) => this.form)
+        .then((response) => {
+          this.$router.push('/login')
+          return this.form
+        })
         .catch((error) => {
           console.log(error) // debugging
           // TODO throw error to user

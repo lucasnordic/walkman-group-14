@@ -136,7 +136,7 @@ export default {
           // login successfull
           if (res.status === 200) {
             localStorage.setItem('token', res.data.token)
-            this.$router.push('/')
+            this.$router.push('/profile')
           }
         },
         (err) => {

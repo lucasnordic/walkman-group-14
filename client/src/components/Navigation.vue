@@ -22,7 +22,7 @@ export default {
     logout() {
       localStorage.clear()
       this.loggedIn = false
-      this.$router.push('/')
+      this.$router.push('/login')
     }
   },
   data() {

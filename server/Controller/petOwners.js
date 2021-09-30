@@ -129,7 +129,7 @@ exports.deletePetOwnersById = (req, res, next) => {
 exports.loginPetOwner = (req, res, next) => {
     const username = req.body.username
     const password = req.body.password
-    console.log(username);
+    console.log(req.body);
 
     PetOwner.findOne({ 'userinfo.username': username }, function (err, petOwner) {
         if (err) {
