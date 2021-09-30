@@ -9,6 +9,7 @@ var serviceRouter = require('./Router/serviceRouter');
 var petRouter = require('./Router/petRouter');
 var petLoverRouter = require('./Router/petLoverRouter');
 var petOwnerRouter = require('./Router/petOwnerRouter');
+var authenticateRouter = require('./Router/authenticateRouter');
 
 // Variables
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
@@ -39,6 +40,7 @@ app.use('/api/v1/petlovers', petLoverRouter);
 app.use('/api/v1/petlovers', serviceRouter);
 app.use('/api/v1/petowners', petOwnerRouter);
 app.use('/api/v1/petowners', petRouter);
+app.use('/api/v1/authenticate', authenticateRouter);
 
 // Import routes
 app.get('/api/', function (req, res) {
@@ -50,8 +52,8 @@ app.use('/api/*', function (req, res) {
     res.status(404).json({ 'message': 'Not Found' });
 });
 
-app.get('/api', function(req, res){
-    res.json({'meessage':'This route is used for newman-wait that runs with the npm test commened.'});
+app.get('/api', function (req, res) {
+    res.json({ 'meessage': 'This route is used for newman-wait that runs with the npm test commened.' });
 });
 
 // Configuration for serving frontend in production mode

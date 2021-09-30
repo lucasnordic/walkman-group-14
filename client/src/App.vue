@@ -1,15 +1,20 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <a href="linking to someewhere"></a>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/profile/petlovers/6155be2bdec9fcd0d8df3bef">Pet Lover Profile</router-link> | <!--this is here temporarily-->
-      <router-link to="/profile/petowners/6155b8d11e6f09bfd39e7fa9">Pet Owner Profile</router-link>
-    </div>
-    <!-- Render the content of the current page view -->
-    <router-view/>
+    <navigation-component />
+    <router-view />
   </div>
 </template>
+
+<script>
+import Navigation from './components/Navigation.vue'
+
+export default {
+  name: 'app',
+  components: {
+    'navigation-component': Navigation
+  }
+}
+</script>
 
 <style>
 #app {
@@ -18,5 +23,9 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+#navigation {
+  padding: 30px;
 }
 </style>
