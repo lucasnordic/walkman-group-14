@@ -32,6 +32,26 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: Profile
+  },
+  {
+    path: '/profile/petlovers/:id',
+    name: 'petLover profile',
+    component: PetLover
+  },
+  {
+    path: '/profile/petowners/:id',
+    name: 'petOwner profile',
+    component: PetOwner
+  },
+  {
+    path: '/profile/petowners/:id/pets',
+    name: 'pets',
+    component: Pets
+  },
+  {
+    path: '/profile/petlovers/:id/services',
+    name: 'services',
+    component: Service
   }
 ]
 
