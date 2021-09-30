@@ -27,11 +27,28 @@
         <td>
             <b-button id="pet-btn" variant="primary">Edit</b-button></td>
         <td>
-            <b-button id="pet-btn" variant="danger">Delete</b-button>
+            <b-button @click="deletePet(pet._id)" id="pet-btn" variant="danger">Delete</b-button>
         </td>
     </tr>
   </tbody>
 </table>
+<div id="newPet">
+  <b-jumbotron>
+    <h2>Sign Up Your Pet:</h2>
+    <form>
+    <label>Name:</label>
+    <input v-model="pet.name" type="text" class="form-control">
+
+    <label>Type:</label>
+    <input v-model="pet.type" type="text" class="form-control">
+
+    <label>Gender:</label>
+    <input v-model="pet.gender" type="text" class="form-control">
+
+    <b-button id="registeration" variant="success" @click="addPet()" >Submit</b-button>
+  </form>
+  </b-jumbotron>
+</div>
 
     </div>
 </template>
@@ -50,7 +67,30 @@ export default {
   },
   data() {
     return {
-      pets: null
+      petName: null,
+      petType: null,
+      petGender: null,
+      pets: {},
+      pet: {
+        name: null,
+        type: null,
+        gender: null,
+        allergies: null,
+        foodPreferences: null,
+        petItems: null
+      }
+    }
+  },
+  methods: {
+    deletePet(id) {
+      Api.delete('/v1/petowners/' + this.$route.params.id + '/pets/' + id)
+    },
+    addPet() {
+      Api.post('/v1/petowners/' + this.$route.params.id + '/pets', this.pet)
+        .then(res => this.pets)
+      this.pet.name = null
+      this.pet.type = null
+      this.pet.gender = null
     }
   }
 }
