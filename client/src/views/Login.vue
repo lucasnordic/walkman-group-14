@@ -18,18 +18,28 @@
           <b-form id="form_inputs" @submit="onSubmit">
             <hr class="my-4" />
 
+            <!-- Select User Type. PetOwner/PetLover -->
+            <b-form-group id="usertype" label="Account type*" label-for="i-9">
+              <b-form-select
+                id="i-9"
+                v-model="form.userType"
+                :options="userTypeSelected"
+                required
+                autofocus
+              ></b-form-select>
+            </b-form-group>
+
             <!-- input field -->
-            <b-form-group id="username" label="Username" label-for="i-1">
+            <b-form-group id="username" label="Username*" label-for="i-1">
               <b-form-input
                 id="i-1"
                 v-model="form.username"
                 required
-                autofocus
               ></b-form-input>
             </b-form-group>
 
             <!-- input field -->
-            <b-form-group id="password" label="Password" label-for="i-2">
+            <b-form-group id="password" label="Password*" label-for="i-2">
               <b-form-input
                 id="i-2"
                 v-model="form.password"
@@ -84,14 +94,23 @@
 </template>
 
 <script>
+import { Api } from '@/Api'
+
 export default {
   name: 'login',
   data() {
     return {
       form: {
         username: '',
-        password: ''
-      }
+        password: '',
+        error: '',
+        userType: null
+      },
+      userTypeSelected: [
+        { text: 'Select One', value: null },
+        'Pet Owner',
+        'Pet Lover'
+      ]
     }
   },
   mounted() {
@@ -102,6 +121,30 @@ export default {
     // TODO Add working method to login user
     onSubmit(event) {
       event.preventDefault()
+      this.login()
+    },
+    login() {
+      console.log(this.form) // debugging
+      let route = ''
+      if (this.form.userType === 'Pet Owner') {
+        route = 'loginowner'
+      } else {
+        route = 'loginlover'
+      }
+      Api.post('/authenticate/' + route, this.form).then(
+        (res) => {
+          // login successfull
+          if (res.status === 200) {
+            localStorage.setItem('token', res.data.token)
+            this.$router.push('/')
+          }
+        },
+        (err) => {
+          localStorage.removeItem('token')
+          console.log(err.response) // debugging
+          this.error = err.response.data.error // save the error
+        }
+      )
     }
   }
 }

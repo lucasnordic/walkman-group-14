@@ -28,7 +28,7 @@
           </div>
 
           <!-- form = Where a user inputs data -->
-          <b-form id="form_inputs" @submit="onSubmit">
+          <b-form id="form_inputs" @submit.prevent="onSubmit">
             <hr class="my-4" />
 
             <!-- Select User Type. PetOwner/PetLover -->
@@ -180,7 +180,12 @@
                 >
                   <b-card-body>
                     <!-- input field -->
-                    <b-form-group id="email" label="Email" label-for="i-4">
+                    <b-form-group
+                      id="email"
+                      type="email"
+                      label="Email"
+                      label-for="i-4"
+                    >
                       <b-form-input
                         id="i-4"
                         v-model="form.userinfo.contactInfo.email"
@@ -256,7 +261,6 @@
             <p style="text-align: center">
               Do you already have an account?
               <router-link to="/login">Login here</router-link>
-              <test-component></test-component>
             </p>
             <div id="test_image" :class="registeringDone.animateTestImage">
               <img
@@ -289,14 +293,11 @@
 
 <script>
 import { Api } from '@/Api'
-import TestComponent from '../components/TestComponent.vue'
 
 // TODO Input error handling
 export default {
   name: 'register',
-  components: {
-    'test-component': TestComponent
-  },
+  components: {},
   data() {
     return {
       form: {
@@ -347,7 +348,7 @@ export default {
     },
     // Method that handles posting a user to a specific route
     postUser(route = 'route') {
-      Api.post('/v1/' + route, this.form)
+      Api.post('/' + route, this.form)
         .then((response) => this.form)
         .catch((error) => {
           console.log(error) // debugging
