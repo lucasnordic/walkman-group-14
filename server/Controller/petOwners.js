@@ -53,6 +53,7 @@ exports.getPetOwnersById = (req, res, next) => {
                 res.status(404).send({ message: "The petOwner_Id not found." });
                 return;
             }
+            res.json(result);
         })
         .catch((err) => {
             res.status(404).send();
@@ -126,11 +127,11 @@ exports.deletePetOwnersById = (req, res, next) => {
 
 // Login PetOwner
 exports.loginPetOwner = (req, res, next) => {
-    const userName = req.body.username
+    const username = req.body.username
     const password = req.body.password
-    console.log(userName);
+    console.log(username);
 
-    PetOwner.findOne({ 'userinfo.username': userName }, function (err, petOwner) {
+    PetOwner.findOne({ 'userinfo.username': username }, function (err, petOwner) {
         if (err) {
             res.status(404).send({ message: "Server error" });
             return next(err);

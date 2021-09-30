@@ -130,10 +130,10 @@ exports.deletePetLoversbyId = (req, res, next) => {
 
 // Login PetLover
 exports.loginPetLover = (req, res, next) => {
-    const userName = req.body.username
+    const username = req.body.username
     const password = req.body.password
 
-    PetLover.findOne({ 'userinfo.username': userName }, function (err, petLover) {
+    PetLover.findOne({ 'userinfo.username': username }, function (err, petLover) {
         if (err) {
             res.status(404).send({ message: "Server error" });
             return next(err);
