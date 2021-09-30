@@ -4,6 +4,7 @@ const UserInfo = require('./UserInfo');
 
 const petOwnerSchema = new Schema({
     userinfo: { type: UserInfo, required: true },
+    aboutMe: { type: String, required: true },
     _pets: [{ 
         type: mongoose.Types.ObjectId, 
         ref: 'pets'}]
