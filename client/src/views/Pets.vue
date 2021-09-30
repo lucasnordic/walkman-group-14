@@ -25,7 +25,7 @@
         <td>{{pet.foodPreferences}}</td>
         <td>{{pet.petItems}}</td>
         <td>
-            <b-button id="pet-btn" variant="primary">Edit(ej work)</b-button></td>
+            <b-button id="pet-btn" variant="primary" @click="openForm()">Edit</b-button></td>
         <td>
             <b-button @click="deletePet(pet._id)" id="pet-btn" variant="danger">Delete</b-button>
         </td>
@@ -48,9 +48,29 @@
     <b-button id="registeration" variant="success" @click="addPet()" >Submit</b-button>
   </form>
   </b-jumbotron>
-</div>
-
+  </div>
+    <div class="loginPopup">
+      <div class="formPopup" id="popupForm">
+        <form action="/action_page.php" class="formContainer">
+          <h2>Please enter edit values</h2>
+          <label for="name">
+            <strong>Name</strong>
+          </label>
+          <input type="text" id="name" placeholder="Pet's Name" name="name">
+          <label for="type">
+            <strong>Type</strong>
+          </label>
+          <input type="text" id="type" placeholder="Pet's Type" name="type" required>
+          <label for="gender">
+            <strong>Gender</strong>
+          </label>
+          <input type="text" id="gender" placeholder="Pet's Gender" name="gender">
+          <button type="submit" class="btn" @click="editPet(pet._id)">Edit</button>
+          <button type="button" class="btn cancel" @click="closeForm()">Cancel</button>
+        </form>
+      </div>
     </div>
+</div>
 </template>
 
 <script>
@@ -78,6 +98,11 @@ export default {
         allergies: null,
         foodPreferences: null,
         petItems: null
+      },
+      editedPet: {
+        name: null,
+        type: null,
+        gender: null
       }
     }
   },
@@ -88,10 +113,88 @@ export default {
     addPet() {
       Api.post('/petowners/' + this.$route.params.id + '/pets', this.pet)
         .then(res => this.pets)
+    },
+    editPet(petId) {
+      Api.put('/petowners/pets/' + petId, this.pet)
+        .then(res => this.pets)
       this.pet.name = null
       this.pet.type = null
       this.pet.gender = null
+    },
+    openForm() {
+      document.getElementById('popupForm').style.display = 'block'
+    },
+    closeForm() {
+      document.getElementById('popupForm').style.display = 'none'
     }
   }
 }
 </script>
+
+<style>
+      * {
+        box-sizing: border-box;
+      }
+      .openBtn {
+        display: flex;
+        justify-content: left;
+      }
+      .openButton {
+        border: none;
+        border-radius: 5px;
+        background-color: #1c87c9;
+        color: white;
+        padding: 14px 20px;
+        cursor: pointer;
+        position: fixed;
+      }
+      .loginPopup {
+        position: relative;
+        text-align: center;
+        width: 100%;
+      }
+      .formPopup {
+        display: none;
+        position: fixed;
+        left: 45%;
+        top: 5%;
+        transform: translate(-50%, 5%);
+        border: 3px solid #999999;
+        z-index: 9;
+      }
+      .formContainer {
+        max-width: 300px;
+        padding: 20px;
+        background-color: #fff;
+      }
+      .formContainer input[type=text],
+      .formContainer input[type=password] {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 20px 0;
+        border: none;
+        background: #eee;
+      }
+      .formContainer input[type=text]:focus,
+      .formContainer input[type=password]:focus {
+        background-color: #ddd;
+        outline: none;
+      }
+      .formContainer .btn {
+        padding: 12px 20px;
+        border: none;
+        background-color: #8ebf42;
+        color: #fff;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom: 15px;
+        opacity: 0.8;
+      }
+      .formContainer .cancel {
+        background-color: #cc0000;
+      }
+      .formContainer .btn:hover,
+      .openButton:hover {
+        opacity: 1;
+      }
+    </style>
