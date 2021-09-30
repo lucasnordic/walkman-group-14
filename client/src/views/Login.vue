@@ -1,7 +1,6 @@
 <template>
   <div>
-    <!-- <div class="header"></div> -->
-    <!-- TODO: implement -->
+    <div class="header"></div>
     <div id="page_background">
       <div id="page_content">
         <b-jumbotron id="form_content">

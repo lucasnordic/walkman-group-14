@@ -1,54 +1,14 @@
 <template>
-  <div class="profiles-container">
-    <b-container>
-      <b-card-group deck>
-        <b-card
-          bg-variant="dark"
-          text-variant="white"
-          header="Public Profile"
-          class="text-center"
-          v-for="profile in publicProfiles"
-          :key="profile.id"
-        >
-          <b-card-text>
-            <p>Username: {{ profile.userinfo.userName }}</p>
-            <p>Fullname: {{ profile.userinfo.fullname }}</p>
-            <p>Password: {{ profile.userinfo.password }}</p>
-          </b-card-text>
-        </b-card>
-      </b-card-group>
-
-      <hr />
-
-      <b-button variant="light" @click="getPrivateProfile">
-        Request Private Profiles
-      </b-button>
-
-      <hr />
-
-      <!-- b-spinner shows loading -->
-      <b-spinner v-if="isLoading" type="grow" variant="info" label="Loading...">
-      </b-spinner>
-
-      <b-card-group deck>
-        <b-card
-          bg-variant="success"
-          text-variant="white"
-          header="Private Profile"
-          class="text-center"
-          v-for="profile in privateProfiles"
-          :key="profile.id"
-        >
-          <b-card-text>
-            {{ profile.profile }}
-          </b-card-text>
-        </b-card>
-      </b-card-group>
-    </b-container>
+  <div style="max-width: 500px; margin: auto; padding-top: 25px">
+    <b-card bg-variant="dark" text-variant="white" title="Replaceme">
+      <b-card-text> Replaceme </b-card-text>
+      <b-button href="#" variant="primary">Mr Blue</b-button>
+    </b-card>
   </div>
 </template>
 <script>
-import { getPublicProfiles, getPrivateProfile } from '../utils/profiles-service'
+// Import axios HTML methods; get, post, etc..
+import { getPublicProfiles, getPrivateProfile } from '../utils/AxiosRequests'
 
 export default {
   name: 'profiles',
@@ -60,16 +20,13 @@ export default {
     }
   },
   methods: {
-    isLoggedIn() {
-      // TODO Implement
-    },
-    getPublicProfiles() {
+    getProfiles() {
       getPublicProfiles().then((profiles) => {
         console.log(profiles) // debugging
         this.publicProfiles = profiles
       })
     },
-    getPrivateProfile() {
+    getProfile() {
       getPrivateProfile()
         .then((profiles) => {
           console.log(profiles) // debugging
@@ -82,6 +39,7 @@ export default {
           this.isLoading = false
         })
     },
+    // TODO Make a toast like this for displaying every possible success and error
     makeToast() {
       // https://bootstrap-vue.org/docs/components/toast
       this.$bvToast.toast('You cannot view profile "insert Gandalf"', {
@@ -92,12 +50,14 @@ export default {
     }
   },
   computed: {
+    // for parsing the profiles to JSON, to display
     parseJSON() {
       // TODO Implement
       return JSON.parse(this.publicProfiles)
     }
   },
   mounted() {
+    // When page is loaded
     this.getPublicProfiles()
   }
 }

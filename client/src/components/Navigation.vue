@@ -14,8 +14,6 @@
 </template>
 
 <script>
-// import { Api } from '@/Api'
-
 export default {
   name: 'testComponent',
   methods: {
@@ -40,13 +38,5 @@ export default {
       this.loggedIn = false
     }
   }
-  // mounted() {
-  //   Api.get('/petlovers/:id', {
-  //     headers: { token: localStorage.getItem('token') }
-  //   }).then((res) => {
-  //     this.name = res.data.user.name
-  //     this.email = res.data.user.email
-  //   })
-  // }
 }
 </script>

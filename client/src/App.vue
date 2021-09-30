@@ -1,24 +1,17 @@
 <template>
   <div id="app">
-    <test-component />
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/register">Register</router-link> |
-      <router-link to="/profile">Profile</router-link>
-    </div> -->
-    <!-- Render the content of the current page view -->
+    <navigation-component />
     <router-view />
   </div>
 </template>
 
 <script>
-import TestComponent from './components/Navigation.vue'
+import Navigation from './components/Navigation.vue'
 
 export default {
   name: 'app',
   components: {
-    TestComponent
+    'navigation-component': Navigation
   }
 }
 </script>

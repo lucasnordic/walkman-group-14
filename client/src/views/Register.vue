@@ -120,24 +120,14 @@
                   </b-form-group>
 
                   <!-- input field -->
-                  <!-- TODO: Add :state to input, and implement input validation -->
+                  <!-- TODO: Add :state to inputs, and implement input validation -->
                   <b-form-group id="username" label="Username*" label-for="i-1">
                     <b-form-input
                       id="i-1"
                       v-model="form.userinfo.username"
                       required
                     ></b-form-input>
-                    <!-- <b-form-invalid-feedback
-                :state="userName_validation"
-                style="color: gray"
-              >
-                Your username must be 5-12 characters long.
-              </b-form-invalid-feedback>
-              <b-form-valid-feedback :state="userName_validation">
-                Your username is mighty.
-              </b-form-valid-feedback> -->
                   </b-form-group>
-
                   <!-- input field -->
                   <b-form-group id="password" label="Password*" label-for="i-2">
                     <b-form-input
@@ -146,15 +136,6 @@
                       required
                       type="password"
                     ></b-form-input>
-                    <!-- <b-form-invalid-feedback
-                :state="password_validation"
-                style="color: gray"
-              >
-                Your password must be 6-20 characters long.
-              </b-form-invalid-feedback>
-              <b-form-valid-feedback :state="password_validation">
-                Your password is mighty.
-              </b-form-valid-feedback> -->
                   </b-form-group>
 
                   <!-- input field -->
@@ -168,7 +149,6 @@
                       v-model="form.userinfo.fullname"
                       required
                     ></b-form-input>
-
                     <transition name="slide-fade">
                       <div v-if="form.userinfo.fullname.length > 10">
                         <b-form-text
