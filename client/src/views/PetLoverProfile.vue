@@ -111,7 +111,7 @@
   </tbody>
 </table>
 <div id="bottom-btns">
-  <b-button @click="servicePage()" id="pet-btn" variant="primary">Your Services (not working)</b-button>
+  <b-button @click="servicePage()" id="pet-btn" variant="primary">Your Services</b-button>
   <b-button  @click="delAcc()" variant="danger">Delete Account</b-button>
 </div>
   </div>
