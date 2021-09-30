@@ -25,7 +25,7 @@
         <td>{{pet.foodPreferences}}</td>
         <td>{{pet.petItems}}</td>
         <td>
-            <b-button id="pet-btn" variant="primary" @click="openForm()">Edit</b-button></td>
+            <b-button id="pet-btn" variant="primary" @click="openForm()">Edit Not Working</b-button></td>
         <td>
             <b-button @click="deletePet(pet._id)" id="pet-btn" variant="danger">Delete</b-button>
         </td>
@@ -56,16 +56,16 @@
           <label for="name">
             <strong>Name</strong>
           </label>
-          <input type="text" id="name" placeholder="Pet's Name" name="name">
+          <input type="text" id="name" placeholder="Pet's Name" name="name" v-model="editedPet.name">
           <label for="type">
             <strong>Type</strong>
           </label>
-          <input type="text" id="type" placeholder="Pet's Type" name="type" required>
+          <input type="text" id="type" placeholder="Pet's Type" name="type" v-model="editedPet.type">
           <label for="gender">
             <strong>Gender</strong>
           </label>
-          <input type="text" id="gender" placeholder="Pet's Gender" name="gender">
-          <button type="submit" class="btn" @click="editPet(pet._id)">Edit</button>
+          <input type="text" id="gender" placeholder="Pet's Gender" name="gender" v-model="editedPet.gender">
+          <button type="submit" class="btn">Edit</button>
           <button type="button" class="btn cancel" @click="closeForm()">Cancel</button>
         </form>
       </div>
@@ -102,7 +102,10 @@ export default {
       editedPet: {
         name: null,
         type: null,
-        gender: null
+        gender: null,
+        allergies: null,
+        foodPreferences: null,
+        petItems: null
       }
     }
   },
@@ -114,13 +117,9 @@ export default {
       Api.post('/petowners/' + this.$route.params.id + '/pets', this.pet)
         .then(res => this.pets)
     },
-    editPet(petId) {
-      Api.put('/petowners/pets/' + petId, this.pet)
-        .then(res => this.pets)
-      this.pet.name = null
-      this.pet.type = null
-      this.pet.gender = null
-    },
+    /* editPet(petId) {
+      Api.put('/petowners/pets/' + petId, this.editedPet)
+    }, */
     openForm() {
       document.getElementById('popupForm').style.display = 'block'
     },
