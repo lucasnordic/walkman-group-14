@@ -9,18 +9,18 @@
     </div>
     <!-- Render the content of the current page view -->
     <router-view />
-    <my-footer />
-    <my-cool-footer />
+    <!-- <my-footer />
+    <my-cool-footer /> -->
   </div>
 </template>
 
 <script>
-import MyFooter from '@/components/MyFooter.vue'
+// import MyFooter from '@/components/MyFooter.vue'
 
 export default {
   components: {
-    MyFooter,
-    'my-cool-footer': MyFooter
+    // MyFooter,
+    // 'my-cool-footer': MyFooter
   }
 }
 </script>
