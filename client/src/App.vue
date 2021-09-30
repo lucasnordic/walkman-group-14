@@ -1,12 +1,20 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-    </div>
-    <!-- Render the content of the current page view -->
-    <router-view/>
+    <navigation-component />
+    <router-view />
   </div>
 </template>
+
+<script>
+import Navigation from './components/Navigation.vue'
+
+export default {
+  name: 'app',
+  components: {
+    'navigation-component': Navigation
+  }
+}
+</script>
 
 <style>
 #app {
@@ -15,5 +23,9 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+#navigation {
+  padding: 30px;
 }
 </style>
