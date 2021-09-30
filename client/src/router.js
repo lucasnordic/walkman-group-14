@@ -4,7 +4,7 @@ import Home from './views/Home.vue'
 import PetLover from './views/PetLoverProfile.vue'
 import PetOwner from './views/PetOwnerProfile.vue'
 import Pets from './views/Pets.vue'
-import Services from './views/Services.vue'
+import Service from './views/Service.vue'
 
 Vue.use(Router)
 
@@ -35,7 +35,7 @@ export default new Router({
     {
       path: '/profile/petlovers/:id/services',
       name: 'services',
-      component: Services
+      component: Service
     }
   ]
 })

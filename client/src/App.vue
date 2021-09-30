@@ -3,8 +3,8 @@
     <div id="nav">
       <a href="linking to someewhere"></a>
       <router-link to="/">Home</router-link> |
-      <router-link to="/profile/petlovers/6154a9587472715755f55d27">Pet Lover Profile</router-link> | <!--this is here temporarily-->
-      <router-link to="/profile/petowners/6155a2205267b09800b6ddc8">Pet Owner Profile</router-link>
+      <router-link to="/profile/petlovers/6155be2bdec9fcd0d8df3bef">Pet Lover Profile</router-link> | <!--this is here temporarily-->
+      <router-link to="/profile/petowners/6155b8d11e6f09bfd39e7fa9">Pet Owner Profile</router-link>
     </div>
     <!-- Render the content of the current page view -->
     <router-view/>
