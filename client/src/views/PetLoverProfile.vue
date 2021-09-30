@@ -110,6 +110,10 @@
     </tr>
   </tbody>
 </table>
+<div id="bottom-btns">
+  <b-button @click="servicePage()" id="pet-btn" variant="primary">Your Services (not working)</b-button>
+  <b-button  @click="delAcc()" variant="danger">Delete Account</b-button>
+</div>
   </div>
 </template>
 
@@ -180,6 +184,12 @@ export default {
       Api.put('/v1/petlovers/' + this.$route.params.id, this.petLover)
         .then(res => this.petLover)
       this.sNumUpdate = null
+    },
+    delAcc() {
+      Api.delete('/v1/petlovers/' + this.$route.params.id)
+    },
+    servicePage() {
+      this.$router.push('/profile/petLovers/' + this.$route.params.id + '/services')
     }
   }
 }

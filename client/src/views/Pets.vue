@@ -25,7 +25,7 @@
         <td>{{pet.foodPreferences}}</td>
         <td>{{pet.petItems}}</td>
         <td>
-            <b-button id="pet-btn" variant="primary">Edit</b-button></td>
+            <b-button id="pet-btn" variant="primary">Edit(ej work)</b-button></td>
         <td>
             <b-button @click="deletePet(pet._id)" id="pet-btn" variant="danger">Delete</b-button>
         </td>
