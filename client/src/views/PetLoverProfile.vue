@@ -1,13 +1,13 @@
 <template>
   <div v-if="petLover">
     <b-jumbotron id="header">
-      <h1 class="display-4" id="greeting">Welcome {{petLover.userinfo.userName}}!</h1>
+      <h1 class="display-4" id="greeting">Welcome {{petLover.userinfo.username}}!</h1>
     </b-jumbotron>
     <table class="table table-bordered">
   <tbody>
     <tr>
       <th scope="row">User Name</th>
-      <td>{{petLover.userinfo.userName}}</td>
+      <td>{{petLover.userinfo.username}}</td>
       <td>User Name is not changable!</td>
     </tr>
     <tr>
@@ -124,7 +124,7 @@ export default {
   name: 'petlover',
   mounted() { // Happens when page is loaded
     console.log('Yoyo!')
-    Api.get('/v1/petlovers/' + this.$route.params.id)
+    Api.get('/petlovers/' + this.$route.params.id)
       .then(res => {
         console.log(res)
         this.petLover = res.data
@@ -139,54 +139,54 @@ export default {
       cityUpdate: null,
       sNameUpdate: null,
       sNumUpdate: null,
-      petLover: {}
+      petLover: null
     }
   },
   methods: {
     editPass() {
       this.petLover.userinfo.password = this.passUpdate
-      Api.put('/v1/petlovers/' + this.$route.params.id, this.petLover)
+      Api.put('/petlovers/' + this.$route.params.id, this.petLover)
         .then(res => this.petLover)
       this.passUpdate = null
     },
     editFullName() {
       this.petLover.userinfo.fullName = this.fullNameUpdate
-      Api.put('/v1/petlovers/' + this.$route.params.id, this.petLover)
+      Api.put('/petlovers/' + this.$route.params.id, this.petLover)
         .then(res => this.petLover)
       this.fullNameUpdate = null
     },
     editEmail() {
       this.petLover.userinfo.contactInfo.email = this.emailUpdate
-      Api.put('/v1/petlovers/' + this.$route.params.id, this.petLover)
+      Api.put('/petlovers/' + this.$route.params.id, this.petLover)
         .then(res => this.petLover)
       this.emailUpdate = null
     },
     editPhone() {
       this.petLover.userinfo.contactInfo.phoneNumber = this.phoneUpdate
-      Api.put('/v1/petlovers/' + this.$route.params.id, this.petLover)
+      Api.put('/petlovers/' + this.$route.params.id, this.petLover)
         .then(res => this.petLover)
       this.phoneUpdate = null
     },
     editCity() {
       this.petLover.userinfo.contactInfo.address.city = this.cityUpdate
-      Api.put('/v1/petlovers/' + this.$route.params.id, this.petLover)
+      Api.put('/petlovers/' + this.$route.params.id, this.petLover)
         .then(res => this.petLover)
       this.cityUpdate = null
     },
     editSName() {
       this.petLover.userinfo.contactInfo.address.streetName = this.sNameUpdate
-      Api.put('/v1/petlovers/' + this.$route.params.id, this.petLover)
+      Api.put('/petlovers/' + this.$route.params.id, this.petLover)
         .then(res => this.petLover)
       this.sNameUpdate = null
     },
     editSNum() {
       this.petLover.userinfo.contactInfo.address.streetNum = this.sNumUpdate
-      Api.put('/v1/petlovers/' + this.$route.params.id, this.petLover)
+      Api.put('/petlovers/' + this.$route.params.id, this.petLover)
         .then(res => this.petLover)
       this.sNumUpdate = null
     },
     delAcc() {
-      Api.delete('/v1/petlovers/' + this.$route.params.id)
+      Api.delete('/petlovers/' + this.$route.params.id)
     },
     servicePage() {
       this.$router.push('/profile/petLovers/' + this.$route.params.id + '/services')

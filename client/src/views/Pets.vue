@@ -59,7 +59,7 @@ import { Api } from '@/Api'
 export default {
   name: 'pets',
   mounted() {
-    Api.get('/v1/petowners/' + this.$route.params.id + '/pets')
+    Api.get('/petowners/' + this.$route.params.id + '/pets')
       .then(res => {
         console.log(res)
         this.pets = res.data
@@ -83,10 +83,10 @@ export default {
   },
   methods: {
     deletePet(id) {
-      Api.delete('/v1/petowners/' + this.$route.params.id + '/pets/' + id)
+      Api.delete('/petowners/' + this.$route.params.id + '/pets/' + id)
     },
     addPet() {
-      Api.post('/v1/petowners/' + this.$route.params.id + '/pets', this.pet)
+      Api.post('/petowners/' + this.$route.params.id + '/pets', this.pet)
         .then(res => this.pets)
       this.pet.name = null
       this.pet.type = null

@@ -135,7 +135,11 @@ export default {
           // login successfull
           if (res.status === 200) {
             localStorage.setItem('token', res.data.token)
-            this.$router.push('/profile')
+            if (this.form.userType === 'Pet Owner') {
+              this.$router.push('/profile/petowners/' + res.data.userId)
+            } else {
+              this.$router.push('/profile/petLovers/' + res.data.userId)
+            }
           }
         },
         (err) => {
