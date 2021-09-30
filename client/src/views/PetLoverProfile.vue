@@ -144,8 +144,8 @@ export default {
   },
   methods: {
     editPass() {
-      this.petLover.userinfo.password = this.passUpdate
-      Api.put('/petlovers/' + this.$route.params.id, this.petLover)
+      /* this.petLover.userinfo.password = this.passUpdate */
+      Api.patch('/petlovers/' + this.$route.params.id, this.passUpdate)
         .then(res => this.petLover)
       this.passUpdate = null
     },
