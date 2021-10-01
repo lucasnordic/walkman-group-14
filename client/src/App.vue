@@ -3,8 +3,7 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/services" >Services</router-link> |
-      <router-link to="/about" tag="b-button"></router-link>
-      <b-button variant= "outline-primary" @click="$router.push('about')">About</b-button>
+      <router-link to="/about" >About</router-link>
     </div>
     <!-- Render the content of the current page view -->
     <router-view />

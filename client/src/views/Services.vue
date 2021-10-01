@@ -1,5 +1,88 @@
 <template>
   <div class="services">
+    <b-container>
+      <div>
+        <b-carousel
+          id="carousel-1"
+          class="carousel"
+          v-model="slide"
+          :interval="4000"
+          controls
+          indicators
+          background="#ababab"
+          img-width="1024"
+          img-height="480"
+          style="text-shadow: 1px 1px 2px #333"
+          @sliding-start="onSlideStart"
+          @sliding-end="onSlideEnd"
+        >
+
+          <b-carousel-slide>
+            <template #img>
+              <img
+                class="dog-walking-img"
+                caption="First slide"
+                width="1024"
+                height="480"
+                src="../assets/img/dog-walking.png"
+                alt=""
+              />
+            </template>
+          </b-carousel-slide>
+
+          <b-carousel-slide>
+            <template #img>
+              <img
+                class="Person24-img"
+                width="1024"
+                height="480"
+                src="../assets/img/Person24.png"
+                alt=""
+              />
+            <h1 style="color: black">Have you vaccinate your pet?</h1>
+            </template>
+          </b-carousel-slide>
+
+          <b-carousel-slide>
+            <template #img>
+              <img
+                class="Golden-img"
+                src="../assets/img/Golden.png"
+                alt="image slot"
+              />
+            </template>
+            <h1 class font-style="italic">
+              “Dogs do speak, but only to those who know how to listen.”
+            </h1>
+          </b-carousel-slide>
+
+          <!-- Slides with img slot -->
+          <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
+          <b-carousel-slide>
+            <template #img>
+              <img
+                class="Person20-img"
+                width="1024"
+                height="480"
+                src="../assets/img/beauty_service.png"
+                alt=""
+              />
+            </template>
+          </b-carousel-slide>
+
+          <!-- Slide with blank fluid image to maintain slide aspect ratio -->
+          <b-carousel-slide>
+            <template #img>
+              <img
+                text="Let me out please!"
+                src="../assets/img/Dog-looking-up.png"
+                alt=""
+              />
+            </template>
+          </b-carousel-slide>
+        </b-carousel>
+      </div>
+    </b-container>
     <div class="collapse_container" fluid="sm">
       <!-- Element to collapse -->
       <!-- Via multiple directive modifiers -->
@@ -14,26 +97,24 @@
       <b-row class="pet_lover_container">
         <b-col class="left-side">
           <div class="Person1">
-            <b-img-lazy
-              v-bind="Person1"
-              src="../assets/Person1.png"
-              alt="A person with a dog"
-            ></b-img-lazy>
-            <!-- <b-img
-              type="image/png"
-              src="../assets/Person1.png"
-              alt="A person with a dog"
-              display:
-              style="
-                display: ;
-                margin-left: auto;
-                margin-right: auto;
-                width: 5%;
-              "
-            ></b-img> -->
+            <img src="../assets/img/Person8.png" alt="" />
+            <b-row class="name-rating-row">
+              <div>
+                <b-form-rating v-model="value"></b-form-rating>
+                <p
+                  class="rating_mt-2"
+                  border-variant="transparent"
+                  align="right"
+                >
+                  Value: {{ value }}
+                </p>
+              </div>
+            </b-row>
           </div>
         </b-col>
         <b-col class="middle">
+          <p class="Pet-Lover-Name">Clara Denver</p>
+          <hr class="rounded" />
           <p class="aboutMe">
             I am energetic, responsible, clean and love animals! I have a
             flexible schedule too and I am open for suggestions of a preferred
@@ -42,6 +123,7 @@
             bigger spaces in addition to a calm, cuddling slow walk for calmer
             dogs or older ones, also longer time for the walk if needed.
           </p>
+          <hr class="rounded" />
           <b-row class="button_group">
             <b-button
               class="profile"
@@ -118,8 +200,8 @@
         <b-col class="right-side">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d68391.29304160277!2d11.853376600415995!3d57.61060663610402!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x464fed6e967e63fd%3A0x7cdfe3785b255e0c!2sAskim%2C%20Gothenburg!5e0!3m2!1sen!2sse!4v1632870578904!5m2!1sen!2sse"
-            width="300"
-            height="300"
+            width="350"
+            height="375"
             style="border: 0"
             allowfullscreen=""
             loading="lazy"
@@ -157,10 +239,19 @@ export default {
   data() {
     return {
       services: {},
-      msgbox: ''
+      msgbox: '',
+      value: null,
+      slide: 0,
+      sliding: null
     }
   },
   methods: {
+    onSlideStart(slide) {
+      this.sliding = true
+    },
+    onSlideEnd(slide) {
+      this.sliding = false
+    },
     showMsgBox() {
       this.msgbox = ''
       this.$bvModal
@@ -196,38 +287,67 @@ export default {
   border-radius: 5px;
 }
 
+.carousel {
+  margin-top: 1em;
+}
 .collapse_container {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-top: 20px;
+  padding-bottom: 0px;
+  padding-left: 40px;
+  padding-right: 40px;
   max-width: 1500px;
   margin: auto;
-  border-style: groove;
   border-radius: 5px;
 }
 
 .pet_lover_container {
   width: 110%;
-  margin-top: 700px;
+  margin-top: 50px;
+  height: 10%;
   padding: 2%;
   background-color: white;
   border-style: groove;
   border-radius: 5px;
+  background: beige;
 }
 
-.dropdown-form-message {
+.b-rating-star {
+  margin: 0em 0em 0em 0em;
+  padding: 0em 0em 0em 0em;
+}
+.b-dropdown-form {
   margin: 0%;
   width: 10;
   border-width: 5px;
-
+  scale: 10;
+}
+.dropdown-menu {
+  width: 200%;
+}
+.Pet_Lover_Name {
+  margin-right: 4em;
+  font-size: 5px;
+}
+.b-rating {
+  margin-left: 1em;
+  margin-top: 1em;
+  height: 1em;
+  width: 0em;
+  border-style: hidden;
+}
+.b-rating-star {
+  margin: 0em 3em 0em 0em;
+  padding: 0em 0em 0em 0em;
+  text-align: right;
+  border-style: hidden;
+}
+.rating_mt-2 {
+  margin: 0em;
+  padding: 0em;
+  text-align: right;
 }
 
 .iframe {
-  /* width: 100%;
-  height: 300px;
-  margin: auto;
-  padding: auto; */
   z-index: 5;
   position: absolute;
   height: 100%;
@@ -277,9 +397,26 @@ export default {
   text-align: left;
 }
 
+.name-rating-row {
+  margin: 1em 1em 1em 1em;
+  width: 0em;
+}
+
+.Pet-Lover-Name {
+  font-size: 2em;
+  align-self: center;
+  margin: 0.5em 0em 0.5em 0.5em;
+}
+
+.dropdpwn-toogle {
+  margin: 0.5em 0.5em 0.5em 0.5em;
+}
+.dropdown {
+  margin-bottom: 1em;
+}
 .button_group {
-  margin: 0% 0% 0% 0%;
-  padding: 0%;
+  margin-right: 0em;
+  padding-right: 0em;
 }
 .all-services {
   margin-right: 0.5em;
@@ -298,31 +435,17 @@ export default {
   margin-right: 0.5em;
 }
 .person1 {
-  margin-top: 0px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0.5em 0.5em 0.5em 0.5em;
   width: 10%;
-  display: block;
 }
 .profile {
-  margin-right: 0.5em;
-  margin-left: 0.5em;
+  margin-right: 1em;
+  margin-left: 4em;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
-.contact {
-  margin-right: 0.5em;
-  margin-left: 0.5em;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-}
-.person1 {
-  margin: 0.5em 0.5em 0.5em 0.5em;
-}
-.pet_lover_section {
-  margin-right: 0.5em;
-  margin-left: 0.5em;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+
+.form-control {
+  margin-bottom: 1em;
 }
 </style>
