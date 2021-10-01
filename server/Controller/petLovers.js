@@ -149,7 +149,8 @@ exports.loginPetLover = (req, res, next) => {
             let token = jwt.sign({ userId: petLover._id }, 'secretkey');
             return res.status(200).json({
                 title: 'login sucess',
-                token: token
+                token: token,
+                userId: petLover._id
             })
         }
     })

@@ -27,7 +27,8 @@ export default {
     return {
       name: '',
       email: '',
-      loggedIn: false
+      loggedIn: false,
+      userType: ''
     }
   },
   created() {

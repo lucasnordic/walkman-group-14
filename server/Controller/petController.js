@@ -96,3 +96,51 @@ exports.deletePetOwnersAndPetsbyId = (req, res, next) => {
 
 
 };
+
+//PUT /pets/:petId
+exports.putPetById = (req, res, next) => {
+    const petId = req.params['petId'];
+    Pet.findByIdAndUpdate(petId, req.body, { new: true })
+        .then((result) => {
+            if (result === null) {
+                res.status(404).send({ message: "The pet_Id not found." });
+                return;
+            }
+            res.json(result);
+        }).catch((err) => {
+            res.status(502).send();
+            return next(err);
+        });
+};
+
+//PATCH /pets/petId
+exports.patchPetById = ({ body, params }, res, next) => {
+    PetLover.findById(params.petId)
+        .then((result) => {
+            if (result === null) {
+                res.status(404).send({ message: "The pet_Id not found." });
+                return;
+            }
+            if (body.name) {
+                result.name = [...body.name, ...result.name];
+            }
+            if (body.gender) {
+                result.gender = [...body.gender, ...result.gender];
+            }
+            if (body.type) {
+                result.type = [...body.type, ...result.type];
+            }
+            //result._id = body._id;
+            result.allergies = body.allergies || result.allergies;
+            result.foodPreferences= body.foodPreferences || result.foodPreferences
+
+            result.save();
+
+            console.log(result);
+            res.json(result);
+
+        }).catch((err) => {
+            res.status(502).send({ message: "Not found" });
+            return next(err);
+        });
+};

@@ -147,8 +147,9 @@ exports.loginPetOwner = (req, res, next) => {
         } else {
             let token = jwt.sign({ userId: petOwner._id }, 'secretkey');
             return res.status(200).json({
-                title: 'login sucess',
-                token: token
+                title: 'login success',
+                token: token,
+                userId: petOwner._id
             })
         }
     })
