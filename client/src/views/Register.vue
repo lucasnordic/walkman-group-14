@@ -128,6 +128,7 @@
                       required
                     ></b-form-input>
                   </b-form-group>
+
                   <!-- input field -->
                   <b-form-group id="password" label="Password*" label-for="i-2">
                     <b-form-input
