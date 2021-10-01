@@ -48,35 +48,27 @@
             </b-form-group>
 
             <!-- Submit form -->
-            <b-button
-              id="submit_btn"
-              block
-              type="submit"
-              variant="success"
-              style="text-align: center"
+            <b-button id="submit_btn" block type="submit" variant="success"
               >Login</b-button
             >
 
             <hr class="my-4" />
 
             <!-- Bottom text and image -->
-            <p style="text-align: center">
-              Don't have an account yet?
-              <router-link to="/register">Register here</router-link>
-            </p>
-            <div id="test_image">
-              <img
-                src="../assets/images/sammy-searching.png"
-                alt="..."
-                style="
-                  display: block;
-                  margin-left: auto;
-                  margin-right: auto;
-                  width: 100%;
-                "
-              />
+            <div id="bottom-wrapper">
+              <p>
+                Don't have an account yet?
+                <router-link to="/register">Register here</router-link>
+              </p>
+              <div id="image-wrapper">
+                <img
+                  src="../assets/images/sammy-searching.png"
+                  alt="..."
+                  id="bottom-image"
+                />
+              </div>
             </div>
-            <div style="text-align: center; color: gray">
+            <div>
               Illustration by
               <a
                 href="https://icons8.com/illustrations/author/6101992cfc3ba40007aa1554"
@@ -168,14 +160,23 @@ export default {
 
 #login-title {
   font-size: 350%;
+  margin-bottom: -32px;
 }
 
 /* Bottom image */
-#test_image {
+#image-wrapper {
   margin-top: -25px;
   margin-left: auto;
   margin-right: auto;
   width: 45%;
   display: block;
+}
+
+#bottom-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  z-index: 1;
 }
 </style>

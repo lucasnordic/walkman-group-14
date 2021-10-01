@@ -6,118 +6,115 @@
       <div id="page_content">
         <b-container fluid="xl">
           <b-row>
-            <b-col style="border: 5px"> </b-col>
+            <b-col> </b-col>
 
             <b-col cols="13">
               <b-jumbotron id="form_content">
-                <!-- Title -->
-                <template #header>
-                  <b-form id="form_title">
-                    <p class="animate__animated animate__pulse">Register</p>
-                  </b-form>
-                </template>
-
-                <!-- For displaying typed Username under "Register" title -->
-                <div id="list-username">
-                  <transition-group name="list" tag="p">
-                    <!-- TODO fix this usertype bind to display to left of username -->
-                    <!-- <div v-bind:key="form2.user">{{ form2.user }}</div> -->
-                    <div
-                      v-for="item in form.userinfo.username"
-                      v-bind:key="item"
-                      class="list-item"
-                    >
-                      {{ item }}
-                    </div>
-                  </transition-group>
-                </div>
-
                 <!-- form = Where a user inputs data -->
                 <b-form id="form_inputs" @submit.prevent="onSubmit">
-                  <hr class="my-4" />
+                  <!-- Title -->
+                  <h1 id="register-title">
+                    <b-form id="form_title">
+                      <p class="animate__animated animate__pulse">Register</p>
+                    </b-form>
+                  </h1>
+
+                  <!-- For displaying typed Username under "Register" title -->
+                  <div id="list-username">
+                    <transition-group name="list" tag="p">
+                      <!-- TODO fix this usertype bind to display to left of username -->
+                      <!-- <div v-bind:key="form2.user">{{ form2.user }}</div> -->
+                      <div
+                        v-for="item in form.userinfo.username"
+                        v-bind:key="item"
+                        class="list-item"
+                      >
+                        {{ item }}
+                      </div>
+                    </transition-group>
+                  </div>
+
+                  <div id="animated_image">
+                    <img
+                      v-bind:src="image4"
+                      v-if="form2.user === null"
+                      alt="dog image"
+                      id="top-image"
+                    />
+                  </div>
+                  <div id="animated_image">
+                    <img
+                      v-bind:src="image3"
+                      v-if="form2.user === 'Pet Lover'"
+                      alt="pet lover image"
+                      id="top-image"
+                    />
+                  </div>
+                  <div id="animated_image">
+                    <img
+                      v-bind:src="image2"
+                      v-if="form2.user === 'Pet Owner'"
+                      alt="pet owner image"
+                      id="top-image"
+                    />
+                  </div>
 
                   <!-- Select User Type. PetOwner/PetLover -->
-                  <b-form-group
-                    id="usertype"
-                    label="Account role*"
-                    label-for="i-9"
-                  >
-                    <b-form-select
-                      id="i-9"
-                      v-model="form2.user"
-                      :options="userTypeSelected"
-                      required
-                      autofocus
-                    ></b-form-select>
+                  <div id="usertype-input">
+                    <hr class="my-4" />
 
-                    <!--title="Info"-->
-                    <!-- Selected user type info box -->
-                    <div
-                      id="user_type_info_box"
-                      v-if="form2.user === 'Pet Owner'"
-                      class="animate__animated animate__zoomIn"
+                    <b-form-group
+                      id="usertype"
+                      label="Account role*"
+                      label-for="i-9"
                     >
-                      <div>
-                        <h1>Info</h1>
-                        <p>
-                          Become a <em>Pet Owner</em> if you are looking for
-                          someone that can take care of your pet!
-                        </p>
-                        <!-- TODO: Implement more info page -->
-                        <!-- <a href="#" class="card-link">More Info</a> -->
-                      </div>
-                      <div
-                        id="animated_image"
-                        :class="registeringDone.animateTestImage"
-                      >
-                        <img
-                          src="../assets/images/sammy-remote-work.png"
-                          alt="..."
-                          style="
-                            display: block;
-                            margin-left: auto;
-                            margin-right: auto;
-                            width: 100%;
-                          "
-                        />
-                      </div>
-                    </div>
+                      <b-form-select
+                        id="i-9"
+                        v-model="form2.user"
+                        :options="userTypeSelected"
+                        required
+                        autofocus
+                      ></b-form-select>
 
-                    <!-- Selected user type info box -->
-                    <div
-                      id="user_type_info_box"
-                      v-if="form2.user === 'Pet Lover'"
-                      class="animate__animated animate__zoomIn"
-                    >
-                      <div title="PetLover Info">
-                        <h1>Info</h1>
-                        <p>
-                          Become a <em>Pet Lover</em> if you want to offer pet
-                          care services to <em>Pet Owners</em>. Create an
-                          account, start offering a service, and get ready to
-                          make some cash! ..and meet some lovely pets of course
-                          ;)
-                        </p>
-                        <!-- TODO: Implement more info page -->
-                        <!-- <b-link href="#" class="card-link">More Info</b-link> -->
-                      </div>
+                      <!--title="Info"-->
+                      <!-- Selected user type info box -->
                       <div
-                        id="animated_image"
-                        :class="registeringDone.animateTestImage"
+                        id="user_type_info_box"
+                        v-if="form2.user === 'Pet Owner'"
+                        class="animate__animated animate__zoomIn"
                       >
-                        <img
-                          src="../assets/images/sammy-message-sent.png"
-                          alt="..."
-                          style="
-                            display: block;
-                            margin-left: auto;
-                            margin-right: auto;
-                            width: 88.7%;
-                          "
-                        />
+                        <div>
+                          <h1>Info</h1>
+                          <p>
+                            Become a <em>Pet Owner</em> if you are looking for
+                            someone that can take care of your pet!
+                          </p>
+                          <!-- TODO: Implement more info page -->
+                          <!-- <a href="#" class="card-link">More Info</a> -->
+                        </div>
                       </div>
-                    </div>
-                  </b-form-group>
+
+                      <!-- Selected user type info box -->
+                      <div
+                        id="user_type_info_box"
+                        v-if="form2.user === 'Pet Lover'"
+                        class="animate__animated animate__zoomIn"
+                      >
+                        <div title="PetLover Info">
+                          <h1>Info</h1>
+                          <p>
+                            Become a <em>Pet Lover</em> if you want to offer pet
+                            care services to <em>Pet Owners</em>. Create an
+                            account, start offering a service, and get ready to
+                            make some cash! ..and meet some lovely pets of
+                            course ;)
+                          </p>
+                          <!-- TODO: Implement more info page -->
+                          <!-- <b-link href="#" class="card-link">More Info</b-link> -->
+                        </div>
+                      </div>
+                    </b-form-group>
+                  </div>
 
                   <!-- input field -->
                   <!-- TODO: Add :state to inputs, and implement input validation -->
@@ -152,10 +149,7 @@
                     ></b-form-input>
                     <transition name="slide-fade">
                       <div v-if="form.userinfo.fullname.length > 10">
-                        <b-form-text
-                          id="usertype-help-block"
-                          style="margin-left: 0px"
-                        >
+                        <b-form-text id="usertype-help-block">
                           All hail the mighty {{ form.userinfo.fullname }}.
                         </b-form-text>
                       </div>
@@ -163,11 +157,11 @@
                   </b-form-group>
 
                   <!-- input fields for Contact Info -->
-                  <div style="margin-bottom: -17px"><p>Contact Info</p></div>
+                  <div id="contactinfo-text"><p>Contact Info</p></div>
                   <div
                     class="accordion"
+                    id="contactinfo-accordion"
                     role="tablist"
-                    style="margin-top: 25px"
                   >
                     <!-- TODO Add options for adding a pet or a service when registering -->
                     <b-card no-body class="mb-1">
@@ -177,13 +171,14 @@
                           v-b-toggle.accordion-1
                           variant="light"
                           size="sm"
-                          >Click
+                          >Open/Close
                         </b-button></b-card-header
                       >
                       <b-collapse
                         id="accordion-1"
                         accordion="my-accordion"
                         role="tabpanel"
+                        visible
                       >
                         <b-card-body>
                           <!-- input field -->
@@ -259,7 +254,6 @@
                     block
                     type="submit"
                     variant="success"
-                    style="text-align: center"
                     @click="
                       registeringDone.animateTestImage =
                         'animate__animated animate__bounceOutRight'
@@ -269,32 +263,29 @@
                   <hr class="my-4" />
 
                   <!-- Bottom text and image -->
-                  <p style="text-align: center">
-                    Do you already have an account?
-                    <router-link to="/login">Login here</router-link>
-                  </p>
-                  <div
-                    id="test_image"
-                    :class="registeringDone.animateTestImage"
-                  >
-                    <img
-                      src="../assets/images/sammy-delivery.png"
-                      alt="..."
-                      style="
-                        display: block;
-                        margin-left: auto;
-                        margin-right: auto;
-                        width: 100%;
-                      "
-                    />
-                  </div>
-                  <div style="text-align: center; color: gray">
-                    Illustration by
-                    <a
-                      href="https://icons8.com/illustrations/author/6101992cfc3ba40007aa1554"
-                      >Fruzka</a
+                  <div id="bottom-wrapper">
+                    <p>
+                      Do you already have an account?
+                      <router-link to="/login">Login here</router-link>
+                    </p>
+                    <div
+                      id="image-wrapper"
+                      :class="registeringDone.animateTestImage"
                     >
-                    from <a href="https://icons8.com/illustrations">Ouch!</a>
+                      <img
+                        src="../assets/images/sammy-delivery.png"
+                        alt="..."
+                        id="top-image"
+                      />
+                    </div>
+                    <div>
+                      Illustration by
+                      <a
+                        href="https://icons8.com/illustrations/author/6101992cfc3ba40007aa1554"
+                        >Fruzka</a
+                      >
+                      from <a href="https://icons8.com/illustrations">Ouch!</a>
+                    </div>
                   </div>
                 </b-form>
               </b-jumbotron>
@@ -345,7 +336,10 @@ export default {
         'Pet Owner',
         'Pet Lover'
       ],
-      image: '@/assets/images/sammy-delivery.png',
+      image: require('@/assets/images/sammy-delivery.png'),
+      image2: require('@/assets/images/sammy-remote-work.png'),
+      image3: require('@/assets/images/sammy-message-sent.png'),
+      image4: require('@/assets/images/sammy-dog.png'),
       registeringDone: {
         animateTestImage: ''
       },
@@ -413,22 +407,44 @@ export default {
 #page_content {
   height: 100%;
 }
+
+#form_title {
+  text-align: left;
+}
 /* Overrides imported .css */
 
-#user_type_info_box {
-  margin-top: 12.5px;
-  text-align: center;
+#register-title {
+  font-size: 350%;
+  margin-bottom: -100px;
+}
+
+#usertype-input {
+  margin-top: -15%;
+}
+
+#contactinfo-text {
+  margin-bottom: -17px;
+}
+
+#contactinfo-accordion {
+  margin-top: 25px;
 }
 
 #animated_image {
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 35%;
   width: 65%;
   display: block;
-  overflow: hidden;
   transform: translatey(0px);
   animation: float 6s ease-in-out infinite;
 }
+#top-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  z-index: 1;
+}
+
 /* Animate image above */
 @keyframes float {
   0% {
@@ -443,7 +459,7 @@ export default {
 }
 
 /* Bottom image */
-#test_image {
+#image-wrapper {
   margin-top: -25px;
   margin-left: auto;
   margin-right: auto;
@@ -460,6 +476,11 @@ export default {
 @media screen and (max-width: 1200px) {
   #side_image {
     display: none;
+  }
+}
+@media screen and (max-width: 700px) {
+  #animated_image {
+    margin-left: 45%;
   }
 }
 

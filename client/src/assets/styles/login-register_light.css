@@ -27,6 +27,7 @@
 #form_content {
   color: black;
   padding-bottom: 35px;
+  padding-top: 15px;
   max-width: 770px;
   margin: auto;
   background-color: rgba(232, 238, 241, 0.0);
@@ -63,21 +64,30 @@
   text-align: left;
 }
  
-#user_type_select {
+#user_type_info_box {
   margin-bottom: 25px;
-  padding-top: 25px;
-  padding-bottom: 25px;
-  padding-left: 25px;
-  padding-right: 25px;
-  background-color: rgb(228, 228, 228);
+  margin-top: 5px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: rgb(255, 255, 255);
+  text-align: left;
   /* color: aliceblue; */
   border-radius: 5px;
 }
  
 #submit_btn {
   font-size: x-large;
-  margin-top: 75px;
-  margin-bottom: 25px;
+  margin-top: 35px;
+  margin-bottom: 35px;
+  width: 50%;
+  margin-left: 25%;
+}
+
+#bottom-wrapper {
+  text-align: center;
+  color: gray;
 }
 
 .footer {
@@ -114,7 +124,7 @@
   }
 
   #form_title {
-    /* text-align: left; */
+    text-align: left;
     font-size: xx-large;
     margin-bottom: -35px;
   }
