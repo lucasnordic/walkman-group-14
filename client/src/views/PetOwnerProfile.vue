@@ -137,7 +137,7 @@
         </tr>
         <tr>
           <th scope="row">Street Number</th>
-          <td>{{ petOwner.userinfo.contactInfo.address.streetNumber }}</td>
+          <td>{{ petOwner.userinfo.contactInfo.address.streetNum }}</td>
           <td>
             <div class="d-flex">
               <input
@@ -235,7 +235,7 @@ export default {
       this.sNameUpdate = null
     },
     editSNum() {
-      this.petOwner.userinfo.contactInfo.address.streetNumber = this.sNumUpdate
+      this.petOwner.userinfo.contactInfo.address.streetNum = this.sNumUpdate
       Api.put('/petowners/' + this.$route.params.id, this.petOwner).then(
         (res) => this.petLover
       )
