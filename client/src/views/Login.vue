@@ -4,17 +4,17 @@
     <div id="page_background">
       <div id="page_content">
         <b-jumbotron id="form_content">
-          <!-- Title -->
-          <template #header>
-            <div id="form_title">
-              <b-form>
-                <p class="animate__animated animate__pulse">Log-in</p>
-              </b-form>
-            </div>
-          </template>
-
           <!-- form = Where a user inputs data -->
           <b-form id="form_inputs" @submit="onSubmit">
+            <!-- Title -->
+            <h1 id="login-title">
+              <div id="form_title">
+                <b-form>
+                  <p class="animate__animated animate__pulse">Log-in</p>
+                </b-form>
+              </div>
+            </h1>
+
             <hr class="my-4" />
 
             <!-- Select User Type. PetOwner/PetLover -->
@@ -165,6 +165,10 @@ export default {
   height: 100%;
 }
 /* Overrides imported .css */
+
+#login-title {
+  font-size: 350%;
+}
 
 /* Bottom image */
 #test_image {
