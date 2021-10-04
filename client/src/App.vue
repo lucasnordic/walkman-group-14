@@ -1,24 +1,17 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/services" >Services</router-link> |
-      <router-link to="/about" >About</router-link>
-    </div>
-    <!-- Render the content of the current page view -->
+    <navigation-component />
     <router-view />
-    <!-- <my-footer />
-    <my-cool-footer /> -->
   </div>
 </template>
 
 <script>
-// import MyFooter from '@/components/MyFooter.vue'
+import Navigation from './components/Navigation.vue'
 
 export default {
+  name: 'app',
   components: {
-    // MyFooter,
-    // 'my-cool-footer': MyFooter
+    'navigation-component': Navigation
   }
 }
 </script>
@@ -30,5 +23,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+#navigation {
+  padding: 30px;
 }
 </style>

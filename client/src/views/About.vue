@@ -1,8 +1,8 @@
 <template>
-  <b-container class="img_container">
+  <b-container class="img_container" fluid="sm">
     <b-row class="img_row">
       <b-col class="left-side">
-        <img src="../assets/img/about.png" alt="" />
+        <img src="../assets/images/about.png" alt="" />
       </b-col>
     </b-row>
     <b-row>
@@ -12,9 +12,7 @@
           care in your absence? We provide the best doggy daycare just for you.
           We will train, and take your dog for walking and give the routine
           feeding in your absence.
-          Our pet staff will provide the attention that
-          your pet needs. Our staff can additionally help your dog to socialize
-          and do exercises every day. You can leave the town for work to another
+          You can leave the town for work to another
           place with peace of mind that we are there to be with your pet. We,
           Ediz, Maryam and Lucas love pets. We would like to provide you an
           environment where you can find your favorite pet lover.

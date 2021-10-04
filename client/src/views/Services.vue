@@ -16,7 +16,6 @@
           @sliding-start="onSlideStart"
           @sliding-end="onSlideEnd"
         >
-
           <b-carousel-slide>
             <template #img>
               <img
@@ -24,7 +23,7 @@
                 caption="First slide"
                 width="1024"
                 height="480"
-                src="../assets/img/dog-walking.png"
+                src="../assets/images/dog-walking.png"
                 alt=""
               />
             </template>
@@ -36,7 +35,7 @@
                 class="Person24-img"
                 width="1024"
                 height="480"
-                src="../assets/img/Person24.png"
+                src="../assets/images/Person24.png"
                 alt=""
               />
             <h1 style="color: black">Have you vaccinate your pet?</h1>
@@ -47,7 +46,7 @@
             <template #img>
               <img
                 class="Golden-img"
-                src="../assets/img/Golden.png"
+                src="../assets/images/Golden.png"
                 alt="image slot"
               />
             </template>
@@ -64,7 +63,7 @@
                 class="Person20-img"
                 width="1024"
                 height="480"
-                src="../assets/img/beauty_service.png"
+                src="../assets/images/beauty_service.png"
                 alt=""
               />
             </template>
@@ -75,7 +74,7 @@
             <template #img>
               <img
                 text="Let me out please!"
-                src="../assets/img/Dog-looking-up.png"
+                src="../assets/images/Dog-looking-up.png"
                 alt=""
               />
             </template>
@@ -97,7 +96,7 @@
       <b-row class="pet_lover_container">
         <b-col class="left-side">
           <div class="Person1">
-            <img src="../assets/img/Person8.png" alt="" />
+            <img src="../assets/images/Person8.png" alt="" />
             <b-row class="name-rating-row">
               <div>
                 <b-form-rating v-model="value"></b-form-rating>
