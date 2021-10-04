@@ -1,16 +1,31 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
+
 const PetOwner = require('../Models/PetOwner');
 const ObjectId = require('mongodb').ObjectID;
-const jwt = require('jsonwebtoken');
+const Bcrypt = require('../utils/authenticate')
 
 // TODO: go through'em once again before front-end
 //(a) POST /petOwners
 exports.postPetOwners = (req, res, next) => {
     const petOwner = new PetOwner(req.body);
-    petOwner.save(function (err, petOwner) {
-        if (err) { return next(err); }
-        res.status(201).json(petOwner);
-    })
+    const hashedPassword = Bcrypt.hashPassword(req.body.userinfo.password)
+
+    hashedPassword
+        .then((result) => {
+            console.log(result);
+            petOwner.userinfo.password = result
+        })
+        .catch((err) => {
+            res.status(404).send(err)
+            return next(err)
+        })
+        .then((result) => {
+            petOwner.save(function (err, petOwner) {
+                if (err) { return next(err); }
+                res.status(201).json(petOwner);
+            })
+        })
 };
 
 //(b) GET /petOwners
@@ -129,7 +144,7 @@ exports.deletePetOwnersById = (req, res, next) => {
 exports.loginPetOwner = (req, res, next) => {
     const username = req.body.username
     const password = req.body.password
-    console.log(req.body);
+    console.log(req.body); // debugging
 
     PetOwner.findOne({ 'userinfo.username': username }, function (err, petOwner) {
         if (err) {
@@ -141,16 +156,29 @@ exports.loginPetOwner = (req, res, next) => {
             res.status(401).send({ message: "The user was not found" }); // we don't want hackers to know what they get wrong. So, same error
             return;
         }
-        else if (petOwner.userinfo.password != password) {
-            res.status(401).send({ message: "The user was not found" }); // we don't want hackers to know what they get wrong. So, same error
-            return;
-        } else {
-            let token = jwt.sign({ userId: petOwner._id }, 'secretkey');
-            return res.status(200).json({
-                title: 'login success',
-                token: token,
-                userId: petOwner._id
+
+        Bcrypt
+            .comparePassword(password, petOwner.userinfo.password)
+            .then((result) => {
+                console.log(result);
+                if (result) {
+                    console.log('uThe user password was a match')
+                    return;
+                } else {
+                    res.status(401).send({ message: "The user was not found" }); // we don't want hackers to know what they get wrong. So, same error
+                    return;
+                }
             })
-        }
+            .then(() => {
+                let token = jwt.sign({ userId: petOwner._id }, 'secretkey'); // secretkey should be more complex for security reasons
+                return res.status(200).json({
+                    title: 'login success',
+                    token: token,
+                    userId: petOwner._id
+                })
+            })
+            .catch((err) => {
+                res.status(500).send(err)
+            })
     })
 }

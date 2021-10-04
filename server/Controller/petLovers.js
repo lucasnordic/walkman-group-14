@@ -1,11 +1,22 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
+
 const { request } = require('../app');
 const PetLover = require('../Models/PetLover');
-const jwt = require('jsonwebtoken');
+const Bcrypt = require('../utils/authenticate')
 
 //(a) POST /petLovers
 exports.postPetLovers = (req, res, next) => {
     const petLover = new PetLover(req.body);
+    Bcrypt.hashPassword(req.body.password)
+        .then((result) => {
+            console.log(result);
+            petLover.userinfo.password = result
+        })
+        .catch((err) => {
+            res.status(404).send(err)
+        })
+
     petLover.save((err, petLover) => {
         if (err) { return next(err); }
         res.status(201).json(petLover);
@@ -132,18 +143,22 @@ exports.deletePetLoversbyId = (req, res, next) => {
 exports.loginPetLover = (req, res, next) => {
     const username = req.body.username
     const password = req.body.password
+    console.log(req.body); // debugging
+
+    PetLover.findOne({})
 
     PetLover.findOne({ 'userinfo.username': username }, function (err, petLover) {
         if (err) {
             res.status(404).send({ message: "Server error" });
             return next(err);
         }
+        console.log(petOwner) // debugging
         if (petLover === null) {
             res.status(401).send({ message: "The user was not found" }); // we don't want hackers to know what they get wrong. So, same error
             return;
         }
-        else if (petLover.userinfo.password != password) {
-            res.status(401).send({ message: "The user was not found" }); // we don't want hackers to know what they get wrong. So, same error
+        else if (!Bcrypt.comparePassword(password, petLover.userinfo.password)) {
+            res.status(403).send({ message: "The user was not found" }); // we don't want hackers to know what they get wrong. So, same error
             return;
         } else {
             let token = jwt.sign({ userId: petLover._id }, 'secretkey');

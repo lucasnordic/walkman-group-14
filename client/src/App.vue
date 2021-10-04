@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <navigation-component />
+    <navigation-component id="test" />
     <router-view />
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
   color: #2c3e50;
 }
 
-#navigation {
-  padding: 30px;
+#test {
+  padding: 100px;
 }
 </style>

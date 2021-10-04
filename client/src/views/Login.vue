@@ -156,6 +156,10 @@ export default {
 <style>
 @import '../assets/styles/login-register_light.css';
 
+img {
+  text-align: left;
+}
+
 /* Overrides imported .css */
 #page_background {
   height: 100%;
