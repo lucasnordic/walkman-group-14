@@ -130,17 +130,17 @@ export default {
       } else {
         route = 'loginlover'
       }
-      Api.get('/authenticate/' + route, this.form).then(
+      Api.post('/authenticate/' + route, this.form).then(
         (res) => {
           // login successfull
-          // if (res.status === 200) {
-          localStorage.setItem('token', res.data.token)
-          if (this.form.userType === 'Pet Owner') {
-            this.$router.push('/profile/petowners/' + res.data.userId)
-          } else {
-            this.$router.push('/profile/petLovers/' + res.data.userId)
+          if (res.status === 200) {
+            localStorage.setItem('token', res.data.token)
+            if (this.form.userType === 'Pet Owner') {
+              this.$router.push('/profile/petowners/' + res.data.userId)
+            } else {
+              this.$router.push('/profile/petLovers/' + res.data.userId)
+            }
           }
-          // }
         },
         (err) => {
           localStorage.removeItem('token')

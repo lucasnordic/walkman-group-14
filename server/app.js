@@ -1,14 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
-var morgan = require('morgan');
-var path = require('path');
-var cors = require('cors');
-var history = require('connect-history-api-fallback');
+const morgan = require('morgan');
+const path = require('path');
+const cors = require('cors');
+const history = require('connect-history-api-fallback');
 
 const serviceRouter = require('./Router/serviceRouter');
 const petRouter = require('./Router/petRouter');
 const petLoverRouter = require('./Router/petLoverRouter');
 const petOwnerRouter = require('./Router/petOwnerRouter');
+const authenticateRouter = require('./Router/authenticateRouter');
 
 // Variables
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
@@ -39,6 +40,7 @@ app.use('/api/v1/petlovers', petLoverRouter);
 app.use('/api/v1/petlovers', serviceRouter);
 app.use('/api/v1/petowners', petOwnerRouter);
 app.use('/api/v1/petowners', petRouter);
+app.use('/api/v1/authenticate', authenticateRouter);
 
 // Import routes
 app.get('/api/', function (req, res) {
@@ -50,8 +52,8 @@ app.use('/api/*', function (req, res) {
     res.status(404).json({ 'message': 'Not Found' });
 });
 
-app.get('/api', function(req, res){
-    res.json({'meessage':'This route is used for newman-wait that runs with the npm test commened.'});
+app.get('/api', function (req, res) {
+    res.json({ 'meessage': 'This route is used for newman-wait that runs with the npm test commened.' });
 });
 
 // Configuration for serving frontend in production mode

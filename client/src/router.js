@@ -21,12 +21,12 @@ const routes = [
     component: Home
   },
   {
-    path: '/',
+    path: '/services',
     name: 'Services',
     component: Services
   },
   {
-    path: '/',
+    path: '/about',
     name: 'About',
     component: About
   },

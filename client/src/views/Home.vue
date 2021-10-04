@@ -18,10 +18,10 @@ export default {
   methods: {
     getMessage() {
       Api.get('/')
-        .then(response => {
+        .then((response) => {
           this.message = response.data.message
         })
-        .catch(error => {
+        .catch((error) => {
           this.message = error
         })
     }
