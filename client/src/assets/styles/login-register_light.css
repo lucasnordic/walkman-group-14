@@ -1,4 +1,4 @@
-#page_background {
+.page_background {
   margin: 0 auto;
   /* text-align: center; */
   /* background-image: url(../images/bg_dog-walker.png); */
@@ -8,11 +8,11 @@
   background-color: rgb(226, 236, 241);
   position: absolute;
   width:100%;
-  /* height: 100%; Enable or disable? */
+  height: 100%;
   overflow-x: hidden;
 }
 
-#page_content {
+.page_content {
   padding-top: 25px;
   padding-left: 25px;
   padding-right: 25px;
@@ -24,7 +24,7 @@
   /* height: 100%; */ /* Enable or disable? */
 }
  
-#form_content {
+#form_content { /*TODO: Change to class*/
   color: black;
   padding-bottom: 35px;
   padding-top: 15px;
@@ -33,7 +33,7 @@
   background-color: rgba(232, 238, 241, 0.0);
 }
 
-#form_title {
+.form_title {
   max-width: 770px;
   margin: auto;
   margin-top: -25px;
@@ -49,18 +49,18 @@
   /* font-size: xx-large; */
 }
 
-#form_inputs {
+.form_inputs {
   max-width: 770px;
   margin: auto;
-  margin-top: -55px;
+  /* margin-top: -55px; */
   padding-top: 25px;
   padding-bottom: 25px;
   padding-left: 25px;
   padding-right: 25px;
   background-color: rgb(252, 252, 252, 1);
   border-radius: 5px;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
+  /* border-top-left-radius: 0px;
+  border-top-right-radius: 0px; */
   text-align: left;
 }
  
@@ -77,7 +77,7 @@
   border-radius: 5px;
 }
  
-#submit_btn {
+#submit_btn { /*TODO: Change to class*/
   font-size: x-large;
   margin-top: 35px;
   margin-bottom: 35px;
@@ -85,7 +85,7 @@
   margin-left: 25%;
 }
 
-#bottom-wrapper {
+.bottom-wrapper {
   text-align: center;
   color: gray;
 }
@@ -100,14 +100,14 @@
 }
 
 /* Overrides the css above, when page width is below x.px */
-@media screen and (max-width: 575.98px) {
-  #page_background {
+@media screen and (max-width: 768px) {
+  .page_background {
     background-image: url(); /* TODO find better way to remove image */
     width:100%;
     height: 100%;
   }
 
-  #page_content {
+  .page_content {
     padding-top: 0%;
     padding-left: 0%;
     padding-right: 0%;
@@ -120,16 +120,17 @@
     padding-bottom: 0px;
     color: black;
     padding-bottom: 35px;
-    background-color: white;
+    /* background-color: white; */
   }
 
-  #form_title {
+  .form_title {
     text-align: left;
     font-size: xx-large;
     margin-bottom: -35px;
+    padding-top: 100px;
   }
   
-   #form_inputs {
+   .form_inputs {
      margin-top: -60px;
     font-size: large;
   }

@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="header"></div>
-    <div id="page_background">
-      <div id="page_content">
+    <div class="page_background">
+      <div class="page_content">
         <b-jumbotron id="form_content">
           <!-- form = Where a user inputs data -->
-          <b-form id="form_inputs" @submit="onSubmit">
+          <b-form class="form_inputs" @submit="onSubmit">
             <!-- Title -->
             <h1 id="login-title">
-              <div id="form_title">
+              <div class="form_title">
                 <b-form>
                   <p class="animate__animated animate__pulse">Log-in</p>
                 </b-form>
@@ -55,7 +55,7 @@
             <hr class="my-4" />
 
             <!-- Bottom text and image -->
-            <div id="bottom-wrapper">
+            <div class="bottom-wrapper">
               <p>
                 Don't have an account yet?
                 <router-link to="/register">Register here</router-link>
@@ -67,14 +67,14 @@
                   id="bottom-image"
                 />
               </div>
-            </div>
-            <div>
-              Illustration by
-              <a
-                href="https://icons8.com/illustrations/author/6101992cfc3ba40007aa1554"
-                >Fruzka</a
-              >
-              from <a href="https://icons8.com/illustrations">Ouch!</a>
+              <div>
+                Illustration by
+                <a
+                  href="https://icons8.com/illustrations/author/6101992cfc3ba40007aa1554"
+                  >Fruzka</a
+                >
+                from <a href="https://icons8.com/illustrations">Ouch!</a>
+              </div>
             </div>
           </b-form>
         </b-jumbotron>
@@ -157,6 +157,13 @@ export default {
   height: 100%;
 }
 /* Overrides imported .css */
+
+hr {
+  border: 2px solid rgb(40, 81, 122, 0.1) !important;
+  border-radius: 2px !important;
+  margin-left: 5%;
+  margin-right: 5%;
+}
 
 #login-title {
   font-size: 350%;
