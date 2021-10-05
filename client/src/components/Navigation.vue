@@ -58,12 +58,7 @@ export default {
       this.loggedIn = false
       this.makeToast('Logged out', 'You are logged out', 'primary', true)
 
-      setTimeout(
-        function () {
-          this.$router.push('/login')
-        }.bind(this),
-        1000
-      )
+      this.$router.push('/login')
     },
     routerPush() {
       console.log(this.userType)

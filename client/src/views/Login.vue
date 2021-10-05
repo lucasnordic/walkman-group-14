@@ -49,8 +49,11 @@
 
             <!-- Submit form -->
             <b-button id="submit_btn" block type="submit" variant="success"
-              >Login</b-button
-            >
+              >Login<b-spinner
+                v-if="loginPressed === true"
+                style="width: 2rem; height: 2rem"
+              ></b-spinner
+            ></b-button>
 
             <hr class="my-4" />
 
@@ -101,7 +104,8 @@ export default {
         { text: 'Select One', value: null },
         'Pet Owner',
         'Pet Lover'
-      ]
+      ],
+      loginPressed: false
     }
   },
   mounted() {
@@ -135,6 +139,7 @@ export default {
           console.log('Authenticated') // debugging
           console.log(res) // debugging
           // login successfull
+          this.loginPressed = true
           if (res.status === 200) {
             // set localstorage data, for use in navigation
             localStorage.setItem('token', res.data.token)
@@ -159,6 +164,7 @@ export default {
           }
         },
         (err) => {
+          this.loginPressed = false
           localStorage.removeItem('token')
           console.log(err.response) // debugging
           this.error = err.response.data.error // save the error
