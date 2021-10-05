@@ -71,6 +71,13 @@ export default {
 </script>
 
 <style>
+/* OVERRIDE: */
+.navbar-light .navbar-toggler {
+  color: rgba(0, 0, 0, 0.5) !important;
+  border-color: rgba(0, 0, 0, 0) !important;
+}
+/* OVERRIDE */
+
 #navbar {
   padding: 20px;
   padding-left: 10%;
