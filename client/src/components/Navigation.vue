@@ -9,7 +9,7 @@
         <b-nav-item v-if="!loggedIn" to="/login">Login</b-nav-item>
         <b-nav-item v-if="loggedIn" v-on:click="logout">Logout</b-nav-item>
         <b-nav-item v-if="!loggedIn" to="/register">Register</b-nav-item>
-        <b-nav-item v-if="loggedIn" to="/profile">Profile</b-nav-item>
+        <b-nav-item v-if="loggedIn" v-on:click="routerPush">Profile</b-nav-item>
       </b-navbar-nav>
     </b-navbar>
 
@@ -32,7 +32,9 @@
           <b-nav-item v-if="!loggedIn" to="/login">Login</b-nav-item>
           <b-nav-item v-if="loggedIn" v-on:click="logout">Logout</b-nav-item>
           <b-nav-item v-if="!loggedIn" to="/register">Register</b-nav-item>
-          <b-nav-item v-if="loggedIn" to="/profile">Profile</b-nav-item>
+          <b-nav-item v-if="loggedIn" v-on:click="routerPush"
+            >Profile</b-nav-item
+          >
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -43,28 +45,56 @@
 export default {
   name: 'navigation',
   methods: {
+    makeToast(title, message, variant, solid) {
+      // https://bootstrap-vue.org/docs/components/toast
+      this.$bvToast.toast(message, {
+        title: title, // ex: 'No Access'
+        variant: variant, // ex: 'warning'
+        solid: solid // ex: boolean
+      })
+    },
     logout() {
       localStorage.clear()
       this.loggedIn = false
-      this.$router.push('/login')
+      this.makeToast('Logged out', 'You are logged out', 'primary', true)
+
+      setTimeout(
+        function () {
+          this.$router.push('/login')
+        }.bind(this),
+        1000
+      )
+    },
+    routerPush() {
+      console.log(this.userType)
+      console.log(this.userId)
+      if (this.userType === 'petlovers') {
+        this.$router.push('/profile/petLovers/' + this.userId)
+      } else if (this.userType === 'petowners') {
+        this.$router.push('/profile/petowners/' + this.userId)
+      }
     }
   },
   data() {
     return {
-      name: '',
-      email: '',
       loggedIn: false,
       userType: '',
-      hamburger: '',
-      hamburger2: ''
+      userId: ''
     }
   },
-  created() {
-    // user is not authorized
+  mounted() {
     if (!(localStorage.getItem('token') === null)) {
+      this.userId = localStorage.getItem('userId')
       this.loggedIn = true
     } else {
       this.loggedIn = false
+    }
+
+    // TODO: Change storing user info in a cookie, or add authentication library
+    if (localStorage.getItem('userType') === 'petlover') {
+      this.userType = 'petlovers'
+    } else if (localStorage.getItem('userType') === 'petowner') {
+      this.userType = 'petowners'
     }
   }
 }

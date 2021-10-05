@@ -149,7 +149,8 @@ exports.loginPetOwner = (req, res, next) => {
             return res.status(200).json({
                 title: 'login success',
                 token: token,
-                userId: petOwner._id
+                userId: petOwner._id,
+                userType: 'petowner'
             })
         }
     })

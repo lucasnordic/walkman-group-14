@@ -114,6 +114,14 @@ export default {
       event.preventDefault()
       this.login()
     },
+    makeToast(title, message, variant, solid) {
+      // https://bootstrap-vue.org/docs/components/toast
+      this.$bvToast.toast(message, {
+        title: title, // ex: 'No Access'
+        variant: variant, // ex: 'warning'
+        solid: solid // ex: boolean
+      })
+    },
     login() {
       console.log(this.form) // debugging
       let route = ''
@@ -124,14 +132,30 @@ export default {
       }
       Api.post('/authenticate/' + route, this.form).then(
         (res) => {
+          console.log('Authenticated') // debugging
+          console.log(res) // debugging
           // login successfull
           if (res.status === 200) {
+            // set localstorage data, for use in navigation
             localStorage.setItem('token', res.data.token)
-            if (this.form.userType === 'Pet Owner') {
-              this.$router.push('/profile/petowners/' + res.data.userId)
-            } else {
-              this.$router.push('/profile/petLovers/' + res.data.userId)
-            }
+            localStorage.setItem('userType', res.data.userType)
+            localStorage.setItem('userId', res.data.userId)
+
+            this.makeToast('test title', 'Log-in successful', 'success', true)
+
+            // Wrap the "if" in a timeout, then push
+            setTimeout(
+              function () {
+                if (this.form.userType === 'Pet Owner') {
+                  this.$router.push('/profile/petowners/' + res.data.userId)
+                  window.location.reload() // TODO: Remove this; This forces page reload in order to refresh navigation bar
+                } else {
+                  this.$router.push('/profile/petLovers/' + res.data.userId)
+                  window.location.reload() // TODO: Remove this; This forces page reload in order to refresh navigation bar
+                }
+              }.bind(this),
+              1000
+            )
           }
         },
         (err) => {

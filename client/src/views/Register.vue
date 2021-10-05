@@ -14,20 +14,22 @@
               </b-form>
             </h1>
 
+            <!-- TODO: Fix this: -->
             <!-- For displaying typed Username under "Register" title -->
             <div id="list-username">
               <transition-group name="list" tag="p">
                 <!-- TODO fix this usertype bind to display to left of username -->
                 <!-- <div v-bind:key="form2.user">{{ form2.user }}</div> -->
-                <div
+                <!-- <div
                   v-for="item in form.userinfo.username"
                   v-bind:key="item"
                   class="list-item"
                 >
                   {{ item }}
-                </div>
+                </div> -->
               </transition-group>
             </div>
+
             <div>
               <div id="animated_image">
                 <img
@@ -226,9 +228,13 @@
             </div>
 
             <!-- Submit form -->
-            <b-button id="submit_btn" block type="submit" variant="success"
-              >Register Account</b-button
-            >
+            <b-button id="submit_btn" block type="submit" variant="success">
+              Register Account
+              <b-spinner
+                v-if="register === true"
+                style="width: 2rem; height: 2rem"
+              ></b-spinner
+            ></b-button>
             <hr class="my-4" />
 
             <!-- Bottom text and image -->
@@ -304,6 +310,7 @@ export default {
       registeringDone: {
         animateTestImage: ''
       },
+      register: false,
       index: 0
     }
   },
@@ -312,9 +319,18 @@ export default {
     console.log('Page has loaded!') // debugging
   },
   methods: {
+    makeToast(title, message, variant, solid) {
+      // https://bootstrap-vue.org/docs/components/toast
+      this.$bvToast.toast(message, {
+        title: title, // ex: 'No Access'
+        variant: variant, // ex: 'warning'
+        solid: solid // ex: boolean
+      })
+    },
     // Method that handles form submission
     onSubmit(event) {
       event.preventDefault()
+      this.register = true // activates spinner
 
       // animate bottom image
       this.registeringDone.animateTestImage =
@@ -322,35 +338,35 @@ export default {
 
       console.log(this.form) // debugging
       if (this.form2.user === 'Pet Owner') {
-        // set timeout for animation to play out:
-        setTimeout(
-          function () {
-            this.postUser('petowners')
-          }.bind(this),
-          1000
-        )
+        this.postUser('petowners')
       } else if (this.form2.user === 'Pet Lover') {
         this.form.availableHours = []
-        // set timeout for animation to play out
-        setTimeout(
-          function () {
-            this.postUser('petlovers')
-          }.bind(this),
-          1000
-        )
-        // window.setTimeout(this.postUser('petlovers'), 2000)
+        this.postUser('petlovers')
       }
     },
     // Method that handles posting a user to a specific route
     postUser(route = 'route') {
       Api.post('/' + route, this.form)
         .then((response) => {
-          this.$router.push('/login')
-          return this.form
+          this.makeToast(
+            'Registered',
+            'Registering successful',
+            'success',
+            true
+          )
+          // allow animation to play out, and display toast before refresh
+          setTimeout(
+            function () {
+              this.$router.push('/login')
+              return this.form
+            }.bind(this),
+            2000
+          )
         })
         .catch((error) => {
+          this.makeToast('Error!', String(error), 'danger', true)
           console.log(error) // debugging
-          // TODO throw error to user
+          this.register = false // reset spinner on register btn
         })
         .then(() => {
           console.log('This always runs')
