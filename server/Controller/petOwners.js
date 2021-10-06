@@ -129,14 +129,12 @@ exports.deletePetOwnersById = (req, res, next) => {
 exports.loginPetOwner = (req, res, next) => {
     const username = req.body.username
     const password = req.body.password
-    console.log(req.body);
 
     PetOwner.findOne({ 'userinfo.username': username }, function (err, petOwner) {
         if (err) {
             res.status(404).send({ message: "Server error" });
             return next(err);
         }
-        console.log(petOwner) // debugging
         if (petOwner === null) {
             res.status(401).send({ message: "The user was not found" }); // we don't want hackers to know what they get wrong. So, same error
             return;
@@ -149,7 +147,8 @@ exports.loginPetOwner = (req, res, next) => {
             return res.status(200).json({
                 title: 'login success',
                 token: token,
-                userId: petOwner._id
+                userId: petOwner._id,
+                userType: 'petowner'
             })
         }
     })

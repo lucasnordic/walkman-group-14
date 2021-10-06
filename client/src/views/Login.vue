@@ -1,20 +1,20 @@
 <template>
   <div>
     <div class="header"></div>
-    <div id="page_background">
-      <div id="page_content">
+    <div class="page_background">
+      <div class="page_content">
         <b-jumbotron id="form_content">
-          <!-- Title -->
-          <template #header>
-            <div id="form_title">
-              <b-form>
-                <p class="animate__animated animate__pulse">Log-in</p>
-              </b-form>
-            </div>
-          </template>
-
           <!-- form = Where a user inputs data -->
-          <b-form id="form_inputs" @submit="onSubmit">
+          <b-form class="form_inputs" @submit="onSubmit">
+            <!-- Title -->
+            <h1 id="login-title">
+              <div class="form_title">
+                <b-form>
+                  <p class="animate__animated animate__pulse">Log-in</p>
+                </b-form>
+              </div>
+            </h1>
+
             <hr class="my-4" />
 
             <!-- Select User Type. PetOwner/PetLover -->
@@ -48,41 +48,36 @@
             </b-form-group>
 
             <!-- Submit form -->
-            <b-button
-              id="submit_btn"
-              block
-              type="submit"
-              variant="success"
-              style="text-align: center"
-              >Login</b-button
-            >
+            <b-button id="submit_btn" block type="submit" variant="success"
+              >Login<b-spinner
+                v-if="loginPressed === true"
+                style="width: 2rem; height: 2rem"
+              ></b-spinner
+            ></b-button>
 
             <hr class="my-4" />
 
             <!-- Bottom text and image -->
-            <p style="text-align: center">
-              Don't have an account yet?
-              <router-link to="/register">Register here</router-link>
-            </p>
-            <div id="test_image">
-              <img
-                src="../assets/images/sammy-searching.png"
-                alt="..."
-                style="
-                  display: block;
-                  margin-left: auto;
-                  margin-right: auto;
-                  width: 100%;
-                "
-              />
-            </div>
-            <div style="text-align: center; color: gray">
-              Illustration by
-              <a
-                href="https://icons8.com/illustrations/author/6101992cfc3ba40007aa1554"
-                >Fruzka</a
-              >
-              from <a href="https://icons8.com/illustrations">Ouch!</a>
+            <div class="bottom-wrapper">
+              <p>
+                Don't have an account yet?
+                <router-link to="/register">Register here</router-link>
+              </p>
+              <div id="image-wrapper">
+                <img
+                  src="../assets/images/sammy-searching.png"
+                  alt="..."
+                  id="bottom-image"
+                />
+              </div>
+              <div>
+                Illustration by
+                <a
+                  href="https://icons8.com/illustrations/author/6101992cfc3ba40007aa1554"
+                  >Fruzka</a
+                >
+                from <a href="https://icons8.com/illustrations">Ouch!</a>
+              </div>
             </div>
           </b-form>
         </b-jumbotron>
@@ -109,7 +104,8 @@ export default {
         { text: 'Select One', value: null },
         'Pet Owner',
         'Pet Lover'
-      ]
+      ],
+      loginPressed: false
     }
   },
   mounted() {
@@ -122,29 +118,59 @@ export default {
       event.preventDefault()
       this.login()
     },
+    makeToast(title, message, variant, solid) {
+      // https://bootstrap-vue.org/docs/components/toast
+      this.$bvToast.toast(message, {
+        title: title, // ex: 'No Access'
+        variant: variant, // ex: 'warning'
+        solid: solid // ex: boolean
+      })
+    },
     login() {
-      console.log(this.form) // debugging
       let route = ''
       if (this.form.userType === 'Pet Owner') {
         route = 'loginowner'
       } else {
         route = 'loginlover'
       }
+      this.loginPressed = true // for login btn spinner animation
       Api.post('/authenticate/' + route, this.form).then(
         (res) => {
+          console.log('Authenticated') // debugging
           // login successfull
           if (res.status === 200) {
+            // set localstorage data, for use in navigation
             localStorage.setItem('token', res.data.token)
-            if (this.form.userType === 'Pet Owner') {
-              this.$router.push('/profile/petowners/' + res.data.userId)
-            } else {
-              this.$router.push('/profile/petLovers/' + res.data.userId)
-            }
+            localStorage.setItem('userType', res.data.userType)
+            localStorage.setItem('userId', res.data.userId)
+
+            this.makeToast('Log-in', 'Log-in successful', 'success', true)
+
+            // Wrap the "if" in a timeout, then push
+            setTimeout(
+              function () {
+                this.loginPressed = false // for login btn spinner animation
+                if (this.form.userType === 'Pet Owner') {
+                  this.$router.push('/profile/petowners/' + res.data.userId)
+                  window.location.reload() // TODO: Remove this; This forces page reload in order to refresh navigation bar
+                } else {
+                  this.$router.push('/profile/petLovers/' + res.data.userId)
+                  window.location.reload() // TODO: Remove this; This forces page reload in order to refresh navigation bar
+                }
+              }.bind(this),
+              1000
+            )
           }
         },
         (err) => {
+          this.loginPressed = false
+          this.makeToast(
+            'Log-in Error',
+            String(err) + ', Please try again',
+            'danger',
+            true
+          )
           localStorage.removeItem('token')
-          console.log(err.response) // debugging
           this.error = err.response.data.error // save the error
         }
       )
@@ -166,12 +192,32 @@ export default {
 }
 /* Overrides imported .css */
 
+hr {
+  border: 2px solid rgb(40, 81, 122, 0.1) !important;
+  border-radius: 2px !important;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#login-title {
+  font-size: 350%;
+  margin-bottom: -32px;
+}
+
 /* Bottom image */
-#test_image {
+#image-wrapper {
   margin-top: -25px;
   margin-left: auto;
   margin-right: auto;
   width: 45%;
   display: block;
+}
+
+#bottom-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  z-index: 1;
 }
 </style>

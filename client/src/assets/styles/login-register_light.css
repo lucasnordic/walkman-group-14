@@ -1,4 +1,4 @@
-#page_background {
+.page_background {
   margin: 0 auto;
   /* text-align: center; */
   /* background-image: url(../images/bg_dog-walker.png); */
@@ -8,34 +8,34 @@
   background-color: rgb(226, 236, 241);
   position: absolute;
   width:100%;
-  /* height: 100%; Enable or disable? */
+  height: 100%;
   overflow-x: hidden;
 }
 
-#page_content {
-   padding-top: 25px;
-   padding-left: 25px;
-   padding-right: 25px;
-   color: black;
-   background-color: rgb(255, 255, 255, 0.0);
-   /* text-align: left; */
-   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-   margin: auto;
-   /* height: 100%; */ /* Enable or disable? */
- }
+.page_content {
+  padding-top: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+  color: black;
+  background-color: rgb(255, 255, 255, 0.0);
+  /* text-align: left; */
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin: auto;
+  /* height: 100%; */ /* Enable or disable? */
+}
  
- #form_content {
-   color: black;
-   padding-bottom: 35px;
-   max-width: 770px;
-   margin: auto;
-   background-color: rgba(232, 238, 241, 0.0);
- }
+#form_content { /*TODO: Change to class*/
+  color: black;
+  padding-bottom: 35px;
+  padding-top: 15px;
+  max-width: 770px;
+  margin: auto;
+  background-color: rgba(232, 238, 241, 0.0);
+}
 
-
- #form_title {
-   max-width: 770px;
-   margin: auto;
+.form_title {
+  max-width: 770px;
+  margin: auto;
   margin-top: -25px;
   padding-top: 25px;
   padding-bottom: 25px;
@@ -49,39 +49,48 @@
   /* font-size: xx-large; */
 }
 
- #form_inputs {
-   max-width: 770px;
-   margin: auto;
-  margin-top: -55px;
+.form_inputs {
+  max-width: 770px;
+  margin: auto;
+  /* margin-top: -55px; */
   padding-top: 25px;
   padding-bottom: 25px;
   padding-left: 25px;
   padding-right: 25px;
   background-color: rgb(252, 252, 252, 1);
   border-radius: 5px;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
+  /* border-top-left-radius: 0px;
+  border-top-right-radius: 0px; */
   text-align: left;
 }
  
- #user_type_select {
-   margin-bottom: 25px;
-   padding-top: 25px;
-   padding-bottom: 25px;
-   padding-left: 25px;
-   padding-right: 25px;
-   background-color: rgb(228, 228, 228);
-   /* color: aliceblue; */
-   border-radius: 5px;
- }
+#user_type_info_box {
+  margin-bottom: 25px;
+  margin-top: 5px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: rgb(255, 255, 255);
+  text-align: left;
+  /* color: aliceblue; */
+  border-radius: 5px;
+}
  
- #submit_btn {
-   font-size: x-large;
-   margin-top: 75px;
-   margin-bottom: 25px;
- }
+#submit_btn { /*TODO: Change to class*/
+  font-size: x-large;
+  margin-top: 35px;
+  margin-bottom: 35px;
+  width: 50%;
+  margin-left: 25%;
+}
 
- .footer {
+.bottom-wrapper {
+  text-align: center;
+  color: gray;
+}
+
+.footer {
   height: 0px;
   background-color: blue;
   
@@ -91,14 +100,14 @@
 }
 
 /* Overrides the css above, when page width is below x.px */
-@media screen and (max-width: 575.98px) {
-  #page_background {
+@media screen and (max-width: 768px) {
+  .page_background {
     background-image: url(); /* TODO find better way to remove image */
     width:100%;
     height: 100%;
   }
 
-  #page_content {
+  .page_content {
     padding-top: 0%;
     padding-left: 0%;
     padding-right: 0%;
@@ -107,18 +116,21 @@
   #form_content {
     padding-left: 0px;
     padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
     color: black;
     padding-bottom: 35px;
-    background-color: white;
+    /* background-color: white; */
   }
 
-  #form_title {
+  .form_title {
     text-align: left;
-    font-size: x-large;
+    font-size: xx-large;
     margin-bottom: -35px;
+    padding-top: 100px;
   }
   
-   #form_inputs {
+   .form_inputs {
      margin-top: -60px;
     font-size: large;
   }
