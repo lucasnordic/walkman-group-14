@@ -6,7 +6,7 @@ import About from './views/About.vue'
 import PetLover from './views/PetLoverProfile.vue'
 import PetOwner from './views/PetOwnerProfile.vue'
 import Pets from './views/Pets.vue'
-import CreateServices from './views/CreateServices.vue'
+import Services from './views/Services.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import Profile from './views/Profile.vue'
@@ -57,7 +57,7 @@ const routes = [
   {
     path: '/profile/petlovers/:id/services',
     name: 'services',
-    component: CreateServices
+    component: Services
   }
 ]
 

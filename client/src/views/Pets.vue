@@ -45,7 +45,7 @@
     <label>Gender:</label>
     <input v-model="pet.gender" type="text" class="form-control">
 
-    <b-button id="registeration" variant="success" @click="addPet()" >Submit</b-button>
+    <b-button id="registration" variant="success" @click="addPet()" >Submit</b-button>
   </form>
   </b-jumbotron>
   </div>

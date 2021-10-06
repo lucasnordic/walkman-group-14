@@ -111,9 +111,7 @@
           <b-col>
             <!-- Element to collapse -->
             <!-- Via multiple directive modifiers -->
-            <b-button class="all-services" variant="success"
-              >All Services</b-button
-            >
+            <b-button class="all-services" variant="success" @click="getServices()" >All Services</b-button>
             <b-button class="walking" variant="success">Walking</b-button>
             <b-button class="beauty" variant="success">Beauty</b-button>
             <b-button class="veterinary" variant="success">Veterinary</b-button>
@@ -131,7 +129,7 @@
         :current-page="currentPage"
         small
       >
-        <b-row id= 1 class="pet_lover_row">
+        <b-row class="pet_lover_row">
           <b-col class="leftside">
             <img
               class="profile-picture"
@@ -229,9 +227,18 @@
               bigger spaces in addition to a calm, cuddling slow walk for calmer
               dogs or older ones, also longer time for the walk if needed.
             </p>
-            <p class="contact-info" align="left">Phone:</p>
-            <p align="left">E-mail:</p>
-            <p align="left">Price per hour:</p>
+            <ul class="contact-phone" align="left">
+              Phone:
+            </ul>
+            <ul class="contact-email" align="left">
+              E-mail:
+            </ul>
+            <ul class="contact-price" align="left">
+              Price per hour:
+            </ul>
+            <ul class="contact-services" align="left">
+              Services:
+            </ul>
           </b-col>
 
           <b-col class="right-side">
@@ -244,121 +251,6 @@
             ></iframe>
           </b-col>
         </b-row>
-
-        <b-row id= 2 class="pet_lover_row">
-          <b-col class="leftside">
-            <img
-              class="profile-picture"
-              src="../assets/images/profile-picture.png"
-              alt=""
-              width="120"
-              height="120"
-            />
-            <div>
-              <b-form-rating v-model="value"></b-form-rating>
-              <p class="rating_mt-2" border-variant="transparent" align="right">
-                Value: {{ value }}
-              </p>
-            </div>
-
-            <b-button
-              class="profile"
-              variant="primary"
-              @click="$router.push('profile')"
-              >Profile</b-button
-            >
-
-            <!-- <b-dropdown
-                id="dropdown-form"
-                variant="primary"
-                text="Send a message"
-                ref="dropdown"
-                class="m-2"
-              >
-                <b-dropdown-form class="dropdown-form-message">
-                  <b-form-group
-                    label="Name"
-                    label-for="dropdown-form-name"
-                    @submit.stop.prevent
-                  >
-                    <b-form-input
-                      id="dropdown-form-name"
-                      type="name"
-                      size="sm"
-                      placeholder="Name"
-                    ></b-form-input>
-                  </b-form-group>
-
-                  <b-form-group
-                    label="Phone Number"
-                    label-for="dropdown-form-name"
-                    @submit.stop.prevent
-                  >
-                    <b-form-input
-                      id="dropdown-form-name"
-                      type="name"
-                      size="sm"
-                      placeholder="Phone Number"
-                    ></b-form-input>
-                  </b-form-group>
-
-                  <b-form-group
-                    label="Email"
-                    label-for="dropdown-form-email"
-                    @submit.stop.prevent
-                  >
-                    <b-form-input
-                      id="dropdown-form-email"
-                      size="sm"
-                      placeholder="email@example.com"
-                    ></b-form-input>
-                  </b-form-group>
-
-                  <b-form-textarea
-                    id="textarea"
-                    label="Message"
-                    v-model="text"
-                    placeholder="Type your message..."
-                    rows="3"
-                    max-rows="6"
-                  ></b-form-textarea>
-
-                  <div class="msg_confirmation">
-                    <b-button @click="showMsgBox" variant="primary" size="sm"
-                      >Send</b-button
-                    >
-                  </div>
-                </b-dropdown-form>
-              </b-dropdown> -->
-          </b-col>
-
-          <b-col class="middle" cols="8">
-            <p class="Pet-Lover-Name">Clara Denver</p>
-            <hr class="rounded" />
-            <p class="aboutMe">
-              I am energetic, responsible, clean and love animals! I have a
-              flexible schedule too and I am open for suggestions of a preferred
-              park for the dog as well as distance needed 🙂 I can offer some
-              energy burning training day for energetic dogs to play around in
-              bigger spaces in addition to a calm, cuddling slow walk for calmer
-              dogs or older ones, also longer time for the walk if needed.
-            </p>
-            <p class="contact-info" align="left">Phone:</p>
-            <p align="left">E-mail:</p>
-            <p align="left">Price per hour:</p>
-          </b-col>
-
-          <b-col class="right-side">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d68391.29304160277!2d11.853376600415995!3d57.61060663610402!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x464fed6e967e63fd%3A0x7cdfe3785b255e0c!2sAskim%2C%20Gothenburg!5e0!3m2!1sen!2sse!4v1632870578904!5m2!1sen!2sse"
-              width="200"
-              height="200"
-              style="border: 0"
-              allowfullscreen=""
-            ></iframe>
-          </b-col>
-        </b-row>
-
       </b-container>
     </b-container>
 
@@ -403,7 +295,7 @@ export default {
   },
   data() {
     return {
-      services: {},
+      services: [],
       msgbox: '',
       value: null,
       slide: 0,
@@ -444,24 +336,27 @@ export default {
           this.msgbox = []
           console.log(err)
         })
+    },
+    getServices() {
+      Api.get(
+        '/petLovers/:petLoverId/services' + this.$route.params.id + '/services',
+        this.pet
+      )
+        .then((response) => {
+          this.services = response.data.services
+        })
+        .catch((error) => {
+          this.services = []
+          console.log(error)
+          console.log({ message: 'Services could not found!.' })
+          //   TODO: display some error message instead of logging to console
+        })
     }
   }
 }
 </script>
 
 <style>
-@media (max-width: 800px){
-  .aboutMe {
-    font-size: 10px;
-  }
-}
-
-@media (max-height: 800px){
-  .aboutMe {
-    font-size: 10px;
-  }
-}
-
 .services-page {
   background-color: aliceblue;
   width: 100%;
@@ -544,7 +439,7 @@ export default {
 
 .right-side {
   border-radius: 10px;
-  padding: 1em 1em 1em 1em;
+  padding: 1.5em 1.5em 1.5em 1.5em;
   /* width: auto;
   height: auto;
   align-self:center; */
@@ -560,8 +455,25 @@ export default {
 .aboutMe {
   font-family: Arial;
   font-style: italic;
-  text-align: center;
+  text-align: left;
   font-size: 100%;
+}
+
+.contact-phone {
+  margin: 0em;
+  padding: 0em;
+}
+.contact-email {
+  margin: 0em;
+  padding: 0em;
+}
+.contact-price {
+  margin: 0em;
+  padding: 0em;
+}
+.contact-services {
+  margin: 0em;
+  padding: 0em;
 }
 
 .Pet-Lover-Name {
@@ -594,7 +506,7 @@ export default {
 }
 
 .profile {
-  margin: 0%;
+  margin: 0.5em;
   align-self: center;
 }
 
