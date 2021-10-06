@@ -23,16 +23,20 @@
                   v-model="service.price"
                   type="text"
                   class="form-control"
+                  placeholder="Enter the price (sek)"
                   autofocus
                   required
                 />
                 <label>Description:</label>
-                <input
+                <b-form-textarea
                   v-model="service.description"
                   type="text"
                   class="form-control"
+                  placeholder="Enter description"
+                  rows="3"
+                  max-rows="8"
                   required
-                />
+                ></b-form-textarea>
 
                 <!-- Select Service Type -->
                 <b-form-group
@@ -141,6 +145,7 @@
                 <b-card-text>
                   <p>Price: {{ service.price }}</p>
                   <p>Description: {{ service.description }}</p>
+                  <p>Type of Service: {{ service.service }}</p>
                 </b-card-text>
                 <div>
                   <b-button
@@ -182,16 +187,16 @@ export default {
         price: null,
         description: '',
         beauty: {
-          brush: false,
-          nailclips: false,
-          washing: false
+          brush: true,
+          nailclips: true,
+          washing: true
         },
         veterinary: {
-          examination: false,
+          examination: true,
           examinationSubject: '',
-          xRay: false
+          xRay: true
         },
-        hostel: false,
+        hostel: true,
         walking: {
           location: '',
           hours: null
@@ -207,8 +212,8 @@ export default {
       form2: {
         serviceType: null
       },
-      editing: false,
-      serviceIdToEdit: ''
+      editing: true,
+      serviceIdToEdit: 'service'
     }
   },
   methods: {

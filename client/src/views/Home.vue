@@ -24,7 +24,7 @@
                     class="dog-walking-img"
                     caption="First slide"
                     width="1120"
-                    height="520"
+                    height="560"
                     src="../assets/images/dog-walking.png"
                     alt=""
                   />
@@ -111,7 +111,12 @@
           <b-col>
             <!-- Element to collapse -->
             <!-- Via multiple directive modifiers -->
-            <b-button class="all-services" variant="success" @click="getServices()" >All Services</b-button>
+            <b-button
+              class="all-services"
+              variant="success"
+              @click="getServices()"
+              >All Services</b-button
+            >
             <b-button class="walking" variant="success">Walking</b-button>
             <b-button class="beauty" variant="success">Beauty</b-button>
             <b-button class="veterinary" variant="success">Veterinary</b-button>
@@ -560,5 +565,135 @@ export default {
 .overflow-auto {
   background: aliceblue;
   padding: 1em;
+}
+
+@media screen and (max-width: 768px) {
+  .carousel {
+    width: '1024';
+    height: '480';
+  }
+  .dog-walking-img {
+    width: '560';
+    height: '260';
+  }
+  .veterinary-img {
+    width: '560';
+    height: '260';
+  }
+  .Golden-retriever-img {
+    width: '560';
+    height: '260';
+  }
+  .beauty-img {
+    width: '560';
+    height: '260';
+  }
+  .sad-dog-img {
+    width: '560';
+    height: '260';
+  }
+.get-pet-lover {
+  text-align: left;
+  color: black;
+  font-size: 1.5em;
+}
+
+.dog-walking-text {
+  font-size: 1em;
+  text-align: left;
+  color: black;
+  text-shadow: 2px 2px 4px #ffffff;
+  text-decoration: overline;
+}
+
+.veterinary-text {
+  color: black;
+  font-size: 20px;
+  text-align: right;
+  font-variant: small-caps;
+  font-synthesis: weight;
+  width: 330px;
+  outline-style: ridge;
+  float: right;
+  margin-left: 0%;
+  padding-right: 0%;
+}
+
+.a-sad-dog-text {
+  font-size: 30px;
+  text-align: left;
+}
+
+.terier-text {
+  font-size: 30px;
+  text-align: right;
+  color: black;
+  width: 350px;
+  font-style: italic;
+}
+
+.retriever-text {
+  text-align: left;
+  color: black;
+  width: 1100px;
+  font-size: 30px;
+  font-style: italic;
+}
+
+  .pet-lover-container {
+    border-style: groove;
+    background: lightblue;
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
+    min-height: 100%;
+    border-radius: 10px;
+    margin-left: 1em;
+    padding-left: 1em;
+  }
+
+  .pet_lover_row {
+    background: aliceblue;
+    border-radius: 10px;
+    border-style: groove;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 1em;
+    padding-left: 1em;
+  }
+
+  .leftside {
+    border-radius: 10px;
+    /* width: auto;
+  height: auto;
+  align-self:center; */
+  }
+
+  .profile-picture {
+    border-radius: 10px;
+    margin: 0.5em 0.5em;
+  }
+
+  .middle {
+    border-radius: 10px;
+    text-align: center;
+    padding: 0em 0em 0em 0em;
+    margin: 0em 0em 0em 0em;
+    /* width: auto;
+  height: auto;
+  align-self:center; */
+  }
+
+  .right-side {
+    border-radius: 10px;
+    padding: 0em 0em 0em 0em;
+    margin: 0em 0em 0em 0em;
+    /* width: auto;
+  height: auto;
+  align-self:center; */
+  }
 }
 </style>
