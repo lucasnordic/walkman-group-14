@@ -6,21 +6,21 @@ const serviceSchema = new Schema({
     description: { type:String, required:true},
     beauty:
     {
-        brush: { type: Boolean, required: false },
-        nailclips: { type: Boolean, required: false },
-        washing: { type: Boolean, required: false },
+        brush: { type: Boolean, required: true },
+        nailclips: { type: Boolean, required: true },
+        washing: { type: Boolean, required: true },
     },
     veterinary:
     {
-        examination: { type: Boolean, required: false },
-        examinationSubject: { type: String, required: false },
-        xRay: { type: Boolean, required: false },
+        examination: { type: Boolean, required: true },
+        examinationSubject: { type: String, required: true },
+        xRay: { type: Boolean, required: true },
     },
-    hostel: { type: Boolean, required: false },
+    hostel: { type: Boolean, required: true },
     walking:
     {
-        location: { type: String, required: false },
-        hours: { type: Number, required: false },
+        location: { type: String, required: true },
+        hours: { type: Number, required: true },
     },
 });
 

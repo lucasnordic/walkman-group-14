@@ -1,10 +1,10 @@
 <template>
   <b-navbar toggleable="sm" type="light" variant="light">
-    <b-navbar-brand href="#">Walkman</b-navbar-brand>
+    <b-navbar-brand href="/">Walkman</b-navbar-brand>
 
     <b-navbar-nav>
       <b-nav-item href="/">Home</b-nav-item>
-      <b-nav-item to="/services" >Services</b-nav-item>
+      <b-nav-item v-if="loggedIn" href="/profile">Profile</b-nav-item>
       <b-nav-item to="/about" >About</b-nav-item>
     </b-navbar-nav>
 
@@ -12,7 +12,6 @@
       <b-nav-item v-if="!loggedIn" href="/login">Login</b-nav-item>
       <b-nav-item v-if="loggedIn" v-on:click="logout">Logout</b-nav-item>
       <b-nav-item v-if="!loggedIn" href="/register">Register</b-nav-item>
-      <b-nav-item v-if="loggedIn" href="/profile">Profile</b-nav-item>
     </b-navbar-nav>
   </b-navbar>
 </template>
