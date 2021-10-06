@@ -25,7 +25,6 @@
                   autofocus
                   required
                 />
-
                 <label>Description:</label>
                 <input
                   v-model="service.description"
@@ -244,7 +243,6 @@ export default {
     },
     resetService() {
       this.editing = false
-
       this.service.price = null
       this.service.description = ''
       this.service.brush = false

@@ -2,15 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from './views/Home.vue'
+import Services from './views/Services.vue'
+import About from './views/About.vue'
 import PetLover from './views/PetLoverProfile.vue'
 import PetOwner from './views/PetOwnerProfile.vue'
 import Pets from './views/Pets.vue'
-import Service from './views/Service.vue'
-import Services from './views/Services.vue'
+import CreateServices from './views/CreateServices.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import Profile from './views/Profile.vue'
-import About from './views/About.vue'
 
 Vue.use(Router)
 
@@ -22,12 +22,12 @@ const routes = [
   },
   {
     path: '/services',
-    name: 'Services',
+    name: 'services',
     component: Services
   },
   {
     path: '/about',
-    name: 'About',
+    name: 'about',
     component: About
   },
   {
@@ -63,7 +63,7 @@ const routes = [
   {
     path: '/profile/petlovers/:id/services',
     name: 'services',
-    component: Service
+    component: CreateServices
   }
 ]
 

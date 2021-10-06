@@ -9,4 +9,3 @@ router.post('/loginlover', petLovers.loginPetLover);
 
 //Export:
 module.exports = router;
-
