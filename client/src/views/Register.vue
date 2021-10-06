@@ -2,307 +2,265 @@
   <div>
     <!-- TODO: implement -->
     <!-- <div class="header"></div> -->
-    <div id="page_background">
-      <div id="page_content">
-        <b-container fluid="xl">
-          <b-row>
-            <b-col style="border: 5px"> </b-col>
+    <div class="page_background">
+      <div class="page_content">
+        <b-jumbotron id="form_content">
+          <!-- form = Where a user inputs data -->
+          <b-form class="form_inputs" @submit.prevent="onSubmit">
+            <!-- Title -->
+            <h1 id="register-title">
+              <b-form class="form_title">
+                <p class="animate__animated animate__pulse">Register</p>
+              </b-form>
+            </h1>
 
-            <b-col cols="13">
-              <b-jumbotron id="form_content">
-                <!-- Title -->
-                <template #header>
-                  <b-form id="form_title">
-                    <p class="animate__animated animate__pulse">Register</p>
-                  </b-form>
-                </template>
+            <!-- TODO: Fix this: -->
+            <!-- For displaying typed Username under "Register" title -->
+            <div id="list-username">
+              <transition-group name="list" tag="p">
+                <!-- TODO fix this usertype bind to display to left of username -->
+                <!-- <div v-bind:key="form2.user">{{ form2.user }}</div> -->
+                <!-- <div
+                  v-for="item in form.userinfo.username"
+                  v-bind:key="item"
+                  class="list-item"
+                >
+                  {{ item }}
+                </div> -->
+              </transition-group>
+            </div>
 
-                <!-- For displaying typed Username under "Register" title -->
-                <div id="list-username">
-                  <transition-group name="list" tag="p">
-                    <!-- TODO fix this usertype bind to display to left of username -->
-                    <!-- <div v-bind:key="form2.user">{{ form2.user }}</div> -->
-                    <div
-                      v-for="item in form.userinfo.username"
-                      v-bind:key="item"
-                      class="list-item"
-                    >
-                      {{ item }}
-                    </div>
-                  </transition-group>
+            <div>
+              <div id="animated_image">
+                <img
+                  v-bind:src="image4"
+                  v-if="form2.user === null"
+                  alt="dog image"
+                  id="top-image"
+                />
+              </div>
+              <div id="animated_image">
+                <img
+                  v-bind:src="image3"
+                  v-if="form2.user === 'Pet Lover'"
+                  alt="pet lover image"
+                  id="top-image"
+                />
+              </div>
+              <div id="animated_image">
+                <img
+                  v-bind:src="image2"
+                  v-if="form2.user === 'Pet Owner'"
+                  alt="pet owner image"
+                  id="top-image"
+                />
+              </div>
+            </div>
+            <!-- Select User Type. PetOwner/PetLover -->
+            <div id="usertype-input">
+              <hr class="my-4" />
+
+              <b-form-group id="usertype" label="Account role*" label-for="i-9">
+                <b-form-select
+                  id="i-9"
+                  v-model="form2.user"
+                  :options="userTypeSelected"
+                  required
+                  autofocus
+                ></b-form-select>
+
+                <!--title="Info"-->
+                <!-- Selected user type info box -->
+                <div
+                  id="user_type_info_box"
+                  v-if="form2.user === 'Pet Owner'"
+                  class="animate__animated animate__zoomIn"
+                >
+                  <div>
+                    <h1>Info</h1>
+                    <p>
+                      Become a <em>Pet Owner</em> if you are looking for someone
+                      that can take care of your pet!
+                    </p>
+                    <!-- TODO: Implement more info page -->
+                    <!-- <a href="#" class="card-link">More Info</a> -->
+                  </div>
                 </div>
 
-                <!-- form = Where a user inputs data -->
-                <b-form id="form_inputs" @submit.prevent="onSubmit">
-                  <hr class="my-4" />
-
-                  <!-- Select User Type. PetOwner/PetLover -->
-                  <b-form-group
-                    id="usertype"
-                    label="Account role*"
-                    label-for="i-9"
-                  >
-                    <b-form-select
-                      id="i-9"
-                      v-model="form2.user"
-                      :options="userTypeSelected"
-                      required
-                      autofocus
-                    ></b-form-select>
-
-                    <!--title="Info"-->
-                    <!-- Selected user type info box -->
-                    <div
-                      id="user_type_info_box"
-                      v-if="form2.user === 'Pet Owner'"
-                      class="animate__animated animate__zoomIn"
-                    >
-                      <div>
-                        <h1>Info</h1>
-                        <p>
-                          Become a <em>Pet Owner</em> if you are looking for
-                          someone that can take care of your pet!
-                        </p>
-                        <!-- TODO: Implement more info page -->
-                        <!-- <a href="#" class="card-link">More Info</a> -->
-                      </div>
-                      <div
-                        id="animated_image"
-                        :class="registeringDone.animateTestImage"
-                      >
-                        <img
-                          src="../assets/images/sammy-remote-work.png"
-                          alt="..."
-                          style="
-                            display: block;
-                            margin-left: auto;
-                            margin-right: auto;
-                            width: 100%;
-                          "
-                        />
-                      </div>
-                    </div>
-
-                    <!-- Selected user type info box -->
-                    <div
-                      id="user_type_info_box"
-                      v-if="form2.user === 'Pet Lover'"
-                      class="animate__animated animate__zoomIn"
-                    >
-                      <div title="PetLover Info">
-                        <h1>Info</h1>
-                        <p>
-                          Become a <em>Pet Lover</em> if you want to offer pet
-                          care services to <em>Pet Owners</em>. Create an
-                          account, start offering a service, and get ready to
-                          make some cash! ..and meet some lovely pets of course
-                          ;)
-                        </p>
-                        <!-- TODO: Implement more info page -->
-                        <!-- <b-link href="#" class="card-link">More Info</b-link> -->
-                      </div>
-                      <div
-                        id="animated_image"
-                        :class="registeringDone.animateTestImage"
-                      >
-                        <img
-                          src="../assets/images/sammy-message-sent.png"
-                          alt="..."
-                          style="
-                            display: block;
-                            margin-left: auto;
-                            margin-right: auto;
-                            width: 88.7%;
-                          "
-                        />
-                      </div>
-                    </div>
-                  </b-form-group>
-
-                  <!-- input field -->
-                  <!-- TODO: Add :state to inputs, and implement input validation -->
-                  <b-form-group id="username" label="Username*" label-for="i-1">
-                    <b-form-input
-                      id="i-1"
-                      v-model="form.userinfo.username"
-                      required
-                    ></b-form-input>
-                  </b-form-group>
-
-                  <!-- input field -->
-                  <b-form-group id="password" label="Password*" label-for="i-2">
-                    <b-form-input
-                      id="i-2"
-                      v-model="form.userinfo.password"
-                      required
-                      type="password"
-                    ></b-form-input>
-                  </b-form-group>
-
-                  <!-- input field -->
-                  <b-form-group
-                    id="fullname"
-                    label="Full name*"
-                    label-for="i-3"
-                  >
-                    <b-form-input
-                      id="i-3"
-                      v-model="form.userinfo.fullname"
-                      required
-                    ></b-form-input>
-                    <transition name="slide-fade">
-                      <div v-if="form.userinfo.fullname.length > 10">
-                        <b-form-text
-                          id="usertype-help-block"
-                          style="margin-left: 0px"
-                        >
-                          All hail the mighty {{ form.userinfo.fullname }}.
-                        </b-form-text>
-                      </div>
-                    </transition>
-                  </b-form-group>
-
-                  <!-- input fields for Contact Info -->
-                  <div style="margin-bottom: -17px"><p>Contact Info</p></div>
-                  <div
-                    class="accordion"
-                    role="tablist"
-                    style="margin-top: 25px"
-                  >
-                    <!-- TODO Add options for adding a pet or a service when registering -->
-                    <b-card no-body class="mb-1">
-                      <b-card-header header-tag="header" class="p-1" role="tab">
-                        <b-button
-                          block
-                          v-b-toggle.accordion-1
-                          variant="light"
-                          size="sm"
-                          >Click
-                        </b-button></b-card-header
-                      >
-                      <b-collapse
-                        id="accordion-1"
-                        accordion="my-accordion"
-                        role="tabpanel"
-                      >
-                        <b-card-body>
-                          <!-- input field -->
-                          <b-form-group
-                            id="email"
-                            type="email"
-                            label="Email"
-                            label-for="i-4"
-                          >
-                            <b-form-input
-                              id="i-4"
-                              v-model="form.userinfo.contactInfo.email"
-                            ></b-form-input>
-                          </b-form-group>
-
-                          <!-- input field -->
-                          <b-form-group
-                            id="phoneNumber"
-                            label="Phone number"
-                            label-for="i-5"
-                          >
-                            <b-form-input
-                              id="i-5"
-                              v-model="form.userinfo.contactInfo.phoneNumber"
-                            >
-                            </b-form-input>
-                          </b-form-group>
-
-                          <!-- input field -->
-                          <b-form-group id="city" label="City" label-for="i-6">
-                            <b-form-input
-                              id="i-6"
-                              v-model="form.userinfo.contactInfo.address.city"
-                            ></b-form-input>
-                          </b-form-group>
-
-                          <!-- input field -->
-                          <b-form-group
-                            id="streetName"
-                            label="Street name"
-                            label-for="i-7"
-                          >
-                            <b-form-input
-                              id="i-7"
-                              v-model="
-                                form.userinfo.contactInfo.address.streetName
-                              "
-                              placeholder=""
-                            ></b-form-input>
-                          </b-form-group>
-
-                          <!-- input field -->
-                          <b-form-group
-                            id="streetNumber"
-                            label="Street Number"
-                            label-for="i-8"
-                          >
-                            <b-form-input
-                              id="i-8"
-                              v-model="
-                                form.userinfo.contactInfo.address.streetNumber
-                              "
-                            ></b-form-input>
-                          </b-form-group>
-                        </b-card-body>
-                      </b-collapse>
-                    </b-card>
+                <!-- Selected user type info box -->
+                <div
+                  id="user_type_info_box"
+                  v-if="form2.user === 'Pet Lover'"
+                  class="animate__animated animate__zoomIn"
+                >
+                  <div title="PetLover Info">
+                    <h1>Info</h1>
+                    <p>
+                      Become a <em>Pet Lover</em> if you want to offer pet care
+                      services to <em>Pet Owners</em>. Create an account, start
+                      offering a service, and get ready to make some cash! ..and
+                      meet some lovely pets of course ;)
+                    </p>
+                    <!-- TODO: Implement more info page -->
+                    <!-- <b-link href="#" class="card-link">More Info</b-link> -->
                   </div>
+                </div>
+              </b-form-group>
+            </div>
 
-                  <!-- Submit form -->
+            <!-- input field -->
+            <!-- TODO: Add :state to inputs, and implement input validation -->
+            <b-form-group id="username" label="Username*" label-for="i-1">
+              <b-form-input
+                id="i-1"
+                v-model="form.userinfo.username"
+                required
+              ></b-form-input>
+            </b-form-group>
+
+            <!-- input field -->
+            <b-form-group id="password" label="Password*" label-for="i-2">
+              <b-form-input
+                id="i-2"
+                v-model="form.userinfo.password"
+                required
+                type="password"
+              ></b-form-input>
+            </b-form-group>
+
+            <!-- input field -->
+            <b-form-group id="fullname" label="Full name*" label-for="i-3">
+              <b-form-input
+                id="i-3"
+                v-model="form.userinfo.fullname"
+                required
+              ></b-form-input>
+              <transition name="slide-fade">
+                <div v-if="form.userinfo.fullname.length > 10">
+                  <b-form-text id="usertype-help-block">
+                    All hail the mighty {{ form.userinfo.fullname }}.
+                  </b-form-text>
+                </div>
+              </transition>
+            </b-form-group>
+
+            <!-- input fields for Contact Info -->
+            <div id="contactinfo-text"><p>Contact Info</p></div>
+            <div class="accordion" id="contactinfo-accordion" role="tablist">
+              <!-- TODO Add options for adding a pet or a service when registering -->
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
                   <b-button
-                    id="submit_btn"
                     block
-                    type="submit"
-                    variant="success"
-                    style="text-align: center"
-                    @click="
-                      registeringDone.animateTestImage =
-                        'animate__animated animate__bounceOutRight'
-                    "
-                    >Register Account</b-button
-                  >
-                  <hr class="my-4" />
-
-                  <!-- Bottom text and image -->
-                  <p style="text-align: center">
-                    Do you already have an account?
-                    <router-link to="/login">Login here</router-link>
-                  </p>
-                  <div
-                    id="test_image"
-                    :class="registeringDone.animateTestImage"
-                  >
-                    <img
-                      src="../assets/images/sammy-delivery.png"
-                      alt="..."
-                      style="
-                        display: block;
-                        margin-left: auto;
-                        margin-right: auto;
-                        width: 100%;
-                      "
-                    />
-                  </div>
-                  <div style="text-align: center; color: gray">
-                    Illustration by
-                    <a
-                      href="https://icons8.com/illustrations/author/6101992cfc3ba40007aa1554"
-                      >Fruzka</a
+                    v-b-toggle.accordion-1
+                    variant="light"
+                    size="sm"
+                    >Open/Close
+                  </b-button></b-card-header
+                >
+                <b-collapse
+                  id="accordion-1"
+                  accordion="my-accordion"
+                  role="tabpanel"
+                >
+                  <b-card-body>
+                    <!-- input field -->
+                    <b-form-group
+                      id="email"
+                      type="email"
+                      label="Email"
+                      label-for="i-4"
                     >
-                    from <a href="https://icons8.com/illustrations">Ouch!</a>
-                  </div>
-                </b-form>
-              </b-jumbotron>
-            </b-col>
+                      <b-form-input
+                        id="i-4"
+                        v-model="form.userinfo.contactInfo.email"
+                      ></b-form-input>
+                    </b-form-group>
 
-            <b-col> </b-col>
-          </b-row>
-        </b-container>
+                    <!-- input field -->
+                    <b-form-group
+                      id="phoneNumber"
+                      label="Phone number"
+                      label-for="i-5"
+                    >
+                      <b-form-input
+                        id="i-5"
+                        v-model="form.userinfo.contactInfo.phoneNumber"
+                      >
+                      </b-form-input>
+                    </b-form-group>
+
+                    <!-- input field -->
+                    <b-form-group id="city" label="City" label-for="i-6">
+                      <b-form-input
+                        id="i-6"
+                        v-model="form.userinfo.contactInfo.address.city"
+                      ></b-form-input>
+                    </b-form-group>
+
+                    <!-- input field -->
+                    <b-form-group
+                      id="streetName"
+                      label="Street name"
+                      label-for="i-7"
+                    >
+                      <b-form-input
+                        id="i-7"
+                        v-model="form.userinfo.contactInfo.address.streetName"
+                        placeholder=""
+                      ></b-form-input>
+                    </b-form-group>
+
+                    <!-- input field -->
+                    <b-form-group
+                      id="streetNumber"
+                      label="Street Number"
+                      label-for="i-8"
+                    >
+                      <b-form-input
+                        id="i-8"
+                        v-model="form.userinfo.contactInfo.address.streetNumber"
+                      ></b-form-input>
+                    </b-form-group>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+            </div>
+
+            <!-- Submit form -->
+            <b-button id="submit_btn" block type="submit" variant="success">
+              Register Account
+              <b-spinner
+                v-if="register === true"
+                style="width: 2rem; height: 2rem"
+              ></b-spinner
+            ></b-button>
+            <hr class="my-4" />
+
+            <!-- Bottom text and image -->
+            <div class="bottom-wrapper">
+              <p>
+                Do you already have an account?
+                <router-link to="/login">Login here</router-link>
+              </p>
+              <div id="image-wrapper" :class="registeringDone.animateTestImage">
+                <img
+                  src="../assets/images/sammy-delivery.png"
+                  alt="..."
+                  id="top-image"
+                />
+              </div>
+              <div>
+                Illustration by
+                <a
+                  href="https://icons8.com/illustrations/author/6101992cfc3ba40007aa1554"
+                  >Fruzka</a
+                >
+                from <a href="https://icons8.com/illustrations">Ouch!</a>
+              </div>
+            </div>
+          </b-form>
+        </b-jumbotron>
       </div>
     </div>
     <!-- TODO: implement -->
@@ -345,10 +303,14 @@ export default {
         'Pet Owner',
         'Pet Lover'
       ],
-      image: '@/assets/images/sammy-delivery.png',
+      image: require('@/assets/images/sammy-delivery.png'),
+      image2: require('@/assets/images/sammy-remote-work.png'),
+      image3: require('@/assets/images/sammy-message-sent.png'),
+      image4: require('@/assets/images/sammy-dog.png'),
       registeringDone: {
         animateTestImage: ''
       },
+      register: false,
       index: 0
     }
   },
@@ -357,9 +319,23 @@ export default {
     console.log('Page has loaded!') // debugging
   },
   methods: {
+    makeToast(title, message, variant, solid) {
+      // https://bootstrap-vue.org/docs/components/toast
+      this.$bvToast.toast(message, {
+        title: title, // ex: 'No Access'
+        variant: variant, // ex: 'warning'
+        solid: solid // ex: boolean
+      })
+    },
     // Method that handles form submission
     onSubmit(event) {
       event.preventDefault()
+      this.register = true // activates spinner
+
+      // animate bottom image
+      this.registeringDone.animateTestImage =
+        'animate__animated animate__bounceOutRight'
+
       console.log(this.form) // debugging
       if (this.form2.user === 'Pet Owner') {
         this.postUser('petowners')
@@ -372,15 +348,29 @@ export default {
     postUser(route = 'route') {
       Api.post('/' + route, this.form)
         .then((response) => {
-          this.$router.push('/login')
-          return this.form
+          this.makeToast(
+            'Registered',
+            'Registering successful',
+            'success',
+            true
+          )
+          // allow animation to play out, and display toast before refresh
+          setTimeout(
+            function () {
+              this.$router.push('/login')
+              return this.form
+            }.bind(this),
+            2000
+          )
         })
         .catch((error) => {
-          console.log(error) // debugging
-          // TODO throw error to user
-        })
-        .then(() => {
-          console.log('This always runs')
+          this.makeToast(
+            'Register Error',
+            String(error) + ', Please try again',
+            'danger',
+            true
+          )
+          this.register = false // reset spinner on register btn
         })
     }
   },
@@ -413,22 +403,51 @@ export default {
 #page_content {
   height: 100%;
 }
+
+#form_title {
+  text-align: left;
+}
 /* Overrides imported .css */
 
-#user_type_info_box {
-  margin-top: 12.5px;
-  text-align: center;
+hr {
+  border: 2px solid rgb(40, 81, 122, 0.1) !important;
+  border-radius: 2px !important;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#register-title {
+  font-size: 350%;
+  margin-bottom: -100px;
+}
+
+#usertype-input {
+  margin-top: -15%;
+}
+
+#contactinfo-text {
+  margin-bottom: -17px;
+}
+
+#contactinfo-accordion {
+  margin-top: 25px;
 }
 
 #animated_image {
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 35%;
   width: 65%;
   display: block;
-  overflow: hidden;
   transform: translatey(0px);
   animation: float 6s ease-in-out infinite;
 }
+#top-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  z-index: 1;
+}
+
 /* Animate image above */
 @keyframes float {
   0% {
@@ -443,7 +462,7 @@ export default {
 }
 
 /* Bottom image */
-#test_image {
+#image-wrapper {
   margin-top: -25px;
   margin-left: auto;
   margin-right: auto;
@@ -460,6 +479,11 @@ export default {
 @media screen and (max-width: 1200px) {
   #side_image {
     display: none;
+  }
+}
+@media screen and (max-width: 700px) {
+  #animated_image {
+    margin-left: 45%;
   }
 }
 
