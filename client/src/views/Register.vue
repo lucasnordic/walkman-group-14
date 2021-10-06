@@ -370,11 +370,7 @@ export default {
             'danger',
             true
           )
-          console.log(error) // debugging
           this.register = false // reset spinner on register btn
-        })
-        .then(() => {
-          console.log('This always runs')
         })
     }
   },

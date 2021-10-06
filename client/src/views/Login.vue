@@ -127,7 +127,6 @@ export default {
       })
     },
     login() {
-      console.log(this.form) // debugging
       let route = ''
       if (this.form.userType === 'Pet Owner') {
         route = 'loginowner'
@@ -138,7 +137,6 @@ export default {
       Api.post('/authenticate/' + route, this.form).then(
         (res) => {
           console.log('Authenticated') // debugging
-          console.log(res) // debugging
           // login successfull
           if (res.status === 200) {
             // set localstorage data, for use in navigation
@@ -173,7 +171,6 @@ export default {
             true
           )
           localStorage.removeItem('token')
-          console.log(err.response) // debugging
           this.error = err.response.data.error // save the error
         }
       )

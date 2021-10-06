@@ -61,8 +61,6 @@ export default {
       this.$router.push('/login')
     },
     routerPush() {
-      console.log(this.userType)
-      console.log(this.userId)
       if (this.userType === 'petlovers') {
         this.$router.push('/profile/petLovers/' + this.userId)
       } else if (this.userType === 'petowners') {
