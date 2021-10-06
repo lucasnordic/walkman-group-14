@@ -165,7 +165,7 @@ exports.loginPetLover = (req, res, next) => {
             .then((result) => {
                 console.log(result);
                 if (result) {
-                    console.log('uThe user password was a match')
+                    console.log('The user password was a match')
                     return;
                 } else {
                     res.status(401).send({ message: "The user was not found" }); // we don't want hackers to know what they get wrong. So, same error
@@ -177,7 +177,8 @@ exports.loginPetLover = (req, res, next) => {
                 return res.status(200).json({
                     title: 'login success',
                     token: token,
-                    userId: petLover._id
+                    userId: petLover._id,
+                    userType: 'petlover'
                 })
             })
             .catch((err) => {
