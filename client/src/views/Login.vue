@@ -134,12 +134,12 @@ export default {
       } else {
         route = 'loginlover'
       }
+      this.loginPressed = true // for login btn spinner animation
       Api.post('/authenticate/' + route, this.form).then(
         (res) => {
           console.log('Authenticated') // debugging
           console.log(res) // debugging
           // login successfull
-          this.loginPressed = true
           if (res.status === 200) {
             // set localstorage data, for use in navigation
             localStorage.setItem('token', res.data.token)
@@ -151,6 +151,7 @@ export default {
             // Wrap the "if" in a timeout, then push
             setTimeout(
               function () {
+                this.loginPressed = false // for login btn spinner animation
                 if (this.form.userType === 'Pet Owner') {
                   this.$router.push('/profile/petowners/' + res.data.userId)
                   window.location.reload() // TODO: Remove this; This forces page reload in order to refresh navigation bar
@@ -165,6 +166,12 @@ export default {
         },
         (err) => {
           this.loginPressed = false
+          this.makeToast(
+            'Log-in Error',
+            String(err) + ', Please try again',
+            'danger',
+            true
+          )
           localStorage.removeItem('token')
           console.log(err.response) // debugging
           this.error = err.response.data.error // save the error

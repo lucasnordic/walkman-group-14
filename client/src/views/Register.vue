@@ -364,7 +364,12 @@ export default {
           )
         })
         .catch((error) => {
-          this.makeToast('Error!', String(error), 'danger', true)
+          this.makeToast(
+            'Register Error',
+            String(error) + ', Please try again',
+            'danger',
+            true
+          )
           console.log(error) // debugging
           this.register = false // reset spinner on register btn
         })
