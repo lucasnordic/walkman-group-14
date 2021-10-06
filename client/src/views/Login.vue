@@ -146,7 +146,7 @@ export default {
             localStorage.setItem('userType', res.data.userType)
             localStorage.setItem('userId', res.data.userId)
 
-            this.makeToast('test title', 'Log-in successful', 'success', true)
+            this.makeToast('Log-in', 'Log-in successful', 'success', true)
 
             // Wrap the "if" in a timeout, then push
             setTimeout(
