@@ -56,7 +56,7 @@
               <b-carousel-slide>
                 <template #img>
                   <img
-                    class="Golden-retriever-img"
+                    class="retriever-img"
                     caption="Third slide"
                     width="1120"
                     height="520"
@@ -74,7 +74,7 @@
               <b-carousel-slide>
                 <template #img>
                   <img
-                    class="beauty-img"
+                    class="terier-img"
                     caption="Forth slide"
                     width="1120"
                     height="520"
@@ -91,7 +91,7 @@
               <b-carousel-slide>
                 <template #img>
                   <img
-                    class="sad-dog-img"
+                    class="a-sad-dog-img"
                     caption="Fifth slide"
                     width="1120"
                     height="520"
@@ -307,7 +307,7 @@ export default {
       sliding: null,
       perPage: 3,
       currentPage: 1,
-      items: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }]
+      items: [{ id: 1 }, {}, {}, {}, {}]
     }
   },
   computed: {
@@ -566,134 +566,85 @@ export default {
   background: aliceblue;
   padding: 1em;
 }
+.b-rating {
+  margin: 0em;
+  padding: 0em;
+}
 
 @media screen and (max-width: 768px) {
-  .carousel {
-    width: '1024';
-    height: '480';
-  }
   .dog-walking-img {
-    width: '560';
-    height: '260';
+    max-width: 100%;
+    height: auto;
+  }
+  .dog-walking-text {
+    font-size: 1em;
+    text-align: left;
+    color: black;
+    text-shadow: 2px 2px 4px #ffffff;
+    font-family: cursive;
+    text-decoration: overline;
+  }
+
+  .get-pet-lover {
+    text-align: left;
+    color: black;
+    font-size: 100%;
   }
   .veterinary-img {
-    width: '560';
-    height: '260';
+    max-width: 100%;
+    height: auto;
   }
-  .Golden-retriever-img {
-    width: '560';
-    height: '260';
-  }
-  .beauty-img {
-    width: '560';
-    height: '260';
-  }
-  .sad-dog-img {
-    width: '560';
-    height: '260';
-  }
-.get-pet-lover {
-  text-align: left;
-  color: black;
-  font-size: 1.5em;
-}
-
-.dog-walking-text {
-  font-size: 1em;
-  text-align: left;
-  color: black;
-  text-shadow: 2px 2px 4px #ffffff;
-  text-decoration: overline;
-}
-
-.veterinary-text {
-  color: black;
-  font-size: 20px;
-  text-align: right;
-  font-variant: small-caps;
-  font-synthesis: weight;
-  width: 330px;
-  outline-style: ridge;
-  float: right;
-  margin-left: 0%;
-  padding-right: 0%;
-}
-
-.a-sad-dog-text {
-  font-size: 30px;
-  text-align: left;
-}
-
-.terier-text {
-  font-size: 30px;
-  text-align: right;
-  color: black;
-  width: 350px;
-  font-style: italic;
-}
-
-.retriever-text {
-  text-align: left;
-  color: black;
-  width: 1100px;
-  font-size: 30px;
-  font-style: italic;
-}
-
-  .pet-lover-container {
-    border-style: groove;
-    background: lightblue;
-    width: 100%;
-    min-width: 100%;
-    height: 100%;
-    min-height: 100%;
-    border-radius: 10px;
-    margin-left: 1em;
-    padding-left: 1em;
+  .veterinary-text {
+    color: black;
+    font-size: 80%;
   }
 
+  .terier-img {
+    max-width: 100%;
+    height: auto;
+  }
+  .terier-text {
+    font-size: 100%;
+    text-align: right;
+    color: black;
+    width: 350px;
+    font-style: italic;
+  }
+  .retriever-img {
+    max-width: 100%;
+    height: auto;
+  }
+  .retriever-text {
+    text-align: left;
+    color: black;
+    width: 1100px;
+    font-size: 80%;
+    font-style: italic;
+  }
+  .a-sad-dog-img {
+    max-width: 100%;
+    height: auto;
+  }
+  .a-sad-dog-text {
+    font-size: 80%;
+    text-align: left;
+  }
   .pet_lover_row {
     background: aliceblue;
     border-radius: 10px;
     border-style: groove;
-    width: 100%;
-    height: 100%;
-    min-height: 100%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 1em;
-    padding-left: 1em;
-  }
-
-  .leftside {
-    border-radius: 10px;
-    /* width: auto;
-  height: auto;
-  align-self:center; */
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 70%;
   }
 
   .profile-picture {
     border-radius: 10px;
     margin: 0.5em 0.5em;
-  }
-
-  .middle {
-    border-radius: 10px;
-    text-align: center;
-    padding: 0em 0em 0em 0em;
-    margin: 0em 0em 0em 0em;
-    /* width: auto;
-  height: auto;
-  align-self:center; */
-  }
-
-  .right-side {
-    border-radius: 10px;
-    padding: 0em 0em 0em 0em;
-    margin: 0em 0em 0em 0em;
-    /* width: auto;
-  height: auto;
-  align-self:center; */
+    max-width: 100%;
+    height: auto;
   }
 }
 </style>
