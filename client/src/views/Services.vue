@@ -3,171 +3,264 @@
     <div id="wrapper">
       <b-jumbotron id="add-service">
         <h1 class="display-4" id="title">Your services!</h1>
-        <div class="accordion" role="tablist">
-          <b-card no-body class="mb-1">
-            <b-card-header header-tag="header" class="p-1" role="tab">
-              <b-button block v-b-toggle.accordion-1 variant="white"
-                >Add or Edit Service (click edit on services below)</b-button
-              >
-            </b-card-header>
-
-            <b-collapse
-              id="accordion-1"
-              accordion="my-accordion"
-              role="tabpanel"
-              visible
+        <b-card no-body bg-variant="light" class="services">
+          Add or Edit Services (click edit on services below)
+          <b-form-group @submit.prevent="onSubmit">
+            <b-form-group
+              id="price-fieldset-horizontal"
+              class="priceLabel"
+              for="servicePrice"
+              label-cols-lg="3"
+              content-cols-lg="7"
+              label-size="md"
+              label-class="font-weight-bold pt-0"
+              label="Price:"
+              v-model="services"
+              :options="serviceType"
+              label-align-sm="right"
+              label-for="price-input-horizontal"
             >
-              <b-form id="form_inputs" @submit.prevent="onSubmit">
-                <label>Price:</label>
-                <input
-                  v-model="service.price"
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter the price (sek)"
-                  autofocus
-                  required
-                />
-                <label>Description:</label>
-                <b-form-textarea
-                  v-model="service.description"
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter description"
-                  rows="3"
-                  max-rows="8"
-                  required
-                ></b-form-textarea>
+              <b-form-input
+                id="price-input-horizontal"
+                v-model="service.price"
+                type="text"
+                class="priceInput"
+                placeholder="Enter the price (t.ex. 250)"
+                autofocus
+                required
+              ></b-form-input>
+            </b-form-group>
 
-                <!-- Select Service Type -->
-                <b-form-group
-                  id="service-type"
-                  label="Select service type*"
-                  label-for="i-9"
-                >
-                  <b-form-select
-                    id="i-9"
-                    v-model="form2.service"
-                    :options="serviceType"
-                    required
-                  ></b-form-select>
+            <b-form-group
+              id="description-fieldset-horizontal"
+              class="descriptionLabel"
+              for="serviceDescription"
+              label-cols-lg="3"
+              content-cols-lg="7"
+              label-size="md"
+              label-class="font-weight-bold pt-0"
+              label="Description:"
+              v-model="services"
+              :options="serviceType"
+              label-align-sm="right"
+              label-for="description-input-horizontal"
+            >
+              <b-form-textarea
+                id="input-horizontal"
+                v-model="service.description"
+                type="text"
+                class="descriptionInput"
+                placeholder="Enter description of the service"
+                rows="3"
+                max-rows="6"
+                autofocus
+                required
+              ></b-form-textarea>
+            </b-form-group>
 
-                  <div v-if="form2.serviceType === 'Beauty'">
-                    <p>Beauty:</p>
-                    <b-container class="bv-example-row">
-                      <b-row>
-                        <b-col>
-                          <b-form-radio name="radio-size" size="sm"
-                            >brush</b-form-radio
-                          >
-                        </b-col>
-                        <b-col>
-                          <b-form-radio name="radio-size" size="sm"
-                            >nailclips</b-form-radio
-                          >
-                        </b-col>
-                        <b-col>
-                          <b-form-radio name="radio-size" size="sm"
-                            >washing</b-form-radio
-                          >
-                        </b-col>
-                      </b-row>
-                    </b-container>
-                  </div>
+            <b-form-group
+              class="beautyLabel"
+              label-cols-lg="3"
+              content-cols-lg="1"
+              label="Beauty"
+              label-align-sm="right"
+              label-size="md"
+              label-class="font-weight-bold pt-0"
+              for="beautyService"
+              v-model="services"
+              :options="serviceType"
+              label-for="beauty-input-horizontal"
+              v-slot="{ serviceType }"
+            >
+              <b-form-checkbox
+                v-model="service.beauty.brush"
+                value="beauty.brush"
+                id="beauty-input-horizontal"
+                >Brush</b-form-checkbox
+              >
+              <b-form-checkbox
+                v-model="service.beauty.nailclips"
+                value="beauty.nailclips"
+                id="beauty-input-horizontal"
+                >Nailclips</b-form-checkbox
+              >
+              <b-form-checkbox
+                v-model="service.beauty.washing"
+                value="beauty.washing"
+                id="beauty-input-horizontal"
+                >Washing</b-form-checkbox
+              >
+            </b-form-group>
 
-                  <div v-if="form2.serviceType === 'Veterinary'">
-                    <p>Veterinary:</p>
-                    <p>Examination Subject:</p>
-                    <input type="text" class="form-control" />
-                    <b-form-radio name="radio-size" size="sm"
-                      >Examination</b-form-radio
-                    >
-                    <b-form-radio name="radio-size" size="sm"
-                      >x-ray</b-form-radio
-                    >
-                  </div>
+            <b-form-group
+              class="veterinaryLabel"
+              label-cols-lg="3"
+              content-cols-lg="7"
+              label-align-sm="right"
+              label="Veterinary:"
+              label-size="md"
+              label-class="font-weight-bold pt-0"
+              for="veterinaryService"
+              v-model="services"
+              :options="serviceType"
+              label-for="veterinary-input-horizontal"
+              autofocus
+              required
+            >
+              <b-form-input
+                id="walking-input-horizontal"
+                v-model="service.veterinary.examinationSubject"
+                value="veterinary.examinationSubject"
+                placeholder="Enter the examination subject"
+                autofocus
+                required
+                >Examination Subject:</b-form-input
+              >
+              <b-form-checkbox
+                id="veterinary-input-horizontal"
+                v-model="service.veterinary.examination"
+                value="veterinary.examination"
+                >Examination:</b-form-checkbox
+              >
+              <b-form-checkbox
+                id="walking-input-horizontal"
+                v-model="service.veterinary.xRay"
+                value="veterinary.xRay"
+                >X-ray:</b-form-checkbox
+              >
+            </b-form-group>
 
-                  <div v-if="form2.serviceType === 'Hostel'">
-                    <label>Hostel:</label>
-                    <b-form-radio name="radio-size" size="sm"
-                      >Hostel</b-form-radio
-                    >
-                  </div>
+            <b-form-group
+              class="hostelLabel"
+              label-cols-lg="3"
+              content-cols-lg="1"
+              label-align-sm="right"
+              label="Hostel:"
+              label-size="md"
+              label-class="font-weight-bold pt-0"
+              for="veterinaryService"
+              v-model="services"
+              :options="serviceType"
+              label-for="hostel-input-horizontal"
+              autofocus
+              required
+            >
+              <b-form-checkbox
+                id="hostel-input-horizontal"
+                v-model="service.hostel"
+                value="hostel"
+              ></b-form-checkbox>
+            </b-form-group>
+          </b-form-group>
 
-                  <div v-if="form2.serviceType === 'Walking'">
-                    <label>Walking:</label>
-                    <p>Location:</p>
-                    <input type="text" class="form-control" />
-                    <p>hours:</p>
-                    <input type="text" class="form-control" />
-                  </div>
-                </b-form-group>
+          <b-form-group
+            class="walkingLabel"
+            label-cols-lg="3"
+            content-cols-lg="7"
+            label="Walking location and hours"
+            label-align-sm="right"
+            label-size="md"
+            label-class="font-weight-bold pt-0"
+            for="walkingService"
+            v-model="services"
+            :options="serviceType"
+            autofocus
+            required
+            label-for="walking-input-horizontal"
+          >
+            <b-form-input
+              id="walking-input-horizontal"
+              v-model="service.walking.location"
+              value="walking.location"
+              placeholder="Enter the walking location"
+              autofocus
+              required
+              >Location:</b-form-input
+            ><br />
+            <b-form-input
+              id="walking-input-horizontal"
+              v-model="service.walking.hours"
+              value="walking.hours"
+              description="Let us know your name."
+              label="Hours:"
+              placeholder="Enter total hours (t.ex. 3)"
+              autofocus
+              required
+              >Hours:</b-form-input
+            >
+          </b-form-group>
 
+          <b-button
+            id="registeration"
+            variant="success"
+            type="submit"
+            v-if="editing === false"
+            @click="addService()"
+            >Submit</b-button
+          >
+          <b-button
+            id="registeration"
+            variant="success"
+            v-if="editing === true"
+            @click="patchService(serviceIdToEdit)"
+            >Edit</b-button
+          >
+          <b-button
+            @click="resetService()"
+            v-if="editing === true"
+            id="service-delete-btn"
+            variant="danger"
+            >Cancel</b-button
+          >
+
+          <!--
+                <div v-if="form2.serviceType === 'Walking'">
+                <label>Walking:</label>
+                <p>Location:</p>
+                <input type="text" class="form-control" />
+                <p>hours:</p>
+                <input type="text" class="form-control" />
+              </div>-->
+        </b-card>
+      </b-jumbotron>
+
+      <!-- Services -->
+      <div id="services-cards">
+        <b-container>
+          <b-card-group deck>
+            <b-card
+              bg-variant="light"
+              text-variant="dark"
+              header="Services"
+              class="text-center"
+              v-for="service in services"
+              :key="service.id"
+            >
+              <b-card-text>
+                <p>Price: {{ service.price }}</p>
+                <p>Description: {{ service.description }}</p>
+                <p>Type of Service: {{ service.service }}</p>
+              </b-card-text>
+              <div>
                 <b-button
-                  id="registeration"
-                  variant="success"
-                  block
-                  type="submit"
-                  v-if="editing === false"
-                  @click="addService()"
-                  >Submit</b-button
-                >
-                <b-button
-                  id="registeration"
-                  variant="success"
-                  v-if="editing === true"
-                  @click="patchService(serviceIdToEdit)"
-                  >Edit</b-button
-                >
-                <b-button
-                  @click="resetService()"
-                  v-if="editing === true"
+                  @click="deleteService(service._id)"
                   id="service-delete-btn"
                   variant="danger"
-                  >Cancel</b-button
+                  >Del</b-button
                 >
-              </b-form>
-            </b-collapse>
-          </b-card>
-        </div>
-
-        <!-- Services -->
-        <div id="services-cards">
-          <b-container>
-            <b-card-group deck>
-              <b-card
-                bg-variant="light"
-                text-variant="dark"
-                header="Service X"
-                class="text-center"
-                v-for="service in services"
-                :key="service.id"
-              >
-                <b-card-text>
-                  <p>Price: {{ service.price }}</p>
-                  <p>Description: {{ service.description }}</p>
-                  <p>Type of Service: {{ service.service }}</p>
-                </b-card-text>
-                <div>
-                  <b-button
-                    @click="deleteService(service._id)"
-                    id="service-delete-btn"
-                    variant="danger"
-                    >Del</b-button
-                  >
-                </div>
-                <div>
-                  <b-button
-                    @click="editService(service._id)"
-                    id="service-edit-btn"
-                    variant="info"
-                    >Edit</b-button
-                  >
-                </div>
-              </b-card>
-            </b-card-group>
-          </b-container>
-        </div>
-      </b-jumbotron>
+              </div>
+              <div>
+                <b-button
+                  @click="editService(service._id)"
+                  id="service-edit-btn"
+                  variant="info"
+                  >Edit</b-button
+                >
+              </div>
+            </b-card>
+          </b-card-group>
+        </b-container>
+      </div>
     </div>
   </div>
 </template>
@@ -182,7 +275,8 @@ export default {
   },
   data() {
     return {
-      services: {},
+      services: [],
+      error: '',
       service: {
         price: null,
         description: '',
@@ -267,8 +361,10 @@ export default {
         '/petlovers/' + this.$route.params.id + '/services',
         this.service
       )
-        .then((res) => this.service)
-        .catch((err) => {
+        .then(res => {
+          this.service = res.data
+        })
+        .catch(err => {
           // TODO: Display errors to user
           console.log(err)
         })
@@ -276,11 +372,11 @@ export default {
     getUser() {
       // READ
       Api.get('/petlovers/' + this.$route.params.id + '/services')
-        .then((res) => {
+        .then(res => {
           console.log(res)
           this.services = res.data
         })
-        .catch((err) => {
+        .catch(err => {
           // TODO: Display errors to user
           console.log(err)
         })
@@ -292,11 +388,11 @@ export default {
         price: this.service.price,
         _method: 'patch'
       })
-        .then((res) => {
+        .then(res => {
           console.log(res) // debugging
           return res.data.json // { hello: 'world' }['Content-Type'] // application/json;charset=utf-8
         })
-        .catch((err) => {
+        .catch(err => {
           // TODO: Display errors to user
           console.log(err)
         })
@@ -304,10 +400,10 @@ export default {
     deleteService(id) {
       // DESTROY
       Api.delete('/petlovers/' + this.$route.params.id + '/services/' + id)
-        .then((res) => {
+        .then(res => {
           console.log(res) // debugging
         })
-        .catch((err) => {
+        .catch(err => {
           // TODO: Display errors to user
           console.log(err)
         })
@@ -319,16 +415,23 @@ export default {
 <style>
 @import '../assets/styles/login-register_light.css';
 
+.services {
+  padding-top: 1em;
+}
+
+.priceLabel {
+  margin-top: 1em;
+}
 /* Overrides imported .css */
 #form_inputs {
   max-width: 100%;
-  margin-top: 0;
+  margin-top: 1em;
 }
 /* Overrides imported .css */
 
 #page {
   background-color: aliceblue;
-  height: 100%;
+  height: auto;
   width: 100%;
   margin: auto;
   position: absolute;

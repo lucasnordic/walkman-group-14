@@ -114,15 +114,39 @@
             <b-button
               class="all-services"
               variant="success"
-              @click="getServices()"
+              v-on:click="onFilterClicked('')"
               >All Services</b-button
             >
-            <b-button class="walking" variant="success">Walking</b-button>
-            <b-button class="beauty" variant="success">Beauty</b-button>
-            <b-button class="veterinary" variant="success">Veterinary</b-button>
-            <b-button class="hostel" variant="success">Hostel</b-button>
+            <b-button
+              class="walking"
+              variant="success"
+              v-on:click="onFilterClicked('Walking')"
+              >Walking</b-button
+            >
+            <b-button
+              class="beauty"
+              variant="success"
+              v-on:click="onFilterClicked('Beauty')"
+              >Beauty</b-button
+            >
+            <b-button
+              class="veterinary"
+              variant="success"
+              v-on:click="onFilterClicked('Veterinary')"
+              >Veterinary</b-button
+            >
+            <b-button
+              class="hostel"
+              variant="success"
+              v-on:click="onFilterClicked('Hostel')"
+              >Hostel</b-button
+            >
           </b-col>
         </b-row>
+        <ActivityCardList
+          :activityType="'Services'"
+          :subservicetype="this.subservicetype"
+        />
       </b-container>
 
       <b-container
@@ -253,6 +277,7 @@
               height="200"
               style="border: 0"
               allowfullscreen=""
+              loading="lazy"
             ></iframe>
           </b-col>
         </b-row>
@@ -286,11 +311,11 @@ export default {
   mounted() {
     console.log('Page is loaded')
     Api.getServicesByPetLoverd('/v1/:petLoverId/services')
-      .then((response) => {
+      .then(response => {
         console.log(response)
         this.services = response.data.services
       })
-      .catch((error) => {
+      .catch(error => {
         this.services = []
         console.log(error)
       })
@@ -300,6 +325,8 @@ export default {
   },
   data() {
     return {
+      servicesShown: 'Services',
+      subServiceType: '',
       services: [],
       msgbox: '',
       value: null,
@@ -334,10 +361,10 @@ export default {
           footerClass: 'p-2 border-top-0',
           centered: true
         })
-        .then((value) => {
+        .then(value => {
           this.msgbox = value
         })
-        .catch((err) => {
+        .catch(err => {
           this.msgbox = []
           console.log(err)
         })
@@ -347,15 +374,19 @@ export default {
         '/petLovers/:petLoverId/services' + this.$route.params.id + '/services',
         this.pet
       )
-        .then((response) => {
+        .then(response => {
           this.services = response.data.services
         })
-        .catch((error) => {
+        .catch(error => {
           this.services = []
           console.log(error)
           console.log({ message: 'Services could not found!.' })
           //   TODO: display some error message instead of logging to console
         })
+    },
+    onFilterClicked(subServiceType) {
+      this.servicesShown = subServiceType + ' Services'
+      this.subServiceType = subServiceType
     }
   }
 }
