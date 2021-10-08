@@ -4,15 +4,36 @@
       <b-col md="12">
         <b-card img-src="https://placekitten.com/300/300" img-alt="Card image" img-left>
         <b-card-text >
-          <p>Name:
+          <p class="title">Name:
           <p class="attributes">{{pet.name}}
-          <p>Type:
+            <p>
+          <p class="title">Type:
           <p class="attributes">{{pet.type}}
-          <p>Gender:
+            <p>
+          <p class="title">Gender:
           <p class="attributes">{{pet.gender}}
-          <p v-if="pet.allergies">Allergies:
+            <p>
+          <p class="title" v-if="pet.allergies">Allergies:
+            <p class="attributes">
+              <ul v-for="(allergy, index) in pet.allergies" :key="index">
+              <li >{{allergy}},</li>
+              </ul>
+            <p>
+          <p class="title" v-if="pet.foodPreferences">Food Preferences:
+            <p class="attributes">
+              <ul v-for="(food, index) in pet.foodPreferences" :key="index">
+              <li >{{food}},</li>
+              </ul>
+            <p>
+          <p class="title" v-if="pet.petItems">Pet Items:
+            <p class="attributes">
+              <ul v-for="(food, index) in pet.petItems" :key="index">
+              <li >{{food}},</li>
+              </ul>
           </p>
         </b-card-text>
+        <b-button variant="danger" @click="deletePet(pet._id)">Delete</b-button>
+        <b-button variant="primary">Edit</b-button>
         </b-card>
       </b-col>
     </b-row>
