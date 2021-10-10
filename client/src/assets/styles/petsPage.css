@@ -31,15 +31,6 @@
     
 }
 
-.attributes ul {
-    padding-inline-start: 10px;
-    display:inline-block;
-}
-    
-.attributes li {
-    display:inline-block;
-}
-
 .btn-danger {
     position: absolute;
     bottom: 10px;

@@ -15,21 +15,15 @@
             <p>
           <p class="title" v-if="pet.allergies">Allergies:
             <p class="attributes">
-              <ul v-for="(allergy, index) in pet.allergies" :key="index">
-              <li >{{allergy}},</li>
-              </ul>
+              {{ pet.allergies.join(', ') }}
             <p>
           <p class="title" v-if="pet.foodPreferences">Food Preferences:
             <p class="attributes">
-              <ul v-for="(food, index) in pet.foodPreferences" :key="index">
-              <li >{{food}},</li>
-              </ul>
+              {{ pet.foodPreferences.join(', ') }}
             <p>
           <p class="title" v-if="pet.petItems">Pet Items:
             <p class="attributes">
-              <ul v-for="(food, index) in pet.petItems" :key="index">
-              <li >{{food}},</li>
-              </ul>
+              {{ pet.petItems.join(', ') }}
           </p>
         </b-card-text>
         <b-button variant="danger" @click="deletePet(pet._id)">Delete</b-button>
@@ -39,7 +33,64 @@
     </b-row>
     <b-modal v-bind="editPet" id="edit-info">
       <template #modal-title>Edit {{editPet.name}}'s information</template>
-      <><>
+      <b-container fluid class="edit-page">
+        <b-row>
+          <b-col md="3">
+            <label>Name:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="editPet.name" placeholder="Enter new name here"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Type:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="editPet.type" placeholder="Enter new type here"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Gender:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="editPet.gender" placeholder="Enter pets gender here"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Allergies:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="editPet.allergies" placeholder="Add a new allergy"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Food Preferences:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="editPet.foodPreferences" placeholder="Add a new food"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Pet Items:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="editPet.petItems" placeholder="Add a new item"></b-form-input>
+          </b-col>
+        </b-row>
+      </b-container>
+      <template #modal-footer>
+      <b-button size="lg" variant="success" @click="petEditor()">
+        Save
+      </b-button>
+      <b-button size="lg" variant="outline-secondary" @click="hide('forget')">
+        Cancel
+      </b-button>
+    </template>
     </b-modal>
   </b-container>
 </template>
@@ -58,8 +109,16 @@ export default {
   },
   data() {
     return {
+      show: false,
       pets: {},
-      editPet: {}
+      editPet: {
+        name: '',
+        type: '',
+        gender: '',
+        allergies: [],
+        foodPreferences: [],
+        petItems: []
+      }
     }
   },
   methods: {
@@ -72,6 +131,10 @@ export default {
     },
     editHandler(pet) {
       this.editPet = pet
+    },
+    petEditor() {
+      Api.put('petowners/pets/' + this.editPet._id, this.editPet)
+        .then(res => this.pets)
     }
   }
 }
