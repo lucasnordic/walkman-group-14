@@ -1,5 +1,12 @@
 <template>
   <b-container>
+    <b-row>
+      <b-col md="12">
+        <b-button id="register-btn">
+          Add a new Pet
+      </b-button>
+      </b-col>
+    </b-row>
     <b-row v-for="pet in pets" :key="pet._id">
       <b-col md="12">
         <b-card img-src="https://placekitten.com/300/300" img-alt="Card image" img-left>
@@ -31,6 +38,7 @@
         </b-card>
       </b-col>
     </b-row>
+    <b-modal></b-modal>
     <b-modal v-bind="editPet" id="edit-info">
       <template #modal-title>Edit {{editPet.name}}'s information</template>
       <b-container fluid class="edit-page">
@@ -135,9 +143,13 @@ export default {
     petEditor() {
       Api.put('petowners/pets/' + this.editPet._id, this.editPet)
         .then(res => this.pets)
+      this.editPet = null
+      // TODO fix editing lists!
     }
+    // TODO add registration
   }
 }
+
 </script>
 
 <style>
