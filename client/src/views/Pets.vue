@@ -31,18 +31,19 @@
               <li >{{food}},</li>
               </ul>
           </p>
-          <b-modal id="edit-info">
-          <template #modal-title>Edit {{pet.name}}'s information</template>
-          <p>Hi</p>
-        </b-modal>
         </b-card-text>
         <b-button variant="danger" @click="deletePet(pet._id)">Delete</b-button>
-        <b-button v-b-modal.edit-info variant="primary" class="edit-btn">Edit</b-button>
+        <b-button v-b-modal.edit-info variant="primary" class="edit-btn" @click="editHandler(pet)">Edit</b-button>
         </b-card>
       </b-col>
     </b-row>
+    <b-modal v-bind="editPet" id="edit-info">
+      <template #modal-title>Edit {{editPet.name}}'s information</template>
+      <><>
+    </b-modal>
   </b-container>
 </template>
+
 <script>
 import { Api } from '@/Api'
 
@@ -57,7 +58,8 @@ export default {
   },
   data() {
     return {
-      pets: {}
+      pets: {},
+      editPet: {}
     }
   },
   methods: {
@@ -67,6 +69,9 @@ export default {
     addPet() {
       Api.post('/petowners/' + this.$route.params.id + '/pets', this.pet)
         .then(res => this.pets)
+    },
+    editHandler(pet) {
+      this.editPet = pet
     }
   }
 }
