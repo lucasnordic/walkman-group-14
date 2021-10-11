@@ -434,7 +434,7 @@ export default {
 
 .pet-lover-container {
   border-style: groove;
-  background: lightblue;
+  background: rgb(220, 246, 255);
   width: 100%;
   min-width: 100%;
   height: 100%;
