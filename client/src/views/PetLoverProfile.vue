@@ -40,10 +40,24 @@
             <p class="key"> Description:
               <p class="value"> {{petLover.aboutMe}}
             </p>
+            <b-button variant="danger" id="delete-button" @click="delAcc()">Delete Account</b-button>
+            <b-button variant="primary" id="edit-button" v-b-modal.edit-user>Edit Information</b-button>
           </b-card-text>
         </b-card>
       </b-col>
     </b-row>
+    <b-modal id="edit-user" title="Edit Information">
+      <b-container>
+        <b-row>
+          <b-col md="3">
+            <label>Username:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="petLover.userinfo.username"></b-form-input>
+          </b-col>
+        </b-row>
+      </b-container>
+    </b-modal>
   </b-container>
 </template>>
 <script>
