@@ -38,7 +38,7 @@
         </b-card>
       </b-col>
     </b-row>
-    <b-modal id="register-pet">
+    <b-modal id="register-pet" ref="registeration">
       <template #modal-title>Sign Up Your Pet!</template>
       <b-container fluid class="register-page">
         <b-row>
@@ -91,7 +91,7 @@
         </b-row>
       </b-container>
       <template #modal-footer>
-      <b-button size="lg" variant="outline-secondary" @click="hide('forget')">
+      <b-button size="lg" variant="outline-secondary" @click="closeReg()">
         Cancel
       </b-button>
       <b-button size="lg" variant="success" @click="petRegister()">
@@ -99,7 +99,7 @@
       </b-button>
       </template>
     </b-modal>
-    <b-modal v-bind="editPet" id="edit-info">
+    <b-modal v-bind="editPet" id="edit-info" ref="editModal">
       <template #modal-title>Edit {{editPet.name}}'s information</template>
       <b-container fluid class="edit-page">
         <b-row>
@@ -155,7 +155,7 @@
       <b-button size="lg" variant="success" @click="petEditor()">
         Save
       </b-button>
-      <b-button size="lg" variant="outline-secondary" @click="hide('forget')">
+      <b-button size="lg" variant="outline-secondary" @click="closeEdit()">
         Cancel
       </b-button>
     </template>
@@ -206,6 +206,12 @@ export default {
         .then(res => this.pets)
       this.editPet = null
       // TODO fix editing lists!
+    },
+    closeEdit() {
+      this.$refs.editModal.hide()
+    },
+    closeReg() {
+      this.$refs.registeration.hide()
     }
   }
 }

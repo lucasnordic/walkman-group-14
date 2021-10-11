@@ -46,7 +46,7 @@
         </b-card>
       </b-col>
     </b-row>
-    <b-modal id="edit-user" title="Edit Information">
+    <b-modal id="edit-user" title="Edit Information" ref="editModal">
       <b-container>
         <b-row>
           <b-col md="3">
@@ -133,7 +133,7 @@
       <b-button size="lg" variant="success" @click="edit()">
         Save
       </b-button>
-      <b-button size="lg" variant="outline-secondary" @click="hide('forget')">
+      <b-button size="lg" variant="outline-secondary" @click="close()">
         Cancel
       </b-button>
     </template>
@@ -188,6 +188,12 @@ export default {
       this.$router.push(
         '/profile/petLovers/' + this.$route.params.id + '/services'
       )
+    },
+    reload() {
+      return this.$route.push('/profile/petLovers/' + this.$route.params.id)
+    },
+    close() {
+      this.$refs.editModal.hide()
     }
   }
 }
