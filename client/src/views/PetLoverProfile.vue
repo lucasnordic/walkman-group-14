@@ -46,6 +46,11 @@
         </b-card>
       </b-col>
     </b-row>
+    <b-row>
+      <b-col>
+        <b-button></b-button>
+      </b-col>
+    </b-row>
     <b-modal id="edit-user" title="Edit Information" ref="editModal">
       <b-container>
         <b-row>
@@ -139,7 +144,7 @@
     </template>
     </b-modal>
   </b-container>
-</template>>
+</template>
 <script>
 import { Api } from '@/Api'
 
@@ -180,6 +185,7 @@ export default {
       Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
         (res) => this.petLover
       )
+      this.close()
     },
     delAcc() {
       Api.delete('/petlovers/' + this.$route.params.id)

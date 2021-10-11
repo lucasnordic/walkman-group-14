@@ -46,7 +46,7 @@
             <label>Name:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="editPet.name" placeholder="Enter pet's name" aria-required=""></b-form-input>
+            <b-form-input v-model="editPet.name" placeholder="Enter pet's name"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -197,6 +197,7 @@ export default {
       Api.post('/petowners/' + this.$route.params.id + '/pets', this.editPet)
         .then(res => this.pets)
       this.editPet = null
+      this.closeReg()
     },
     editHandler(pet) {
       this.editPet = pet
@@ -205,6 +206,8 @@ export default {
       Api.put('petowners/pets/' + this.editPet._id, this.editPet)
         .then(res => this.pets)
       this.editPet = null
+      this.closeEdit()
+      // TODO find out why the pop-up window won't close!
       // TODO fix editing lists!
     },
     closeEdit() {
@@ -212,7 +215,8 @@ export default {
     },
     closeReg() {
       this.$refs.registeration.hide()
-    }
+    },
+    reload() {}
   }
 }
 
