@@ -1,16 +1,12 @@
-.card {
+.pet-card {
     padding: 0px;
     margin-top: 10px;
     margin-bottom: 15px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    
-}
-
-.card-body {
     background-image: linear-gradient(rgb(0, 183, 255), yellow);
 }
 
-.card p{
+.pet-card p{
    text-align: left;
    font-style: italic;
    margin-top: 10px;

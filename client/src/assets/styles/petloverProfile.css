@@ -1,0 +1,32 @@
+.greeting-user {
+    margin-top: 20px;
+    text-align: center;
+    background-image: linear-gradient(rgb(168, 213, 231), rgb(91, 180, 158));
+    font-weight: bold;
+    font-size: 90px;
+    font-style: oblique;
+}
+
+.user-info {
+    padding: 10px;
+    margin-top: 10px;
+}  
+
+#header {
+    font-size: 35px;
+    font-style: italic;
+    font-weight: bold;
+
+}
+
+.key {
+    text-align: center;
+    font-size: 25px;
+    font-style: italic;
+}
+
+.value {
+    text-align: center;
+    font-size: 25px;
+    font-style: normal;
+}

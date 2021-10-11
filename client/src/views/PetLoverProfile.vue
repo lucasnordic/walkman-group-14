@@ -1,171 +1,51 @@
 <template>
-  <div v-if="petLover">
-    <b-jumbotron id="header">
-      <h1 class="display-4" id="greeting">
-        Welcome {{ petLover.userinfo.username }}!
-      </h1>
-    </b-jumbotron>
-    <table class="table table-bordered">
-      <tbody>
-        <tr>
-          <th scope="row">User Name</th>
-          <td>{{ petLover.userinfo.username }}</td>
-          <td>User Name is not changable!</td>
-        </tr>
-        <tr>
-          <th scope="row">Password</th>
-          <td>{{ petLover.userinfo.password }}</td>
-          <td>
-            <div class="d-flex">
-              <input
-                v-model="passUpdate"
-                type="text"
-                placeholder="Enter your edit value"
-                class="form-control"
-              />
-              <button @click="editPass()" class="btn btn-warning rounded-10">
-                <div class="text-center">
-                  <span class="fa fa-pen"></span>
-                </div>
-                Edit
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">Full Name</th>
-          <td>{{ petLover.userinfo.fullName }}</td>
-          <td>
-            <div class="d-flex">
-              <input
-                v-model="fullNameUpdate"
-                type="text"
-                placeholder="Enter your edit value"
-                class="form-control"
-              />
-              <button
-                @click="editFullName()"
-                class="btn btn-warning rounded-10"
-              >
-                <div class="text-center">
-                  <span class="fa fa-pen"></span>
-                </div>
-                Edit
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">Email</th>
-          <td>{{ petLover.userinfo.contactInfo.email }}</td>
-          <td>
-            <div class="d-flex">
-              <input
-                v-model="emailUpdate"
-                type="text"
-                placeholder="Enter your edit value"
-                class="form-control"
-              />
-              <button @click="editEmail()" class="btn btn-warning rounded-10">
-                <div class="text-center">
-                  <span class="fa fa-pen"></span>
-                </div>
-                Edit
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">Phone Number</th>
-          <td>{{ petLover.userinfo.contactInfo.phoneNumber }}</td>
-          <td>
-            <div class="d-flex">
-              <input
-                v-model="phoneUpdate"
-                type="text"
-                placeholder="Enter your edit value"
-                class="form-control"
-              />
-              <button @click="editPhone()" class="btn btn-warning rounded-10">
-                <div class="text-center">
-                  <span class="fa fa-pen"></span>
-                </div>
-                Edit
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">City</th>
-          <td>{{ petLover.userinfo.contactInfo.address.city }}</td>
-          <td>
-            <div class="d-flex">
-              <input
-                v-model="cityUpdate"
-                type="text"
-                placeholder="Enter your edit value"
-                class="form-control"
-              />
-              <button @click="editCity()" class="btn btn-warning rounded-10">
-                <div class="text-center">
-                  <span class="fa fa-pen"></span>
-                </div>
-                Edit
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">Street Name</th>
-          <td>{{ petLover.userinfo.contactInfo.address.streetName }}</td>
-          <td>
-            <div class="d-flex">
-              <input
-                v-model="sNameUpdate"
-                type="text"
-                placeholder="Enter your edit value"
-                class="form-control"
-              />
-              <button @click="editSName()" class="btn btn-warning rounded-10">
-                <div class="text-center">
-                  <span class="fa fa-pen"></span>
-                </div>
-                Edit
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">Street Number</th>
-          <td>{{ petLover.userinfo.contactInfo.address.streetNum }}</td>
-          <td>
-            <div class="d-flex">
-              <input
-                v-model="sNumUpdate"
-                type="text"
-                placeholder="Enter your edit value"
-                class="form-control"
-              />
-              <button @click="editSNum()" class="btn btn-warning rounded-10">
-                <div class="text-center">
-                  <span class="fa fa-pen"></span>
-                </div>
-                Edit
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div id="bottom-btns">
-      <b-button @click="servicePage()" id="pet-btn" variant="primary"
-        >Your Services</b-button
-      >
-      <b-button @click="delAcc()" variant="danger">Delete Account</b-button>
-    </div>
-  </div>
-</template>
-
+  <b-container v-if="petLover" fluid>
+    <b-row v-model="petLover">
+      <b-col md="12">
+        <b-card class="greeting-user">
+        <b-card-text>
+          Hello {{petLover.userinfo.username}}!
+        </b-card-text>
+        </b-card>
+        <b-card class="user-info">
+          <b-card-text>
+            <p id="header">Profile information:
+            <p class="key"> Username:
+              <span class="value"> {{petLover.userinfo.username}}</span>
+            </p>
+            <p class="key"> Password:
+              <span class="value"> {{petLover.userinfo.password}}</span>
+            </p>
+            <p class="key"> Full Name:
+              <span class="value"> {{petLover.userinfo.fullname}}</span>
+            </p>
+            <p class="key"> Email:
+              <span class="value"> {{petLover.userinfo.contactInfo.email}}</span>
+            </p>
+            <p class="key"> Phone Number:
+              <span class="value"> {{petLover.userinfo.contactInfo.phoneNumber}}</span>
+            </p>
+            <p class="key"> City:
+              <span class="value"> {{petLover.userinfo.contactInfo.address.city}}</span>
+            </p>
+            <p class="key"> Street Name:
+              <span class="value"> {{petLover.userinfo.contactInfo.address.streetName}}</span>
+            </p>
+            <p class="key"> Street Number:
+              <span class="value"> {{petLover.userinfo.contactInfo.address.streetNumber}}</span>
+            </p>
+            <p class="key"> Acceptable Pets:
+              <span class="value"> {{petLover.acceptablePets.join(', ')}}</span>
+            </p>
+            <p class="key"> Description:
+              <p class="value"> {{petLover.aboutMe}}
+            </p>
+          </b-card-text>
+        </b-card>
+      </b-col>
+    </b-row>
+  </b-container>
+</template>>
 <script>
 import { Api } from '@/Api'
 
@@ -181,14 +61,24 @@ export default {
   },
   data() {
     return {
-      passUpdate: null,
-      fullNameUpdate: null,
-      emailUpdate: null,
-      phoneUpdate: null,
-      cityUpdate: null,
-      sNameUpdate: null,
-      sNumUpdate: null,
-      petLover: null
+      petLover: {
+        userinfo: {
+          username: null,
+          password: null,
+          fullname: null,
+          contactInfo: {
+            email: null,
+            phoneNumber: null,
+            address: {
+              city: null,
+              streetName: null,
+              streetNumber: null
+            }
+          }
+        },
+        aboutMe: null,
+        acceptablePets: null
+      }
     }
   },
   methods: {
@@ -254,5 +144,5 @@ export default {
 </script>
 
 <style>
-@import '../assets/styles/profiles.css';
+@import '../assets/styles/petloverProfile.css';
 </style>
