@@ -56,7 +56,87 @@
             <b-form-input v-model="petLover.userinfo.username"></b-form-input>
           </b-col>
         </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Password:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="petLover.userinfo.password"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>fullname:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="petLover.userinfo.fullname"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Email:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="petLover.userinfo.contactInfo.email"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Phone Number:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="petLover.userinfo.contactInfo.phoneNumber"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>City:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="petLover.userinfo.contactInfo.address.city"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Street Name:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="petLover.userinfo.contactInfo.address.streetName"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Street Number:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="petLover.userinfo.contactInfo.address.streetNumber"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Description:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="petLover.aboutMe"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Acceptable Pets:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="petLover.acceptablePets"></b-form-input>
+          </b-col>
+        </b-row>
       </b-container>
+      <template #modal-footer>
+      <b-button size="lg" variant="success" @click="edit()">
+        Save
+      </b-button>
+      <b-button size="lg" variant="outline-secondary" @click="hide('forget')">
+        Cancel
+      </b-button>
+    </template>
     </b-modal>
   </b-container>
 </template>>
@@ -96,54 +176,10 @@ export default {
     }
   },
   methods: {
-    editPass() {
-      /* this.petLover.userinfo.password = this.passUpdate */
-      Api.patch('/petlovers/' + this.$route.params.id, this.passUpdate).then(
-        (res) => this.petLover
-      )
-      this.passUpdate = null
-    },
-    editFullName() {
-      this.petLover.userinfo.fullName = this.fullNameUpdate
+    edit() {
       Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
         (res) => this.petLover
       )
-      this.fullNameUpdate = null
-    },
-    editEmail() {
-      this.petLover.userinfo.contactInfo.email = this.emailUpdate
-      Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
-        (res) => this.petLover
-      )
-      this.emailUpdate = null
-    },
-    editPhone() {
-      this.petLover.userinfo.contactInfo.phoneNumber = this.phoneUpdate
-      Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
-        (res) => this.petLover
-      )
-      this.phoneUpdate = null
-    },
-    editCity() {
-      this.petLover.userinfo.contactInfo.address.city = this.cityUpdate
-      Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
-        (res) => this.petLover
-      )
-      this.cityUpdate = null
-    },
-    editSName() {
-      this.petLover.userinfo.contactInfo.address.streetName = this.sNameUpdate
-      Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
-        (res) => this.petLover
-      )
-      this.sNameUpdate = null
-    },
-    editSNum() {
-      this.petLover.userinfo.contactInfo.address.streetNum = this.sNumUpdate
-      Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
-        (res) => this.petLover
-      )
-      this.sNumUpdate = null
     },
     delAcc() {
       Api.delete('/petlovers/' + this.$route.params.id)
