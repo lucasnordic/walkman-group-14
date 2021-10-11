@@ -13,7 +13,6 @@ exports.postPetOwners = (req, res, next) => {
 
     hashedPassword
         .then((result) => {
-            console.log(result);
             petOwner.userinfo.password = result
         })
         .catch((err) => {
@@ -158,23 +157,18 @@ exports.loginPetOwner = (req, res, next) => {
         Bcrypt
             .comparePassword(password, petOwner.userinfo.password)
             .then((result) => {
-                console.log(result);
                 if (result) {
                     console.log('The user password was a match')
-                    return;
+                    let token = jwt.sign({ userId: petOwner._id }, 'secretkey'); // secretkey should be more complex for security reasons
+                    return res.status(200).json({
+                        title: 'login success',
+                        token: token,
+                        userId: petOwner._id,
+                        userType: 'petowner'
+                    })
                 } else {
                     res.status(401).send({ message: "The user was not found" }); // we don't want hackers to know what they get wrong. So, same error
-                    return;
                 }
-            })
-            .then(() => {
-                let token = jwt.sign({ userId: petOwner._id }, 'secretkey'); // secretkey should be more complex for security reasons
-                return res.status(200).json({
-                    title: 'login success',
-                    token: token,
-                    userId: petOwner._id,
-                    userType: 'petowner'
-                })
             })
             .catch((err) => {
                 res.status(500).send(err)

@@ -12,7 +12,6 @@ exports.postPetLovers = (req, res, next) => {
 
     hashedPassword
         .then((result) => {
-            console.log(result);
             petLover.userinfo.password = result
         })
         .catch((err) => {
@@ -147,14 +146,12 @@ exports.deletePetLoversbyId = (req, res, next) => {
 exports.loginPetLover = (req, res, next) => {
     const username = req.body.username
     const password = req.body.password
-    console.log(req.body); // debugging
 
     PetLover.findOne({ 'userinfo.username': username }, function (err, petLover) {
         if (err) {
             res.status(404).send({ message: "Server error" });
             return next(err);
         }
-        console.log(petLover) // debugging
         if (petLover === null) {
             res.status(401).send({ message: "The user was not found" }); // we don't want hackers to know what they get wrong. So, same error
             return;
@@ -163,23 +160,18 @@ exports.loginPetLover = (req, res, next) => {
         Bcrypt
             .comparePassword(password, petLover.userinfo.password)
             .then((result) => {
-                console.log(result);
                 if (result) {
                     console.log('The user password was a match')
-                    return;
+                    let token = jwt.sign({ userId: petLover._id }, 'secretkey'); // secretkey should be more complex for security reasons
+                    return res.status(200).json({
+                        title: 'login success',
+                        token: token,
+                        userId: petLover._id,
+                        userType: 'petlover'
+                    })
                 } else {
                     res.status(401).send({ message: "The user was not found" }); // we don't want hackers to know what they get wrong. So, same error
-                    return;
                 }
-            })
-            .then(() => {
-                let token = jwt.sign({ userId: petLover._id }, 'secretkey'); // secretkey should be more complex for security reasons
-                return res.status(200).json({
-                    title: 'login success',
-                    token: token,
-                    userId: petLover._id,
-                    userType: 'petlover'
-                })
             })
             .catch((err) => {
                 res.status(500).send(err)
