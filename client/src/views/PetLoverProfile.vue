@@ -46,9 +46,9 @@
         </b-card>
       </b-col>
     </b-row>
-    <b-row>
-      <b-col>
-        <b-button></b-button>
+    <b-row id="service-row">
+      <b-col md="12">
+        <b-button  variant="success" @click="servicePage()" id="service-btn">View Your services</b-button>
       </b-col>
     </b-row>
     <b-modal id="edit-user" title="Edit Information" ref="editModal">

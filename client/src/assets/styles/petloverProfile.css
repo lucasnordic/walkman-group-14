@@ -52,3 +52,15 @@
     bottom: 10px;
     left: 1%;
  }
+
+ #service-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+
+ #service-btn {
+     font-size: 60px;
+     padding: 10px;
+     margin: 50px;
+ }
