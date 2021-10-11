@@ -2,7 +2,7 @@
   <b-container>
     <b-row>
       <b-col md="12">
-        <b-button id="register-btn">
+        <b-button v-b-modal.register-pet id="register-btn">
           Add a new Pet
       </b-button>
       </b-col>
@@ -38,7 +38,67 @@
         </b-card>
       </b-col>
     </b-row>
-    <b-modal></b-modal>
+    <b-modal id="register-pet">
+      <template #modal-title>Sign Up Your Pet!</template>
+      <b-container fluid class="register-page">
+        <b-row>
+          <b-col md="3">
+            <label>Name:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="editPet.name" placeholder="Enter pet's name" aria-required=""></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Type:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="editPet.type" placeholder="Enter pet's type"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Gender:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="editPet.gender" placeholder="Enter pet's gender"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Allergies:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="editPet.allergies" placeholder="Add a new allergy"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Food Preferences:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="editPet.foodPreferences" placeholder="Add a food"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Pet Items:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="editPet.petItems" placeholder="Add an item"></b-form-input>
+          </b-col>
+        </b-row>
+      </b-container>
+      <template #modal-footer>
+      <b-button size="lg" variant="outline-secondary" @click="hide('forget')">
+        Cancel
+      </b-button>
+      <b-button size="lg" variant="success" @click="petRegister()">
+        Sign UP
+      </b-button>
+      </template>
+    </b-modal>
     <b-modal v-bind="editPet" id="edit-info">
       <template #modal-title>Edit {{editPet.name}}'s information</template>
       <b-container fluid class="edit-page">
@@ -133,9 +193,10 @@ export default {
     deletePet(id) {
       Api.delete('/petowners/' + this.$route.params.id + '/pets/' + id)
     },
-    addPet() {
-      Api.post('/petowners/' + this.$route.params.id + '/pets', this.pet)
+    petRegister() {
+      Api.post('/petowners/' + this.$route.params.id + '/pets', this.editPet)
         .then(res => this.pets)
+      this.editPet = null
     },
     editHandler(pet) {
       this.editPet = pet
@@ -146,7 +207,6 @@ export default {
       this.editPet = null
       // TODO fix editing lists!
     }
-    // TODO add registration
   }
 }
 
