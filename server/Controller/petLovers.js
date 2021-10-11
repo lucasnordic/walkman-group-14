@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const { request } = require('../app');
 const PetLover = require('../Models/PetLover');
-const Bcrypt = require('../utils/authenticate')
+const Bcrypt = require('../utils/PasswordHandler')
 
 //(a) POST /petLovers
 exports.postPetLovers = (req, res, next) => {
@@ -162,7 +162,7 @@ exports.loginPetLover = (req, res, next) => {
             .then((result) => {
                 if (result) {
                     console.log('The user password was a match')
-                    let token = jwt.sign({ userId: petLover._id }, 'secretkey'); // secretkey should be more complex for security reasons
+                    let token = jwt.sign({ userId: petLover._id }, 'secretkey'); // TODO: secretkey should be more complex for security reasons
                     return res.status(200).json({
                         title: 'login success',
                         token: token,
