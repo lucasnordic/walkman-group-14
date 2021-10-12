@@ -108,8 +108,18 @@ exports.patchPetOwnersById = async ({ body, params }, res, next) => {
         if (body.userinfo) {
             modified.push('userinfo')
             result.userinfo.username = body.userinfo.username || result.userinfo.username;
-            result.userinfo.password = body.userinfo.password || result.userinfo.password;
             result.userinfo.fullName = body.userinfo.fullName || result.userinfo.fullName;
+
+            // if there is a new password, hash it.
+            if (body.userinfo.password) {
+                try {
+                    const hashedPassword = await Bcrypt.hashPassword(body.userinfo.password)
+                    result.userinfo.password = hashedPassword
+                } catch (err) {
+                    res.status(500).send(err)
+                    next(err);
+                }
+            }
 
             if (body.userinfo.contactInfo) {
                 modified.push('contactInfo')
