@@ -92,35 +92,42 @@ exports.putPetOwnersById = (req, res, next) => {
 };
 
 //(f) PATCH /petOwners/:id
-exports.patchPetOwnersById = ({ body, params }, res, next) => {
-    PetOwner.findById(params.userId)
-        .then((result) => {
-            if (result === null) {
-                res.status(404).send({ message: "The petOwner_Id not found." });
-                return;
-            }
-            if (body._pets) {
-                result._pets = [...body._pets, ...result._pets];
-            }
-            //result._id = body._id;
+exports.patchPetOwnersById = async ({ body, params }, res, next) => {
+    try {
+        const result = await PetOwner.findById(params.userId)
+        const modified = []
+
+        if (result === null) {
+            res.status(404).send({ message: "The petOwner_Id not found." });
+            return;
+        }
+        if (body._pets) {
+            modified.push('_pets')
+            result._pets = [...body._pets, ...result._pets];
+        }
+        if (body.userinfo) {
+            modified.push('userinfo')
             result.userinfo.username = body.userinfo.username || result.userinfo.username;
             result.userinfo.password = body.userinfo.password || result.userinfo.password;
             result.userinfo.fullName = body.userinfo.fullName || result.userinfo.fullName;
+
             if (body.userinfo.contactInfo) {
+                modified.push('contactInfo')
                 result.userinfo.contactInfo.email = body.userinfo.contactInfo.email || result.userinfo.contactInfo.email;
                 result.userinfo.contactInfo.phoneNumber = body.userinfo.contactInfo.phoneNumber || result.userinfo.contactInfo.phoneNumber;
                 result.userinfo.contactInfo.address = body.userinfo.contactInfo.address || result.userinfo.contactInfo.address;
             }
-
-            result.save();
-
-            console.log(result);
-            res.json(result);
-
-        }).catch((err) => {
-            res.status(502).send({ message: "not found" });
-            return next(err);
+        }
+        modified.forEach(i => {
+            result.markModified(i);
         });
+        await result.save();
+        res.json(result);
+
+    } catch (err) {
+        res.status(502).send({ message: "not found" });
+        return next(err);
+    }
 };
 
 //(g) DELETE /petOwners/:id
