@@ -183,11 +183,12 @@ export default {
     },
     close() {
       this.$refs.editModal.hide()
+      // reload()
     }
   }
 }
 </script>
 
 <style>
-@import '../assets/styles/petownerProfile.css';
+@import '../assets/styles/profile.css';
 </style>

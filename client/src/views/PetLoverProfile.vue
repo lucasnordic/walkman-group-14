@@ -206,5 +206,5 @@ export default {
 </script>
 
 <style>
-@import '../assets/styles/petloverProfile.css';
+@import '../assets/styles/profile.css';
 </style>
