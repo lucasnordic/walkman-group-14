@@ -82,3 +82,26 @@
     background-color: #4CAF50; /* Green */
     color: white;
   }
+
+  #del-btn {
+    bottom: 5%;
+    left: 5%;
+    border-radius: 5px;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: center;
+    background-color: crimson;
+  }
+
+  #cancel-btn {
+    bottom: 5%;
+    right: 5%;
+    border-radius: 5px;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-left: 10%;
+    padding-right: 10%;
+    background-color: dodgerblue;
+  }

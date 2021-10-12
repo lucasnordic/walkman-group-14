@@ -33,7 +33,7 @@
               {{ pet.petItems.join(', ') }}
           </p>
         </b-card-text>
-        <b-button variant="danger" @click="deletePet(pet._id)">Delete</b-button>
+        <b-button v-b-modal.del-modal variant="danger" @click="idHandler(pet._id)">Delete</b-button>
         <b-button v-b-modal.edit-info variant="primary" class="edit-btn" @click="editHandler(pet)">Edit</b-button>
         </b-card>
       </b-col>
@@ -160,6 +160,23 @@
       </b-button>
     </template>
     </b-modal>
+    <b-modal id="del-modal" ref="deleteModal">
+      <b-container>
+        <b-row>
+          <b-col>
+            <p>Are you sure you want to delete this Pet?</p>
+          </b-col>
+        </b-row>
+      </b-container>
+      <template #modal-footer>
+      <b-button size="lg" @click="closeDel()" id="cancel-btn">
+        Cancel
+      </b-button>
+      <b-button size="lg" @click="deletePet()" id="del-btn">
+        Delete
+      </b-button>
+    </template>
+    </b-modal>
   </b-container>
 </template>
 
@@ -177,6 +194,7 @@ export default {
   },
   data() {
     return {
+      id: null,
       allergy: null,
       food: null,
       item: null,
@@ -192,8 +210,9 @@ export default {
     }
   },
   methods: {
-    deletePet(id) {
-      Api.delete('/petowners/' + this.$route.params.id + '/pets/' + id)
+    deletePet() {
+      Api.delete('/petowners/' + this.$route.params.id + '/pets/' + this.id)
+      this.closeDel()
     },
     petRegister() {
       Api.post('/petowners/' + this.$route.params.id + '/pets', this.editPet)
@@ -209,14 +228,15 @@ export default {
         .then(res => this.pets)
       this.editPeat = null
       this.closeEdit()
-      // TODO find out why the pop-up window won't close!
-      // TODO fix editing lists!
     },
     closeEdit() {
       this.$refs.editModal.hide()
     },
     closeReg() {
       this.$refs.registeration.hide()
+    },
+    closeDel() {
+      this.$refs.deleteModal.hide()
     },
     reload() {},
     editAllergies() {
@@ -230,12 +250,15 @@ export default {
     editItem() {
       this.editPet.petItems.push(this.item)
       this.item = null
+    },
+    idHandler(id) {
+      this.id = id
     }
   }
 }
 
 </script>
 
-<style>
+<style scoped>
 @import '../assets/styles/petsPage.css';
 </style>
