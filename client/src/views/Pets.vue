@@ -131,7 +131,7 @@
             <label>Allergies:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="editPet.allergies" placeholder="Add a new allergy"></b-form-input>
+            <b-form-input v-model="allergy" @keyup.188="editAllergies"  placeholder="Add a new allergy"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -139,7 +139,7 @@
             <label>Food Preferences:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="editPet.foodPreferences" placeholder="Add a new food"></b-form-input>
+            <b-form-input v-model="food" @keyup.188="editFoods" placeholder="Add a new food"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -147,7 +147,7 @@
             <label>Pet Items:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="editPet.petItems" placeholder="Add a new item"></b-form-input>
+            <b-form-input v-model="item" @keyup.188="editItem" placeholder="Add a new item"></b-form-input>
           </b-col>
         </b-row>
       </b-container>
@@ -177,7 +177,9 @@ export default {
   },
   data() {
     return {
-      show: false,
+      allergy: null,
+      food: null,
+      item: null,
       pets: {},
       editPet: {
         name: '',
@@ -205,7 +207,7 @@ export default {
     petEditor() {
       Api.put('petowners/pets/' + this.editPet._id, this.editPet)
         .then(res => this.pets)
-      this.editPet = null
+      this.editPeat = null
       this.closeEdit()
       // TODO find out why the pop-up window won't close!
       // TODO fix editing lists!
@@ -216,7 +218,19 @@ export default {
     closeReg() {
       this.$refs.registeration.hide()
     },
-    reload() {}
+    reload() {},
+    editAllergies() {
+      this.editPet.allergies.push(this.allergy)
+      this.allergy = null
+    },
+    editFoods() {
+      this.editPet.foodPreferences.push(this.food)
+      this.food = null
+    },
+    editItem() {
+      this.editPet.petItems.push(this.item)
+      this.item = null
+    }
   }
 }
 

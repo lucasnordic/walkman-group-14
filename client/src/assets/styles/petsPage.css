@@ -6,6 +6,11 @@
     background-image: linear-gradient(rgb(0, 183, 255), yellow);
 }
 
+.col-md-12 {
+  max-width: 980px !important;
+  margin: auto !important;
+}
+
 .pet-card p{
    text-align: left;
    font-style: italic;

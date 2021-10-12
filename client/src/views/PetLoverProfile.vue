@@ -195,11 +195,12 @@ export default {
         '/profile/petLovers/' + this.$route.params.id + '/services'
       )
     },
-    reload() {
+    /* reload() {
       return this.$route.push('/profile/petLovers/' + this.$route.params.id)
-    },
+    }, */
     close() {
       this.$refs.editModal.hide()
+      // reload()
     }
   }
 }

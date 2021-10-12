@@ -115,7 +115,7 @@ exports.putPetById = (req, res, next) => {
 
 //PATCH /pets/petId
 exports.patchPetById = ({ body, params }, res, next) => {
-    PetLover.findById(params.petId)
+    Pet.findById(params.petId)
         .then((result) => {
             if (result === null) {
                 res.status(404).send({ message: "The pet_Id not found." });
