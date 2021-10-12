@@ -31,7 +31,7 @@
             </div>
 
             <div>
-              <div id="animated_image">
+              <div id="animated_image1">
                 <img
                   v-bind:src="image4"
                   v-if="form2.user === null"
@@ -39,7 +39,7 @@
                   id="top-image"
                 />
               </div>
-              <div id="animated_image">
+              <div id="animated_image2">
                 <img
                   v-bind:src="image3"
                   v-if="form2.user === 'Pet Lover'"
@@ -47,7 +47,7 @@
                   id="top-image"
                 />
               </div>
-              <div id="animated_image">
+              <div id="animated_image3">
                 <img
                   v-bind:src="image2"
                   v-if="form2.user === 'Pet Owner'"
@@ -56,6 +56,7 @@
                 />
               </div>
             </div>
+
             <!-- Select User Type. PetOwner/PetLover -->
             <div id="usertype-input">
               <hr class="my-4" />
@@ -293,7 +294,8 @@ export default {
             }
           }
         },
-        aboutMe: '...'
+        aboutMe: '...',
+        imageUrl: ''
       },
       form2: {
         user: null
@@ -307,6 +309,8 @@ export default {
       image2: require('@/assets/images/sammy-remote-work.png'),
       image3: require('@/assets/images/sammy-message-sent.png'),
       image4: require('@/assets/images/sammy-dog.png'),
+      images: [],
+      imageProfile: false,
       registeringDone: {
         animateTestImage: ''
       },
@@ -316,9 +320,21 @@ export default {
   },
   mounted() {
     // Happens when page is loaded
+    // load profile images
+    this.importImages(
+      require.context('../assets/images/faces/x250/', true, /\.jpg$/)
+    )
     console.log('Page has loaded!') // debugging
   },
   methods: {
+    // generate a random number and set profile picture to that image in images.
+    importImages(r) {
+      r.keys().forEach((key) =>
+        this.images.push({ pathLong: r(key), pathShort: key })
+      )
+      const randomNumber = Math.floor(Math.random() * this.images.length)
+      this.form.imageUrl = this.images[randomNumber].pathShort
+    },
     makeToast(title, message, variant, solid) {
       // https://bootstrap-vue.org/docs/components/toast
       this.$bvToast.toast(message, {
@@ -336,7 +352,6 @@ export default {
       this.registeringDone.animateTestImage =
         'animate__animated animate__bounceOutRight'
 
-      console.log(this.form) // debugging
       if (this.form2.user === 'Pet Owner') {
         this.postUser('petowners')
       } else if (this.form2.user === 'Pet Lover') {
@@ -433,7 +448,9 @@ hr {
   margin-top: 25px;
 }
 
-#animated_image {
+#animated_image1,
+#animated_image2,
+#animated_image3 {
   margin-left: 35%;
   width: 65%;
   display: block;
@@ -482,7 +499,9 @@ hr {
   }
 }
 @media screen and (max-width: 700px) {
-  #animated_image {
+  #animated_image1,
+  #animated_image2,
+  #animated_image3 {
     margin-left: 45%;
   }
 }
