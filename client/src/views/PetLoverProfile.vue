@@ -34,8 +34,8 @@
             <p class="key"> Street Number:
               <span class="value"> {{petLover.userinfo.contactInfo.address.streetNumber}}</span>
             </p>
-            <p class="key"> Acceptable Pets:
-              <span class="value"> {{petLover.acceptablePets.join(', ')}}</span>
+            <p class="key" v-if="petLover.acceptablePets"> Acceptable Pets:
+              <span class="value"> {{petLover.acceptablePets.join(' ')}}</span>
             </p>
             <p class="key"> Description:
               <p class="value"> {{petLover.aboutMe}}
@@ -130,7 +130,7 @@
             <label>Acceptable Pets:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="petLover.acceptablePets"></b-form-input>
+            <b-form-input v-model="accPet" @keyup.188="addPets" placeholder="Press ',' after entering each pet"></b-form-input>
           </b-col>
         </b-row>
       </b-container>
@@ -175,6 +175,7 @@ export default {
   },
   data() {
     return {
+      accPet: null,
       petLover: {
         userinfo: {
           username: null,
@@ -197,6 +198,7 @@ export default {
   },
   methods: {
     edit() {
+      Api.patch('/petlovers/' + this.$route.params.id, this.petLover.acceptablePets)
       Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
         (res) => this.petLover
       )
@@ -204,7 +206,7 @@ export default {
     },
     delAcc() {
       Api.delete('/petlovers/' + this.$route.params.id)
-      this.reload()
+      this.$router.push('/noprofile')
     },
     servicePage() {
       this.$router.push(
@@ -216,9 +218,14 @@ export default {
     },
     close() {
       this.$refs.editModal.hide()
+      this.reload()
     },
     closeDel() {
       this.$refs.delAcc.hide()
+    },
+    addPets() {
+      this.petLover.acceptablePets.push(this.accPet)
+      this.accPet = null
     }
   }
 }

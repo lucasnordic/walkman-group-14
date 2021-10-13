@@ -70,7 +70,7 @@
             <label>Allergies:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="allergy" @keyup.188="addAllergy" placeholder="Add a new allergy"></b-form-input>
+            <b-form-input v-model="allergy" @keyup.188="addAllergy" placeholder="Press ',' after entering each allergy"></b-form-input>
           </b-col>
         </b-row>
         <b-row>

@@ -188,7 +188,7 @@ export default {
   methods: {
     edit() {
       Api.put('/petowners/' + this.$route.params.id, this.petOwner).then(
-        (res) => this.petLover
+        (res) => this.petOwner
       )
       this.reload()
     },
@@ -201,6 +201,7 @@ export default {
     },
     close() {
       this.$refs.editModal.hide()
+      this.reload()
     },
     closeDel() {
       this.$refs.delAcc.hide()
