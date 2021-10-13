@@ -225,13 +225,12 @@ export default {
     },
     deletePet() {
       Api.delete('/petowners/' + this.$route.params.id + '/pets/' + this.id)
-      this.closeDel()
+      this.reload()
     },
     petRegister() {
       Api.post('/petowners/' + this.$route.params.id + '/pets', this.editPet)
         .then(res => this.pets)
-      this.editPet = null
-      this.closeReg()
+      this.reload()
     },
     editHandler(pet) {
       this.editPet = pet
@@ -239,8 +238,7 @@ export default {
     petEditor() {
       Api.put('petowners/pets/' + this.editPet._id, this.editPet)
         .then(res => this.pets)
-      this.editPeat = null
-      this.closeEdit()
+      this.reload()
     },
     closeEdit() {
       this.$refs.editModal.hide()
@@ -252,7 +250,9 @@ export default {
     closeDel() {
       this.$refs.deleteModal.hide()
     },
-    reload() {},
+    reload() {
+      this.$router.push('/nothing')
+    },
     editAllergies() {
       this.editPet.allergies.push(this.allergy)
       this.allergy = null

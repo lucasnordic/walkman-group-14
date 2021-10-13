@@ -190,7 +190,7 @@ export default {
       Api.put('/petowners/' + this.$route.params.id, this.petOwner).then(
         (res) => this.petLover
       )
-      this.close()
+      this.reload()
     },
     delAcc() {
       Api.delete('/petowners/' + this.$route.params.id)
@@ -201,10 +201,12 @@ export default {
     },
     close() {
       this.$refs.editModal.hide()
-      // reload()
     },
     closeDel() {
       this.$refs.delAcc.hide()
+    },
+    reload() {
+      this.$router.push('/nothing')
     }
   }
 }
