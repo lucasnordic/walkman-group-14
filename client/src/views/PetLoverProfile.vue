@@ -168,8 +168,6 @@ import { Api } from '@/Api'
 export default {
   name: 'petlover',
   mounted() {
-    // Happens when page is loaded
-    console.log('Yoyo!')
     Api.get('/petlovers/' + this.$route.params.id).then((res) => {
       console.log(res)
       this.petLover = res.data
@@ -206,7 +204,7 @@ export default {
     },
     delAcc() {
       Api.delete('/petlovers/' + this.$route.params.id)
-      this.$router.push('/noprofile')
+      this.reload()
     },
     servicePage() {
       this.$router.push(
