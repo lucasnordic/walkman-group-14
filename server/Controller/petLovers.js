@@ -1,15 +1,29 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
+
 const { request } = require('../app');
 const PetLover = require('../Models/PetLover');
-const jwt = require('jsonwebtoken');
+const Bcrypt = require('../utils/PasswordHandler')
 
 //(a) POST /petLovers
 exports.postPetLovers = (req, res, next) => {
     const petLover = new PetLover(req.body);
-    petLover.save((err, petLover) => {
-        if (err) { return next(err); }
-        res.status(201).json(petLover);
-    });
+    const hashedPassword = Bcrypt.hashPassword(req.body.userinfo.password)
+
+    hashedPassword
+        .then((result) => {
+            petLover.userinfo.password = result
+        })
+        .catch((err) => {
+            res.status(404).send(err)
+            return next(err)
+        })
+        .then(() => {
+            petLover.save(function (err, petLover) {
+                if (err) { return next(err); }
+                res.status(201).json(petLover);
+            })
+        })
 };
 
 //(b) GET /petLovers
@@ -76,41 +90,62 @@ exports.putPetLoversById = (req, res, next) => {
 };
 
 //(f) PATCH /petLovers/:id
-exports.patchPetLoversById = ({ body, params }, res, next) => {
-    PetLover.findById(params.userId)
-        .then((result) => {
-            if (result === null) {
-                res.status(404).send({ message: "The petLover_Id not found." });
-                return;
+exports.patchPetLoversById = async ({ body, params }, res, next) => {
+    try {
+        const result = await PetLover.findById(params.userId)
+        const modified = []
+
+        if (result === null) {
+            res.status(404).send({ message: "The petLover_Id not found." });
+            return;
+        }
+        if (body.availableHours) {
+            modified.push('availableHours')
+            result.availableHours = [...body.availableHours, ...result.availableHours];
+        }
+        if (body.acceptablePets) {
+            modified.push('acceptablePets')
+            result.acceptablePets = [...body.acceptablePets, ...result.acceptablePets];
+        }
+        if (body._services) {
+            modified.push('_services')
+            result._services = [...body._services, ...result._services];
+        }
+        if (body.userinfo) {
+            modified.push('userinfo')
+            if (body.userinfo.username) { result.userinfo.username = body.userinfo.username }
+            if (body.userinfo.fullName) { result.userinfo.fullName = body.userinfo.fullName }
+
+            // if there is a new password, hash it.
+            if (body.userinfo.password) {
+                try {
+                    const hashedPassword = await Bcrypt.hashPassword(body.userinfo.password)
+                    result.userinfo.password = hashedPassword
+                } catch (err) {
+                    res.status(500).send(err)
+                    next(err);
+                }
             }
-            if (body.availableHours) {
-                result.availableHours = [...body.availableHours, ...result.availableHours];
-            }
-            if (body.acceptablePets) {
-                result.acceptablePets = [...body.acceptablePets, ...result.acceptablePets];
-            }
-            if (body._services) {
-                result._services = [...body._services, ...result._services];
-            }
-            //result._id = body._id;
-            result.userinfo.username = body.userinfo.username || result.userinfo.username;
-            result.userinfo.password = body.userinfo.password || result.userinfo.password;
-            result.userinfo.fullName = body.userinfo.fullName || result.userinfo.fullName;
+
             if (body.userinfo.contactInfo) {
-                result.userinfo.contactInfo.email = body.userinfo.contactInfo.email || result.userinfo.contactInfo.email;
-                result.userinfo.contactInfo.phoneNumber = body.userinfo.contactInfo.phoneNumber || result.userinfo.contactInfo.phoneNumber;
-                result.userinfo.contactInfo.address = body.userinfo.contactInfo.address || result.userinfo.contactInfo.address;
+                modified.push('contactInfo')
+                if (body.userinfo.contactInfo.email) { result.userinfo.contactInfo.email = body.userinfo.contactInfo.email }
+                if (body.userinfo.contactInfo.phoneNumber) { result.userinfo.contactInfo.phoneNumber = body.userinfo.contactInfo.phoneNumber }
+                if (body.userinfo.contactInfo.address) { result.userinfo.contactInfo.address = body.userinfo.contactInfo.address }
             }
+        }
 
-            result.save();
-
-            console.log(result);
-            res.json(result);
-
-        }).catch((err) => {
-            res.status(502).send({ message: "Not found" });
-            return next(err);
+        // Go through each marked attribute and specify them as edited for mongoose
+        modified.forEach(i => {
+            result.markModified(i);
         });
+        await result.save();
+        res.json(result);
+
+    } catch (err) {
+        res.status(502).send({ message: "Not found" });
+        return next(err);
+    }
 };
 
 //(g) DELETE /petLovers/:id
@@ -142,17 +177,25 @@ exports.loginPetLover = (req, res, next) => {
             res.status(401).send({ message: "The user was not found" }); // we don't want hackers to know what they get wrong. So, same error
             return;
         }
-        else if (petLover.userinfo.password != password) {
-            res.status(401).send({ message: "The user was not found" }); // we don't want hackers to know what they get wrong. So, same error
-            return;
-        } else {
-            let token = jwt.sign({ userId: petLover._id }, 'secretkey');
-            return res.status(200).json({
-                title: 'login sucess',
-                token: token,
-                userId: petLover._id,
-                userType: 'petlover'
+
+        Bcrypt
+            .comparePassword(password, petLover.userinfo.password)
+            .then((result) => {
+                if (result) {
+                    console.log('The user password was a match')
+                    let token = jwt.sign({ userId: petLover._id }, 'secretkey'); // TODO: secretkey should be more complex for security reasons
+                    return res.status(200).json({
+                        title: 'login success',
+                        token: token,
+                        userId: petLover._id,
+                        userType: 'petlover'
+                    })
+                } else {
+                    res.status(401).send({ message: "The user was not found" }); // we don't want hackers to know what they get wrong. So, same error
+                }
             })
-        }
+            .catch((err) => {
+                res.status(500).send(err)
+            })
     })
 }
