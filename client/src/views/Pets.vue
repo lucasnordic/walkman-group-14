@@ -22,15 +22,15 @@
             <p>
           <p class="title" v-if="pet.allergies">Allergies:
             <p class="attributes">
-              {{ pet.allergies.join(', ') }}
+              {{ pet.allergies.join(' ') }}
             <p>
           <p class="title" v-if="pet.foodPreferences">Food Preferences:
             <p class="attributes">
-              {{ pet.foodPreferences.join(', ') }}
+              {{ pet.foodPreferences.join(' ') }}
             <p>
           <p class="title" v-if="pet.petItems">Pet Items:
             <p class="attributes">
-              {{ pet.petItems.join(', ') }}
+              {{ pet.petItems.join(' ') }}
           </p>
         </b-card-text>
         <b-button v-b-modal.del-modal variant="danger" @click="idHandler(pet._id)">Delete</b-button>
@@ -70,7 +70,7 @@
             <label>Allergies:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="editPet.allergies" placeholder="Add a new allergy"></b-form-input>
+            <b-form-input v-model="allergy" @keyup.188="addAllergy" placeholder="Add a new allergy"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -78,7 +78,7 @@
             <label>Food Preferences:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="editPet.foodPreferences" placeholder="Add a food"></b-form-input>
+            <b-form-input v-model="food" @keyup.188="addFood" placeholder="Add a food"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -86,7 +86,7 @@
             <label>Pet Items:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="editPet.petItems" placeholder="Add an item"></b-form-input>
+            <b-form-input v-model="item" @keyup.188="addItem" placeholder="Add an item"></b-form-input>
           </b-col>
         </b-row>
       </b-container>
@@ -210,6 +210,18 @@ export default {
     }
   },
   methods: {
+    addAllergy() {
+      this.editPet.allergies.push(this.allergy)
+      this.allergy = null
+    },
+    addFood() {
+      this.editPet.foodPreferences.push(this.food)
+      this.food = null
+    },
+    addItem() {
+      this.editPet.petItems.push(this.item)
+      this.item = null
+    },
     deletePet() {
       Api.delete('/petowners/' + this.$route.params.id + '/pets/' + this.id)
       this.closeDel()
@@ -231,6 +243,7 @@ export default {
     },
     closeEdit() {
       this.$refs.editModal.hide()
+      this.item = null
     },
     closeReg() {
       this.$refs.registeration.hide()
