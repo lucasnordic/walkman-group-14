@@ -40,7 +40,7 @@
             <p class="key"> Description:
               <p class="value"> {{petLover.aboutMe}}
             </p>
-            <b-button variant="danger" id="delete-button" @click="delAcc()">Delete Account</b-button>
+            <b-button variant="danger" id="delete-button" v-b-modal.deleteAccount>Delete Account</b-button>
             <b-button variant="primary" id="edit-button" v-b-modal.edit-user>Edit Information</b-button>
           </b-card-text>
         </b-card>
@@ -143,6 +143,23 @@
       </b-button>
     </template>
     </b-modal>
+    <b-modal ref="delAcc" id="deleteAccount">
+      <b-container>
+        <b-row>
+          <b-col>
+            <p>Are you sure you want to delete your account?</p>
+          </b-col>
+        </b-row>
+      </b-container>
+      <template #modal-footer>
+          <b-button size="lg" @click="closeDel()" id="cancel-btn">
+            Cancel
+          </b-button>
+          <b-button size="lg" @click="delAcc()" id="del-btn">
+            Delete
+          </b-button>
+        </template>
+    </b-modal>
   </b-container>
 </template>
 <script>
@@ -189,6 +206,7 @@ export default {
     },
     delAcc() {
       Api.delete('/petlovers/' + this.$route.params.id)
+      this.$router.push('/noprofile')
     },
     servicePage() {
       this.$router.push(
@@ -201,6 +219,9 @@ export default {
     close() {
       this.$refs.editModal.hide()
       // reload()
+    },
+    closeDel() {
+      this.$refs.delAcc.hide()
     }
   }
 }

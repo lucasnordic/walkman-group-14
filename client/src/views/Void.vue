@@ -2,7 +2,9 @@
     <b-container>
         <b-row>
             <b-col>
+              <b-jumbotron>
                 <h1>Your account is successfully Deleted. Good Luck!</h1>
+              </b-jumbotron>
             </b-col>
         </b-row>
         <b-row>
