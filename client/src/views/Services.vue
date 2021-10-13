@@ -2,17 +2,11 @@
   <div id="page">
     <div id="wrapper">
       <b-jumbotron id="add-service">
-        <h1
-          class="display-4"
-          id="title"
-        >Your services!</h1>
-        <h5>Add or Edit Services <em>(click edit on services below)</em></h5>
-        <b-card
-          no-body
-          bg-variant="light"
-          class="services"
-        >
-          <b-form-group @submit.prevent="onSubmit">
+        <h1 class="display-4" id="title">My services</h1>
+        <b-card no-body bg-variant="light" class="services">
+          <h5><em>Add Services</em></h5>
+
+          <b-form-group @submit="postService">
             <b-card bg-variant="light">
               <b-form-group
                 id="price-fieldset-horizontal"
@@ -24,7 +18,6 @@
                 label-class="font-weight-bold pt-1"
                 label="Price:"
                 v-model="services"
-                :options="serviceType"
                 label-align-sm="right"
                 label-for="price-input-horizontal"
               >
@@ -49,7 +42,6 @@
                 label-class="font-weight-bold pt-0"
                 label="Description:"
                 v-model="services"
-                :options="serviceType"
                 label-align-sm="right"
                 label-for="description-input-horizontal"
               >
@@ -78,22 +70,17 @@
                 label-class="font-weight-bold pt-0"
                 for="beautyService"
                 v-model="services"
-                :options="serviceType"
                 label-for="beauty-input-horizontal"
-                v-slot="{ serviceType }"
               >
-                <b-form-checkbox
-                  v-model="service.beauty.brush"
-                  value="beauty.brush"
-                >Brush</b-form-checkbox>
-                <b-form-checkbox
-                  v-model="service.beauty.nailclips"
-                  value="beauty.nailclips"
-                >Nailclips</b-form-checkbox>
-                <b-form-checkbox
-                  v-model="service.beauty.washing"
-                  value="beauty.washing"
-                >Washing</b-form-checkbox>
+                <b-form-checkbox v-model="service.beauty.brush"
+                  >Brush</b-form-checkbox
+                >
+                <b-form-checkbox v-model="service.beauty.nailclips"
+                  >Nailclips</b-form-checkbox
+                >
+                <b-form-checkbox v-model="service.beauty.washing"
+                  >Washing</b-form-checkbox
+                >
               </b-form-group>
             </b-card>
 
@@ -108,26 +95,24 @@
                 label-class="font-weight-bold pt-0"
                 for="veterinaryService"
                 v-model="services"
-                :options="serviceType"
                 label-for="veterinary-input-horizontal"
               >
                 <b-card>
                   <b-form-checkbox
                     v-model="service.veterinary.examination"
-                    value="veterinary.examination"
-                    inline
-                  >Examination</b-form-checkbox>
-                  <b-form-checkbox
-                    v-model="service.veterinary.xRay"
-                    value="veterinary.xRay"
-                    inline
-                  >X-ray</b-form-checkbox>
+                    stacked
+                    >Examination</b-form-checkbox
+                  >
+                  <b-form-checkbox v-model="service.veterinary.xRay" inline
+                    >X-ray</b-form-checkbox
+                  >
                   <b-form-input
                     id="walking-input-horizontal"
                     v-model="service.veterinary.examinationSubject"
                     value="veterinary.examinationSubject"
                     placeholder="Enter the examination subject"
-                  >Examination Subject:</b-form-input>
+                    >Examination Subject:</b-form-input
+                  >
                 </b-card>
               </b-form-group>
             </b-card>
@@ -143,13 +128,11 @@
                 label-class="font-weight-bold pt-0"
                 for="veterinaryService"
                 v-model="services"
-                :options="serviceType"
                 label-for="hostel-input-horizontal"
               >
                 <b-form-checkbox
                   id="hostel-input-horizontal"
                   v-model="service.hostel"
-                  value="hostel"
                 ></b-form-checkbox>
               </b-form-group>
             </b-card>
@@ -165,12 +148,11 @@
                 label-class="font-weight-bold pt-0"
                 for="walkingService"
                 v-model="services"
-                :options="serviceType"
                 autofocus
                 required
                 label-for="walking-input-horizontal"
               >
-                  <b-card>
+                <b-card>
                   <b-form-input
                     id="walking-input-horizontal"
                     v-model="service.walking.location"
@@ -178,8 +160,9 @@
                     placeholder="Enter the walking location"
                     autofocus
                     required
-                  >Location:</b-form-input><br />
-                    <b-form-input
+                    >Location:</b-form-input
+                  ><br />
+                  <b-form-input
                     id="walking-input-horizontal"
                     v-model="service.walking.hours"
                     value="walking.hours"
@@ -188,101 +171,114 @@
                     placeholder="Enter total hours (t.ex. 3)"
                     autofocus
                     required
-                  >Hours:</b-form-input>
-                   </b-card>
+                    >Hours:</b-form-input
+                  >
+                </b-card>
               </b-form-group>
+
+              <div>
+                <b-container>
+                  <b-button
+                    id="service-submit-btn"
+                    variant="success"
+                    type="submit"
+                    size="md"
+                    v-if="editing === false"
+                    @click="postService()"
+                    >Submit</b-button
+                  >
+                </b-container>
+                <b-button
+                  id="service-patch-btn"
+                  variant="success"
+                  v-if="editing === true"
+                  @click="() => patchService(service)"
+                  >Save</b-button
+                >
+                <b-button
+                  id="service-delete-btn"
+                  variant="danger"
+                  v-if="editing === true"
+                  @click="resetService()"
+                  >Cancel</b-button
+                >
+              </div>
             </b-card>
           </b-form-group>
 
-          <b-button
-                id="registeration"
-            variant="success"
-            type="submit"
-            v-if="editing === false"
-            @click="addService()"
-          >Submit</b-button>
-          <b-button
-              id="registeration"
-            variant="success"
-            v-if="editing === true"
-            @click="patchService(serviceIdToEdit)"
-          >Edit</b-button>
-          <b-button
-            @click="resetService()"
-            v-if="editing === true"
-            id="service-delete-btn"
-            variant="danger"
-          >Cancel</b-button>
-
-          <!--
-                <div v-if="form2.serviceType === 'Walking'">
-                <label>Walking:</label>
-                <p>Location:</p>
-                <input type="text" class="form-control" />
-                <p>hours:</p>
-                <input type="text" class="form-control" />
-              </div>-->
+          <!-- <div v-if="form2.serviceType === 'Walking'">
+            <label>Walking:</label>
+            <p>Location:</p>
+            <input type="text" class="form-control" />
+            <p>hours:</p>
+            <input type="text" class="form-control" />
+          </div> -->
         </b-card>
       </b-jumbotron>
 
       <!-- Services -->
-      <div id="services-cards">
+      <div v-bind="service" id="services-cards">
         <b-container>
-
-          <b-card-group deck>
+          <b-col md="12">
             <b-card
               bg-variant="light"
               text-variant="dark"
-              header="Services"
-              class="services-cards"
+              header="Edit or delete services (click edit on services below)"
+              class="header"
               v-for="service in services"
               :key="service.id"
             >
               <b-card-text>
                 <!-- <p>Pet Lover Name: {{ petLover.userinfo.fullName }}</p> -->
                 <p><b>Price:</b> {{ service.price }}</p>
-                <hr>
+                <hr />
                 <p><b>Description:</b> {{ service.description }}</p>
-                <hr>
-                <p><b>Services:</b>
-                   <ul><b>Beauty:</b>
-                    <ul><b>Brush:</b></ul>
-                  <ul><b>Nailclips:</b></ul>
-                  <ul><b>Washing:</b></ul>
+                <hr />
+                <p><b>Services</b></p>
+                <ul v-if="service.beauty">
+                  <b>Beauty</b>
+                  <ul> <b>Brush:</b> {{ service.beauty.brush }} </ul>
+                  <ul> <b>Nailclips:</b> {{ service.beauty.nailclips }} </ul>
+                  <ul> <b>Washing:</b> {{ service.beauty.washing }} </ul>
                 </ul>
-                <ul><b>Veterinary:</b>
-                  <ul><b>Examination:</b></ul>
-                  <ul><b>Examination Subject:</b></ul>
-                  <ul><b>X-ray:</b></ul>
+
+                <ul>
+                  <b v-if="service.veterinary">Veterinary</b>
+                  <ul> <b>Examination:</b> {{ service.veterinary.examination }} </ul>
+                  <ul> <b>Examination Subject:</b> {{ service.veterinary.examinationSubject }} </ul>
+                  <ul> <b>X-ray:</b> {{ service.veterinary.xRay }} </ul>
                 </ul>
-                <ul><b>Hostel:</b></ul>
-                <ul><b>Walking:</b>
-                  <ul><b>Walking Location:</b></ul>
-                  <ul><b>Total walking hours:</b></ul>
+                <hr />
+                <ul> <b>Hostel:</b> {{ service.hostel }} </ul>
+                <hr />
+                <ul>
+                  <b v-if="service.walking">Walking</b>
+                  <ul> <b>Walking Location:</b> {{ service.walking.location }} </ul>
+                  <ul> <b>Total walking hours:</b> {{ service.walking.hours }} </ul>
                 </ul>
-                </p>
-                <hr>
+                <hr />
               </b-card-text>
 
               <div>
                 <b-container>
-                <b-button
-                  @click="editService(service._id)"
-                  id="service-edit-btn"
-                  variant="info"
-                  class="edit-btn"
-                >Edit</b-button>
-                <b-button
-                  @click="deleteService(service._id)"
-                  id="service-delete-btn"
-                  variant="danger"
-                  class="delete-btn"
-                >Delete</b-button>
+                  <b-button
+                    @click="editService(service._id)"
+                    id="service-edit-btn"
+                    variant="info"
+                    class="edit-btn"
+                    >Edit</b-button
+                  >
+                  <b-button
+                    @click="deleteService(service._id)"
+                    id="service-delete-btn"
+                    variant="danger"
+                    class="delete-btn"
+                    >Delete</b-button
+                  >
                 </b-container>
               </div>
             </b-card>
-          </b-card-group>
-
+          </b-col>
         </b-container>
       </div>
     </div>
@@ -297,40 +293,34 @@ export default {
   components: {},
   mounted() {
     this.getUser() // Load services on mount
+    Api.get('/petlovers/' + this.$route.params.id + '/services').then(res => {
+      console.log(res)
+      this.services = res.data
+    })
   },
   data() {
     return {
       services: {},
-      error: '',
       service: {
         price: null,
         description: '',
         beauty: {
-          brush: true,
-          nailclips: true,
-          washing: true
+          brush: false,
+          nailclips: false,
+          washing: false
         },
         veterinary: {
-          examination: true,
+          examination: false,
           examinationSubject: '',
-          xRay: true
+          xRay: false
         },
-        hostel: true,
+        hostel: false,
         walking: {
           location: '',
           hours: null
         }
       },
-      serviceType: [
-        { text: 'Select One', value: null },
-        'Beauty',
-        'Veterinary',
-        'Hostel',
-        'Walking'
-      ],
-      form2: {
-        serviceType: null
-      },
+      error: '',
       editing: true,
       serviceIdToEdit: 'service'
     }
@@ -380,16 +370,16 @@ export default {
       this.service.location = ''
       this.service.hours = null
     },
-    addService() {
-      // CREATE
+    postService() {
       Api.post(
         '/petlovers/' + this.$route.params.id + '/services',
         this.service
       )
-        .then((res) => {
+        .then(res => {
+          console.log(res)
           this.service = res.data
         })
-        .catch((err) => {
+        .catch(err => {
           // TODO: Display errors to user
           console.log(err)
         })
@@ -397,27 +387,59 @@ export default {
     getUser() {
       // READ
       Api.get('/petlovers/' + this.$route.params.id + '/services')
-        .then((res) => {
+        .then(res => {
           console.log(res)
           this.services = res.data
         })
-        .cach((err) => {
+        .catch(err => {
           // TODO: Display errors to user
           console.log(err)
         })
     },
+    editHandler(service) {
+      this.services = service
+    },
     patchService(id) {
-      // UPDATE
       console.log(id) // debugging
-      Api.post('/petlovers/' + this.$route.params.id + '/services/' + id, {
+      Api.patch('/petlovers/' + this.$route.params.id + '/services/' + id, {
+
         price: this.service.price,
+        // description: this.service.description,
+        // beauty: {
+        //   brush: this.service.beauty.brush,
+        //   nailclips: this.service.beauty.nailclips,
+        //   washing: this.service.beauty.washing
+        // },
+        // veterinary: {
+        //   examination: this.service.veterinary.examination,
+        //   examinationSubject: this.service.veterinary.examinationSubject,
+        //   xRay: this.service.xRay
+        // },
+        // hostel: this.service.hostel,
+        // walking: {
+        //   location: this.service.walking.location,
+        //   hours: this.service.walking.hours
+        // },
         _method: 'patch'
-      })
-        .then((res) => {
-          console.log(res) // debugging
-          return res.data.json // { hello: 'world' }['Content-Type'] // application/json;charset=utf-8
+      }
+      )
+        .then(res => {
+          this.services = res.data.services
+          // console.log(res) // debugging
+          // this.service.price = ''
+          // this.service.description = ''
+          // this.service.beauty.brush = false
+          // this.service.beauty.nailclips = false
+          // this.service.beauty.washing = false
+          // this.service.veterinary.examination = false
+          // this.service.veterinary.examinationSubject = ''
+          // this.service.veterinary.xRay = false
+          // this.service.hostel = false
+          // this.service.walking.location = ''
+          // this.service.walking.hours = ''
+          return res.data.json
         })
-        .catch((err) => {
+        .catch(err => {
           // TODO: Display errors to user
           console.log(err)
         })
@@ -425,10 +447,10 @@ export default {
     deleteService(id) {
       // DESTROY
       Api.delete('/petlovers/' + this.$route.params.id + '/services/' + id)
-        .then((res) => {
+        .then(res => {
           console.log(res) // debugging
         })
-        .catch((err) => {
+        .catch(err => {
           // TODO: Display errors to user
           console.log(err)
         })
@@ -484,6 +506,13 @@ export default {
 }
 .edit-btn {
   margin-right: 1em;
-  margin-left: 4em;
+  margin-left: 40%;
+}
+#service-submit-btn {
+  width: 20%;
+  margin: 0;
+  position: relative;
+  top: 50%;
+  left: 40%;
 }
 </style>

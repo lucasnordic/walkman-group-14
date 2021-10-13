@@ -287,7 +287,7 @@ export default {
             email: '',
             phoneNumber: '',
             address: {
-              city: '',
+              city: 'gothenburg',
               streetName: '',
               streetNumber: ''
             }

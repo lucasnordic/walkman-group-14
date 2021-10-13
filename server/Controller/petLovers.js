@@ -95,9 +95,11 @@ exports.patchPetLoversById = ({ body, params }, res, next) => {
                 result._services = [...body._services, ...result._services];
             }
             //result._id = body._id;
-            result.userinfo.username = body.userinfo.username || result.userinfo.username;
-            result.userinfo.password = body.userinfo.password || result.userinfo.password;
-            result.userinfo.fullName = body.userinfo.fullName || result.userinfo.fullName;
+            if(result.userinfo){
+                result.userinfo.username = body.userinfo.username || result.userinfo.username;
+                result.userinfo.password = body.userinfo.password || result.userinfo.password;
+                result.userinfo.fullName = body.userinfo.fullName || result.userinfo.fullName;             
+            }
             if (body.userinfo.contactInfo) {
                 result.userinfo.contactInfo.email = body.userinfo.contactInfo.email || result.userinfo.contactInfo.email;
                 result.userinfo.contactInfo.phoneNumber = body.userinfo.contactInfo.phoneNumber || result.userinfo.contactInfo.phoneNumber;

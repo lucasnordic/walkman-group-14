@@ -310,7 +310,7 @@ export default {
   // components: { ServiceItem: ServiceItem },
   mounted() {
     console.log('Page is loaded')
-    Api.getServicesByPetLoverd('/v1/:petLoverId/services')
+    Api.getServicesByPetLoverId('/:petLoverId/services')
       .then(response => {
         console.log(response)
         this.services = response.data.services
