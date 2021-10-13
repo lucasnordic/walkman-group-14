@@ -107,8 +107,8 @@ exports.patchPetOwnersById = async ({ body, params }, res, next) => {
         }
         if (body.userinfo) {
             modified.push('userinfo')
-            result.userinfo.username = body.userinfo.username || result.userinfo.username;
-            result.userinfo.fullName = body.userinfo.fullName || result.userinfo.fullName;
+            if (body.userinfo.username) { result.userinfo.username = body.userinfo.username }
+            if (body.userinfo.fullName) { result.userinfo.fullName = body.userinfo.fullName }
 
             // if there is a new password, hash it.
             if (body.userinfo.password) {
@@ -123,9 +123,9 @@ exports.patchPetOwnersById = async ({ body, params }, res, next) => {
 
             if (body.userinfo.contactInfo) {
                 modified.push('contactInfo')
-                result.userinfo.contactInfo.email = body.userinfo.contactInfo.email || result.userinfo.contactInfo.email;
-                result.userinfo.contactInfo.phoneNumber = body.userinfo.contactInfo.phoneNumber || result.userinfo.contactInfo.phoneNumber;
-                result.userinfo.contactInfo.address = body.userinfo.contactInfo.address || result.userinfo.contactInfo.address;
+                if (body.userinfo.contactInfo.email) { result.userinfo.contactInfo.email = body.userinfo.contactInfo.email }
+                if (body.userinfo.contactInfo.phoneNumber) { result.userinfo.contactInfo.phoneNumber = body.userinfo.contactInfo.phoneNumber }
+                if (body.userinfo.contactInfo.address) { result.userinfo.contactInfo.address = body.userinfo.contactInfo.address }
             }
         }
         modified.forEach(i => {
