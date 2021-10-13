@@ -190,6 +190,7 @@ export default {
       .then(res => {
         console.log(res)
         this.pets = res.data
+        // TODO show an error in case there is no connection
       })
   },
   data() {

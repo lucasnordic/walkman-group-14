@@ -1,0 +1,26 @@
+<template>
+    <b-container>
+        <b-row>
+            <b-col>
+                <h1>Your account is successfully Deleted. Good Luck!</h1>
+            </b-col>
+        </b-row>
+        <b-row>
+            <b-col>
+                <b-button @click="home()"> Go to home page</b-button>
+            </b-col>
+        </b-row>
+    </b-container>
+</template>
+
+<script>
+
+export default {
+  name: 'void',
+  methods: {
+    home() {
+      this.$router.push('/')
+    }
+  }
+}
+</script>
