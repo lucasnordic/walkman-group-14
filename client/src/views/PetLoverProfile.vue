@@ -198,7 +198,6 @@ export default {
   },
   methods: {
     edit() {
-      Api.patch('/petlovers/' + this.$route.params.id, this.petLover.acceptablePets)
       Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
         (res) => this.petLover
       )
