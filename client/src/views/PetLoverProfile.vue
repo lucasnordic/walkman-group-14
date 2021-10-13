@@ -3,70 +3,110 @@
     <b-row v-model="petLover">
       <b-col md="12">
         <b-card class="greeting-user">
-        <b-card-text>
-          Hello {{petLover.userinfo.username}}!
-        </b-card-text>
+          <b-card-text> Hello {{ petLover.userinfo.username }}! </b-card-text>
         </b-card>
         <b-card class="user-info">
           <b-card-text>
-            <p id="header">Profile information:
-            <p class="key"> Username:
-              <span class="value"> {{petLover.userinfo.username}}</span>
+            <p id="header">Profile information:</p>
+            <p class="key">
+              Username:
+              <span class="value"> {{ petLover.userinfo.username }}</span>
             </p>
-            <p class="key"> Password:
-              <span class="value"> {{petLover.userinfo.password}}</span>
+            <p class="key">
+              Password:
+              <span class="value"> {{ petLover.userinfo.password }}</span>
             </p>
-            <p class="key"> Full Name:
-              <span class="value"> {{petLover.userinfo.fullname}}</span>
+            <p class="key">
+              Full Name:
+              <span class="value"> {{ petLover.userinfo.fullname }}</span>
             </p>
-            <p class="key"> Email:
-              <span class="value"> {{petLover.userinfo.contactInfo.email}}</span>
+            <p class="key">
+              Email:
+              <span class="value">
+                {{ petLover.userinfo.contactInfo.email }}</span
+              >
             </p>
-            <p class="key"> Phone Number:
-              <span class="value"> {{petLover.userinfo.contactInfo.phoneNumber}}</span>
+            <p class="key">
+              Phone Number:
+              <span class="value">
+                {{ petLover.userinfo.contactInfo.phoneNumber }}</span
+              >
             </p>
-            <p class="key"> City:
-              <span class="value"> {{petLover.userinfo.contactInfo.address.city}}</span>
+            <p class="key">
+              City:
+              <span class="value">
+                {{ petLover.userinfo.contactInfo.address.city }}</span
+              >
             </p>
-            <p class="key"> Street Name:
-              <span class="value"> {{petLover.userinfo.contactInfo.address.streetName}}</span>
+            <p class="key">
+              Street Name:
+              <span class="value">
+                {{ petLover.userinfo.contactInfo.address.streetName }}</span
+              >
             </p>
-            <p class="key"> Street Number:
-              <span class="value"> {{petLover.userinfo.contactInfo.address.streetNumber}}</span>
+            <p class="key">
+              Street Number:
+              <span class="value">
+                {{ petLover.userinfo.contactInfo.address.streetNumber }}</span
+              >
             </p>
-            <p class="key" v-if="petLover.acceptablePets"> Acceptable Pets:
-              <span class="value"> {{petLover.acceptablePets.join(' ')}}</span>
+            <p class="key" v-if="petLover.acceptablePets">
+              Acceptable Pets:
+              <span class="value">
+                {{ petLover.acceptablePets.join(' ') }}</span
+              >
             </p>
-            <p class="key"> Description:
-              <p class="value"> {{petLover.aboutMe}}
-            </p>
-            <b-button variant="danger" id="delete-button" v-b-modal.deleteAccount>Delete Account</b-button>
-            <b-button variant="primary" id="edit-button" v-b-modal.edit-user>Edit Information</b-button>
+            <p class="key">Description:</p>
+            <p class="value">{{ petLover.aboutMe }}</p>
+            <b-button
+              variant="danger"
+              id="delete-button"
+              v-b-modal.deleteAccount
+              >Delete Account</b-button
+            >
+            <b-button variant="primary" id="edit-button" v-b-modal.edit-user
+              >Edit Information</b-button
+            >
           </b-card-text>
         </b-card>
       </b-col>
     </b-row>
     <b-row id="service-row">
       <b-col md="12">
-        <b-button  variant="success" @click="servicePage()" id="service-btn">View Your services</b-button>
+        <b-button variant="success" @click="servicePage()" id="service-btn"
+          >View Your services</b-button
+        >
       </b-col>
     </b-row>
     <b-modal id="edit-user" title="Edit Information" ref="editModal">
       <b-container>
+        <h5>Security settings</h5>
+
+        <b-row>
+          <b-col md="3">
+            <label>Password:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="patchInputs.password"></b-form-input>
+          </b-col>
+          <b-button
+            size="lg"
+            variant="success"
+            id="savepassword-btn"
+            @click="editByPatch(patchPasswordData)"
+            >Change Password</b-button
+          >
+        </b-row>
+
+        <hr />
+
+        <h5>Other settings</h5>
         <b-row>
           <b-col md="3">
             <label>Username:</label>
           </b-col>
           <b-col md="9">
             <b-form-input v-model="petLover.userinfo.username"></b-form-input>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col md="3">
-            <label>Password:</label>
-          </b-col>
-          <b-col md="9">
-            <b-form-input v-model="petLover.userinfo.password"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -82,7 +122,9 @@
             <label>Email:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="petLover.userinfo.contactInfo.email"></b-form-input>
+            <b-form-input
+              v-model="petLover.userinfo.contactInfo.email"
+            ></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -90,7 +132,9 @@
             <label>Phone Number:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="petLover.userinfo.contactInfo.phoneNumber"></b-form-input>
+            <b-form-input
+              v-model="petLover.userinfo.contactInfo.phoneNumber"
+            ></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -98,7 +142,9 @@
             <label>City:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="petLover.userinfo.contactInfo.address.city"></b-form-input>
+            <b-form-input
+              v-model="petLover.userinfo.contactInfo.address.city"
+            ></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -106,7 +152,9 @@
             <label>Street Name:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="petLover.userinfo.contactInfo.address.streetName"></b-form-input>
+            <b-form-input
+              v-model="petLover.userinfo.contactInfo.address.streetName"
+            ></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -114,7 +162,9 @@
             <label>Street Number:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="petLover.userinfo.contactInfo.address.streetNumber"></b-form-input>
+            <b-form-input
+              v-model="petLover.userinfo.contactInfo.address.streetNumber"
+            ></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -130,18 +180,20 @@
             <label>Acceptable Pets:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="accPet" @keyup.188="addPets" placeholder="Press ',' after entering each pet"></b-form-input>
+            <b-form-input
+              v-model="accPet"
+              @keyup.188="addPets"
+              placeholder="Press ',' after entering each pet"
+            ></b-form-input>
           </b-col>
         </b-row>
       </b-container>
       <template #modal-footer>
-      <b-button size="lg" variant="success" @click="edit()">
-        Save
-      </b-button>
-      <b-button size="lg" variant="outline-secondary" @click="close()">
-        Cancel
-      </b-button>
-    </template>
+        <b-button size="lg" variant="success" @click="edit()"> Save </b-button>
+        <b-button size="lg" variant="outline-secondary" @click="close()">
+          Cancel
+        </b-button>
+      </template>
     </b-modal>
     <b-modal ref="delAcc" id="deleteAccount">
       <b-container>
@@ -152,13 +204,11 @@
         </b-row>
       </b-container>
       <template #modal-footer>
-          <b-button size="lg" @click="closeDel()" id="cancel-btn">
-            Cancel
-          </b-button>
-          <b-button size="lg" @click="delAcc()" id="del-btn">
-            Delete
-          </b-button>
-        </template>
+        <b-button size="lg" @click="closeDel()" id="cancel-btn">
+          Cancel
+        </b-button>
+        <b-button size="lg" @click="delAcc()" id="del-btn"> Delete </b-button>
+      </template>
     </b-modal>
   </b-container>
 </template>
@@ -193,6 +243,9 @@ export default {
         },
         aboutMe: null,
         acceptablePets: null
+      },
+      patchInputs: {
+        password: null
       }
     }
   },
@@ -201,6 +254,25 @@ export default {
       Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
         (res) => this.petLover
       )
+      this.reload()
+    },
+    editByPatch(dataToPatch) {
+      // if input is empty, return.
+      if (!dataToPatch) {
+        // TODO: Show error message to user
+        console.log('No password entered')
+        return
+      }
+
+      Api.patch('/petowners/' + this.$route.params.id, dataToPatch)
+        .then((res) => {
+          // TODO: Show a success message to the user
+          this.petOwner = res
+        })
+        .catch((err) => {
+          // TODO: Show an error message to the user
+          console.log(err)
+        })
       this.reload()
     },
     delAcc() {
@@ -226,10 +298,22 @@ export default {
       this.petLover.acceptablePets.push(this.accPet)
       this.accPet = null
     }
+  },
+  computed: {
+    patchPasswordData() {
+      return { password: this.patchInputs.password }
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 @import '../assets/styles/profile.css';
+
+#savepassword-btn {
+  margin-top: 15px;
+  margin-left: 62%;
+  width: 35%;
+  font-size: 100%;
+}
 </style>
