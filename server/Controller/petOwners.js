@@ -128,6 +128,8 @@ exports.patchPetOwnersById = async ({ body, params }, res, next) => {
                 if (body.userinfo.contactInfo.address) { result.userinfo.contactInfo.address = body.userinfo.contactInfo.address }
             }
         }
+
+        // Go through each marked attribute and specify them as edited for mongoose
         modified.forEach(i => {
             result.markModified(i);
         });
