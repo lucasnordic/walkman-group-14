@@ -1,14 +1,14 @@
 <template>
-  <b-container>
+  <b-container fluid="md">
     <b-row>
-      <b-col md="12">
+      <b-col>
         <b-button v-b-modal.register-pet id="register-btn">
           Add a new Pet
       </b-button>
       </b-col>
     </b-row>
     <b-row v-for="pet in pets" :key="pet._id">
-      <b-col md="12" sm="2">
+      <b-col>
         <b-card class="pet-card">
         <img src="https://placekitten.com/300/300" alt="Card image" class="card-img-">
         <b-card-text >

@@ -1,7 +1,7 @@
 <template>
-  <b-container v-if="petLover" fluid>
+  <b-container v-if="petLover" fluid="md">
     <b-row v-model="petLover">
-      <b-col md="12">
+      <b-col>
         <b-card class="greeting-user">
           <b-card-text> Hello {{ petLover.userinfo.username }}! </b-card-text>
         </b-card>
@@ -11,10 +11,6 @@
             <p class="key">
               Username:
               <span class="value"> {{ petLover.userinfo.username }}</span>
-            </p>
-            <p class="key">
-              Password:
-              <span class="value"> {{ petLover.userinfo.password }}</span>
             </p>
             <p class="key">
               Full Name:
@@ -79,7 +75,7 @@
       </b-col>
     </b-row>
     <b-modal id="edit-user" title="Edit Information" ref="editModal">
-      <b-container>
+      <b-container fluid="md">
         <h5>Security settings</h5>
 
         <b-row>
