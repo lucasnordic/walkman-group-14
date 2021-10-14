@@ -489,10 +489,6 @@ export default {
   padding: 1em 1em;
 }
 
-.priceLabel {
-  margin-top: 1em;
-}
-
 /* Overrides imported .css */
 #form_inputs {
   max-width: 100%;
@@ -514,7 +510,7 @@ export default {
 
 #add-service {
   background-color: rgb(220, 246, 255);
-  max-width: 1000px;
+  max-width: 1100px;
   margin: auto;
   border-style: groove;
 }
@@ -537,71 +533,34 @@ export default {
   margin-left: 40%;
 }
 #service-submit-btn {
-  width: 20%;
+  max-width: 100%;
   margin: 0;
-  position: relative;
+  position:static;
   top: 50%;
   left: 40%;
 }
 
 @media screen and (max-width: 768px) {
-  .services {
-    padding: 1em 1em;
+  .priceLabel{
+    text-align-last: left;
   }
-
-  .priceLabel {
-    margin-top: 1em;
-  }
-
-  /* Overrides imported .css */
-  #form_inputs {
+  .priceInput{
     max-width: 100%;
-    margin-top: 1em;
   }
-  /* Overrides imported .css */
-
-  #page {
-    background-color: aliceblue;
-    height: auto;
-    width: 100%;
-    margin: auto;
-    position: absolute;
+  .descriptionLabel{
+    text-align-last: left;
   }
-
-  #title {
-    margin-bottom: 25px;
+  .beautyLabel{
+    text-align-last: left;
   }
-
-  #add-service {
-    background-color: rgb(220, 246, 255);
-    max-width: 1000px;
-    margin: auto;
-    border-style: groove;
+  .veterinaryLabel{
+    text-align-last: left;
   }
-
-  #services-cards {
-    margin-top: 50px;
-    margin-bottom: 50px;
-    text-align: left;
+  .hostelLabel{
+    text-align-last: left;
   }
-  .veterinary-checkbox {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-  }
-  .card-body {
-    margin: 0.5em 0.5em 0.5em 0.5em;
-  }
-  .edit-btn {
-    margin-right: 1em;
-    margin-left: 40%;
-  }
-  #service-submit-btn {
-    width: 20%;
-    margin: 0;
-    position: relative;
-    top: 50%;
-    left: 40%;
+  .walkingLabel{
+    text-align-last: left;
   }
 }
 </style>
