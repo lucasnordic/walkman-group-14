@@ -52,7 +52,7 @@ const routes = [
   {
     path: '/profile/petlovers/:id/services',
     name: 'services',
-    component: Service
+    component: Services
   },
   {
     path: '/noprofile',
