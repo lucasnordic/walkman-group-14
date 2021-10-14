@@ -113,7 +113,7 @@ exports.putPetById = (req, res, next) => {
 
 //PATCH /pets/petId
 exports.patchPetById = ({ body, params }, res, next) => {
-	PetLover.findById(params.petId)
+	Pet.findById(params.petId)
 		.then((result) => {
 			if (result === null) {
 				res.status(404).send({ message: "The pet_Id not found." });
@@ -130,14 +130,14 @@ exports.patchPetById = ({ body, params }, res, next) => {
 			}
 			//result._id = body._id;
 			result.allergies = body.allergies || result.allergies;
-			result.foodPreferences = body.foodPreferences || result.foodPreferences;
+			result.foodPreferences = body.foodPreferences || result.foodPreferences
 
 			result.save();
 
 			console.log(result);
 			res.json(result);
-		})
-		.catch((err) => {
+
+		}).catch((err) => {
 			res.status(502).send({ message: "Not found" });
 			return next(err);
 		});

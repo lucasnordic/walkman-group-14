@@ -93,6 +93,7 @@ exports.patchPetLoversById = async ({ body, params }, res, next) => {
     try {
         const result = await PetLover.findById(params.userId)
         const modified = []
+        console.log(body)
 
         if (result === null) {
             res.status(404).send({ message: "The petLover_Id not found." });
@@ -110,11 +111,27 @@ exports.patchPetLoversById = async ({ body, params }, res, next) => {
             modified.push('_services')
             result._services = [...body._services, ...result._services];
         }
-        if (body.userinfo) {
+        if (body.username) {
             modified.push('userinfo')
-            if (body.userinfo.username) { result.userinfo.username = body.userinfo.username }
-            if (body.userinfo.fullName) { result.userinfo.fullName = body.userinfo.fullName }
-
+            result.userinfo.username = body.username
+        }
+        if (body.fullName) {
+            modified.push('userinfo')
+            result.userinfo.fullName = body.fullName
+        }
+        if (body.email) {
+            modified.push('userinfo')
+            result.userinfo.contactInfo.email = body.email
+        }
+        if (body.phoneNumber) {
+            modified.push('userinfo')
+            result.userinfo.contactInfo.phoneNumber = body.phoneNumber
+        }
+        if (body.address) {
+            modified.push('userinfo')
+            result.userinfo.contactInfo.address = body.address
+        }
+        if (body.password) {
             // if there is a new password, hash it.
             if (body.userinfo.password) {
                 try {

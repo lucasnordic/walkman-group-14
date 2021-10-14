@@ -102,27 +102,35 @@ exports.patchPetOwnersById = async ({ body, params }, res, next) => {
             modified.push('_pets')
             result._pets = [...body._pets, ...result._pets];
         }
-        if (body.userinfo) {
+        if (body.username) {
             modified.push('userinfo')
-            if (body.userinfo.username) { result.userinfo.username = body.userinfo.username }
-            if (body.userinfo.fullName) { result.userinfo.fullName = body.userinfo.fullName }
-
+            result.userinfo.username = body.username
+        }
+        if (body.fullName) {
+            modified.push('userinfo')
+            result.userinfo.fullName = body.fullName
+        }
+        if (body.email) {
+            modified.push('userinfo')
+            result.userinfo.contactInfo.email = body.email
+        }
+        if (body.phoneNumber) {
+            modified.push('userinfo')
+            result.userinfo.contactInfo.phoneNumber = body.phoneNumber
+        }
+        if (body.address) {
+            modified.push('userinfo')
+            result.userinfo.contactInfo.address = body.address
+        }
+        if (body.password) {
             // if there is a new password, hash it.
-            if (body.userinfo.password) {
-                try {
-                    const hashedPassword = await Bcrypt.hashPassword(body.userinfo.password)
-                    result.userinfo.password = hashedPassword
-                } catch (err) {
-                    res.status(500).send(err)
-                    next(err);
-                }
-            }
-
-            if (body.userinfo.contactInfo) {
-                modified.push('contactInfo')
-                if (body.userinfo.contactInfo.email) { result.userinfo.contactInfo.email = body.userinfo.contactInfo.email }
-                if (body.userinfo.contactInfo.phoneNumber) { result.userinfo.contactInfo.phoneNumber = body.userinfo.contactInfo.phoneNumber }
-                if (body.userinfo.contactInfo.address) { result.userinfo.contactInfo.address = body.userinfo.contactInfo.address }
+            try {
+                const hashedPassword = await Bcrypt.hashPassword(body.password)
+                result.userinfo.password = hashedPassword
+                modified.push('userinfo')
+            } catch (err) {
+                // res.status(500).send(err)
+                next(err);
             }
         }
 
@@ -134,7 +142,7 @@ exports.patchPetOwnersById = async ({ body, params }, res, next) => {
         res.json(result);
 
     } catch (err) {
-        res.status(502).send({ message: "not found" });
+        res.status(502).send({ message: "Not found" });
         return next(err);
     }
 };
