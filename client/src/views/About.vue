@@ -37,8 +37,8 @@
   border-radius: 5px;
 }
 .about-img {
-  height: 520px;
-  width: 1024px;
+  height: 100%;
+  width: 100%;
 }
 .img_container {
   padding: 1em 1em 1em 1em;
