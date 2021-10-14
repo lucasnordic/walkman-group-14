@@ -8,7 +8,7 @@
       </b-col>
     </b-row>
     <b-row v-for="pet in pets" :key="pet._id">
-      <b-col md="12">
+      <b-col md="12" sm="2">
         <b-card class="pet-card">
         <img src="https://placekitten.com/300/300" alt="Card image" class="card-img-">
         <b-card-text >
@@ -32,10 +32,11 @@
           <p class="title" v-if="pet.petItems">Pet Items:
             <p class="attributes">
               {{ pet.petItems.join(' ') }}
+              <p>
           </p>
         </b-card-text>
-        <b-button v-b-modal.del-modal variant="danger" @click="idHandler(pet._id)">Delete</b-button>
-        <b-button v-b-modal.edit-info variant="primary" class="edit-btn" @click="editHandler(pet)">Edit</b-button>
+        <b-button v-b-modal.del-modal id="delete-pet" class ="card-btn" @click="idHandler(pet._id)">Delete</b-button>
+        <b-button v-b-modal.edit-info id="edit-pet" class="card-btn" @click="editHandler(pet)">Edit</b-button>
         </b-card>
       </b-col>
     </b-row>
