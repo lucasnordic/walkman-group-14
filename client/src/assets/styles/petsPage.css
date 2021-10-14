@@ -1,4 +1,8 @@
-
+@media screen and (max-width: 768px) {
+  .pet-card image-rendering border-right-style {
+    position: top;
+  }
+}
 
 .pet-card {
     padding: 0px;
