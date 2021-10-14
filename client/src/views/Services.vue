@@ -98,14 +98,14 @@
                 label-for="veterinary-input-horizontal"
               >
                 <b-card>
-                  <b-form-checkbox
-                    v-model="service.veterinary.examination"
-                    stacked
-                    >Examination</b-form-checkbox
-                  >
-                  <b-form-checkbox v-model="service.veterinary.xRay" inline
-                    >X-ray</b-form-checkbox
-                  >
+                  <div class="veterinary-checkbox">
+                    <b-form-checkbox v-model="service.veterinary.xRay"
+                      >X-ray</b-form-checkbox
+                    >
+                    <b-form-checkbox v-model="service.veterinary.examination"
+                      >Examination</b-form-checkbox
+                    >
+                  </div>
                   <b-form-input
                     id="walking-input-horizontal"
                     v-model="service.veterinary.examinationSubject"
@@ -126,7 +126,7 @@
                 label="Hostel:"
                 label-size="md"
                 label-class="font-weight-bold pt-0"
-                for="veterinaryService"
+                for="hostelService"
                 v-model="services"
                 label-for="hostel-input-horizontal"
               >
@@ -177,42 +177,33 @@
               </b-form-group>
 
               <div>
-                <b-container>
+                <b-container v-if="!editing">
                   <b-button
                     id="service-submit-btn"
                     variant="success"
                     type="submit"
                     size="md"
-                    v-if="editing === false"
                     @click="postService()"
                     >Submit</b-button
                   >
                 </b-container>
-                <b-button
-                  id="service-patch-btn"
-                  variant="success"
-                  v-if="editing === true"
-                  @click="() => patchService(service)"
-                  >Save</b-button
-                >
-                <b-button
-                  id="service-delete-btn"
-                  variant="danger"
-                  v-if="editing === true"
-                  @click="resetService()"
-                  >Cancel</b-button
-                >
+                <b-container v-else-if="editing">
+                  <b-button
+                    id="service-patch-btn"
+                    variant="success"
+                    @click="() => patchService(serviceIdToEdit)"
+                    >Save</b-button
+                  >
+                  <b-button
+                    id="service-delete-btn"
+                    variant="danger"
+                    @click="resetService()"
+                    >Cancel</b-button
+                  >
+                </b-container>
               </div>
             </b-card>
           </b-form-group>
-
-          <!-- <div v-if="form2.serviceType === 'Walking'">
-            <label>Walking:</label>
-            <p>Location:</p>
-            <input type="text" class="form-control" />
-            <p>hours:</p>
-            <input type="text" class="form-control" />
-          </div> -->
         </b-card>
       </b-jumbotron>
 
@@ -224,7 +215,7 @@
               bg-variant="light"
               text-variant="dark"
               header="Edit or delete services (click edit on services below)"
-              class="header"
+              class="header mt-3"
               v-for="service in services"
               :key="service.id"
             >
@@ -237,24 +228,64 @@
                 <p><b>Services</b></p>
                 <ul v-if="service.beauty">
                   <b>Beauty</b>
-                  <ul> <b>Brush:</b> {{ service.beauty.brush }} </ul>
-                  <ul> <b>Nailclips:</b> {{ service.beauty.nailclips }} </ul>
-                  <ul> <b>Washing:</b> {{ service.beauty.washing }} </ul>
+                  <ul>
+                    <b>Brush:</b>
+                    {{
+                      service.beauty.brush
+                    }}
+                  </ul>
+                  <ul>
+                    <b>Nailclips:</b>
+                    {{
+                      service.beauty.nailclips
+                    }}
+                  </ul>
+                  <ul>
+                    <b>Washing:</b>
+                    {{
+                      service.beauty.washing
+                    }}
+                  </ul>
                 </ul>
 
-                <ul>
-                  <b v-if="service.veterinary">Veterinary</b>
-                  <ul> <b>Examination:</b> {{ service.veterinary.examination }} </ul>
-                  <ul> <b>Examination Subject:</b> {{ service.veterinary.examinationSubject }} </ul>
-                  <ul> <b>X-ray:</b> {{ service.veterinary.xRay }} </ul>
+                <ul v-if="service.veterinary">
+                  <b>Veterinary</b>
+                  <ul>
+                    <b>X-ray:</b>
+                    {{
+                      service.veterinary.xRay
+                    }}
+                  </ul>
+                  <ul>
+                    <b>Examination:</b>
+                    {{
+                      service.veterinary.examination
+                    }}
+                  </ul>
+                  <ul>
+                    <b>Examination Subject:</b>
+                    {{
+                      service.veterinary.examinationSubject
+                    }}
+                  </ul>
                 </ul>
                 <hr />
-                <ul> <b>Hostel:</b> {{ service.hostel }} </ul>
+                <p><b>Hostel:</b> {{ service.hostel }}</p>
                 <hr />
-                <ul>
-                  <b v-if="service.walking">Walking</b>
-                  <ul> <b>Walking Location:</b> {{ service.walking.location }} </ul>
-                  <ul> <b>Total walking hours:</b> {{ service.walking.hours }} </ul>
+                <ul v-if="service.walking">
+                  <b>Walking</b>
+                  <ul>
+                    <b>Walking Location:</b>
+                    {{
+                      service.walking.location
+                    }}
+                  </ul>
+                  <ul>
+                    <b>Total walking hours:</b>
+                    {{
+                      service.walking.hours
+                    }}
+                  </ul>
                 </ul>
                 <hr />
               </b-card-text>
@@ -310,9 +341,9 @@ export default {
           washing: false
         },
         veterinary: {
+          xRay: false,
           examination: false,
-          examinationSubject: '',
-          xRay: false
+          examinationSubject: ''
         },
         hostel: false,
         walking: {
@@ -321,7 +352,7 @@ export default {
         }
       },
       error: '',
-      editing: true,
+      editing: false,
       serviceIdToEdit: 'service'
     }
   },
@@ -342,17 +373,19 @@ export default {
         const service = this.services[i]
         if (service._id === id) {
           this.serviceIdToEdit = id
+
           this.service.price = service.price
           this.service.description = service.description
-          this.service.brush = service.brush
-          this.service.nailclips = service.nailclips
-          this.service.washing = service.washing
-          this.service.examination = service.examination
-          this.service.examinationSubject = service.examinationSubject
-          this.service.xRay = service.xRay
+          this.service.beauty.brush = service.beauty.brush
+          this.service.beauty.nailclips = service.beauty.nailclips
+          this.service.beauty.washing = service.beauty.washing
+          this.service.veterinary.xRay = service.veterinary.xRay
+          this.service.veterinary.examination = service.veterinary.examination
+          this.service.veterinary.examinationSubject =
+            service.veterinary.examinationSubject
           this.service.hostel = service.hostel
-          this.service.location = service.location
-          this.service.hours = service.hours
+          this.service.walking.location = service.walking.location
+          this.service.walking.hours = service.walking.hours
         }
       }
     },
@@ -363,9 +396,9 @@ export default {
       this.service.brush = false
       this.service.nailclips = false
       this.service.washing = false
+      this.service.xRay = false
       this.service.examination = false
       this.service.examinationSubject = ''
-      this.service.xRay = false
       this.service.hostel = false
       this.service.location = ''
       this.service.hours = null
@@ -402,42 +435,32 @@ export default {
     patchService(id) {
       console.log(id) // debugging
       Api.patch('/petlovers/' + this.$route.params.id + '/services/' + id, {
-
         price: this.service.price,
-        // description: this.service.description,
-        // beauty: {
-        //   brush: this.service.beauty.brush,
-        //   nailclips: this.service.beauty.nailclips,
-        //   washing: this.service.beauty.washing
-        // },
-        // veterinary: {
-        //   examination: this.service.veterinary.examination,
-        //   examinationSubject: this.service.veterinary.examinationSubject,
-        //   xRay: this.service.xRay
-        // },
-        // hostel: this.service.hostel,
-        // walking: {
-        //   location: this.service.walking.location,
-        //   hours: this.service.walking.hours
-        // },
+        description: this.service.description,
+        beauty: {
+          brush: this.service.beauty.brush,
+          nailclips: this.service.beauty.nailclips,
+          washing: this.service.beauty.washing
+        },
+        veterinary: {
+          xRay: this.service.veterinary.xRay,
+          examination: this.service.veterinary.examination,
+          examinationSubject: this.service.veterinary.examinationSubject
+        },
+        hostel: this.service.hostel,
+        walking: {
+          location: this.service.walking.location,
+          hours: this.service.walking.hours
+        },
         _method: 'patch'
-      }
-      )
+      })
         .then(res => {
-          this.services = res.data.services
-          // console.log(res) // debugging
-          // this.service.price = ''
-          // this.service.description = ''
-          // this.service.beauty.brush = false
-          // this.service.beauty.nailclips = false
-          // this.service.beauty.washing = false
-          // this.service.veterinary.examination = false
-          // this.service.veterinary.examinationSubject = ''
-          // this.service.veterinary.xRay = false
-          // this.service.hostel = false
-          // this.service.walking.location = ''
-          // this.service.walking.hours = ''
-          return res.data.json
+          console.log(res.data)
+          const index = this.services.findIndex(
+            service => service._id === res.data._id
+          )
+          this.services.splice(index, 1, res.data)
+          console.log(this.services)
         })
         .catch(err => {
           // TODO: Display errors to user
@@ -501,6 +524,11 @@ export default {
   margin-bottom: 50px;
   text-align: left;
 }
+.veterinary-checkbox {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
 .card-body {
   margin: 0.5em 0.5em 0.5em 0.5em;
 }
@@ -514,5 +542,66 @@ export default {
   position: relative;
   top: 50%;
   left: 40%;
+}
+
+@media screen and (max-width: 768px) {
+  .services {
+    padding: 1em 1em;
+  }
+
+  .priceLabel {
+    margin-top: 1em;
+  }
+
+  /* Overrides imported .css */
+  #form_inputs {
+    max-width: 100%;
+    margin-top: 1em;
+  }
+  /* Overrides imported .css */
+
+  #page {
+    background-color: aliceblue;
+    height: auto;
+    width: 100%;
+    margin: auto;
+    position: absolute;
+  }
+
+  #title {
+    margin-bottom: 25px;
+  }
+
+  #add-service {
+    background-color: rgb(220, 246, 255);
+    max-width: 1000px;
+    margin: auto;
+    border-style: groove;
+  }
+
+  #services-cards {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: left;
+  }
+  .veterinary-checkbox {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .card-body {
+    margin: 0.5em 0.5em 0.5em 0.5em;
+  }
+  .edit-btn {
+    margin-right: 1em;
+    margin-left: 40%;
+  }
+  #service-submit-btn {
+    width: 20%;
+    margin: 0;
+    position: relative;
+    top: 50%;
+    left: 40%;
+  }
 }
 </style>

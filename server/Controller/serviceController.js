@@ -115,6 +115,7 @@ exports.putServiceById = (req, res, next) => {
 
 //PATCH /services/:serviceId
 exports.patchServiceById = ({ body, params }, res, next) => {
+	console.log("test", body);
 	Service.findById(params.serviceId)
 		.then((result) => {
 			if (result === null) {
@@ -128,120 +129,32 @@ exports.patchServiceById = ({ body, params }, res, next) => {
 				result.description = body.description || result.description;
 			}
 			if (body.beauty) {
-				result.beauty.brush = { ...body.beauty.brush, ...result.beauty.brush };
-				result.beauty.nailclips = {
-					...body.beauty.nailclips,
-					...result.beauty.nailclips,
-				};
-				result.beauty.washing = {
-					...body.beauty.washing,
-					...result.beauty.washing,
-				};
+				result.beauty.brush = body.beauty.brush;
+				result.beauty.nailclips = body.beauty.nailclips;
+				result.beauty.washing = body.beauty.washing;
 			}
 			if (body.veterinary) {
-				result.veterinary.examination = {
-					...body.veterinary.examination,
-					...result.veterinary.examination,
-				};
-				result.veterinary.examinationSubject = {
-					...body.veterinary.examinationSubject,
-					...result.veterinary.examinationSubject,
-				};
-				result.veterinary.xRay = {
-					...body.veterinary.xRay,
-					...result.veterinary.xRay,
-				};
+				result.veterinary.xRay = body.veterinary.xRay;
+				result.veterinary.examination = body.veterinary.examination;
+				result.veterinary.examinationSubject = body.veterinary.examinationSubject || result.veterinary.examinationSubject;
 			}
 			if (body.hostel) {
 				result.hostel = body.hostel || result.hostel;
 			}
 			if (body.walking) {
-				result.walking.location = {
-					...body.walking.location,
-					...result.walking.location,
-				};
-				result.walking.hours = {
-					...body.walking.hours,
-					...result.walking.hours,
-				};
+				result.walking.location = body.walking.location || result.walking.location;
+				result.walking.hours = body.walking.hours || result.walking.hours;
 			}
-			result.save();
-
-			console.log(result);
-			res.json(result);
+            return result.save();
+            
 		})
+        .then(result2 => {
+			console.log(result2);
+			res.json(result2);
+
+        })
 		.catch((err) => {
 			res.status(502).send({ message: "Not found" });
 			return next(err);
 		});
-
-	// try {
-	// 	const result = await Service.findById(params.serviceId);
-	// 	const modified = [];
-	// 	if (result === null) {
-	// 		res.status(404).send({ message: "The service_Id not found." });
-	// 		return;
-	// 	}
-	// 	if (body.price) {
-	// 		modified.push("price");
-	// 		result.price = body.price || result.price;
-	// 	}
-	// 	if (body.description) {
-	// 		modified.push("description");
-	// 		result.description = body.description || result.description;
-	// 	}
-	// 	if (body.beauty) {
-	// 		modified.push("beauty");
-	// 		result.beauty.brush = { ...body.beauty.brush, ...result.beauty.brush };
-	// 		result.beauty.nailclips = {
-	// 			...body.beauty.nailclips,
-	// 			...result.beauty.nailclips,
-	// 		};
-	// 		result.beauty.washing = {
-	// 			...body.beauty.washing,
-	// 			...result.beauty.washing,
-	// 		};
-	// 	}
-	// 	if (body.veterinary) {
-	// 		modified.push("veterinary");
-	// 		result.veterinary.examination = {
-	// 			...body.veterinary.examination,
-	// 			...result.veterinary.examination,
-	// 		};
-	// 		result.veterinary.examinationSubject = {
-	// 			...body.veterinary.examinationSubject,
-	// 			...result.veterinary.examinationSubject,
-	// 		};
-	// 		result.veterinary.xRay = {
-	// 			...body.veterinary.xRay,
-	// 			...result.veterinary.xRay,
-	// 		};
-	// 	}
-	// 	if (body.hostel) {
-	// 		modified.push("hostel");
-	// 		result.hostel = body.hostel || result.hostel;
-	// 	}
-	// 	if (body.walking) {
-	// 		modified.push("walking");
-	// 		result.walking.location = {
-	// 			...body.walking.location,
-	// 			...result.walking.location,
-	// 		};
-	// 		result.walking.hours = {
-	// 			...body.walking.hours,
-	// 			...result.walking.hours,
-	// 		};
-	// 	}
-	// 	modified.forEach((i) => {
-	// 		result.markModified(i);
-	// 	});
-	// 	console.log(JSON.stringify(result));
-	// 	result.markModified("service");
-	// 	await result.save();
-	// 	res.json(result);
-	// 	console.log("end");
-	// } catch (err) {
-	// 	res.status(502).send({ message: "Not found" });
-	// 	return next(err);
-	// }
 };
