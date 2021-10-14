@@ -1,8 +1,5 @@
-const express = require('express');
 const jwt = require('jsonwebtoken');
-
 const PetOwner = require('../Models/PetOwner');
-const ObjectId = require('mongodb').ObjectID;
 const Bcrypt = require('../utils/PasswordHandler')
 
 // TODO: go through'em once again before front-end

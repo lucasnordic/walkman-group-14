@@ -2,10 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from './views/Home.vue'
+import About from './views/About.vue'
 import PetLover from './views/PetLoverProfile.vue'
 import PetOwner from './views/PetOwnerProfile.vue'
 import Pets from './views/Pets.vue'
-import Service from './views/Service.vue'
+import Services from './views/Services.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import Void from './views/Void.vue'
@@ -17,6 +18,11 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: About
   },
   {
     path: '/login',
@@ -46,7 +52,7 @@ const routes = [
   {
     path: '/profile/petlovers/:id/services',
     name: 'services',
-    component: Service
+    component: Services
   },
   {
     path: '/noprofile',

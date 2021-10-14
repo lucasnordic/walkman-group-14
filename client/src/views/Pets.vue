@@ -4,39 +4,60 @@
       <b-col>
         <b-button v-b-modal.register-pet id="register-btn">
           Add a new Pet
-      </b-button>
+        </b-button>
       </b-col>
     </b-row>
     <b-row v-for="pet in pets" :key="pet._id">
       <b-col>
         <b-card class="pet-card">
-        <img src="https://placekitten.com/300/300" alt="Card image" class="card-img-">
-        <b-card-text >
-          <p class="title">Name:
-          <p class="attributes">{{pet.name}}
-            <p>
-          <p class="title">Type:
-          <p class="attributes">{{pet.type}}
-            <p>
-          <p class="title">Gender:
-          <p class="attributes">{{pet.gender}}
-            <p>
-          <p class="title" v-if="pet.allergies">Allergies:
+          <img
+            src="https://placekitten.com/300/300"
+            alt="Card image"
+            class="card-img-"
+          />
+          <b-card-text>
+            <p class="title">Name:</p>
+            <p class="attributes">{{ pet.name }}</p>
+            <p></p>
+            <p class="title">Type:</p>
+            <p class="attributes">{{ pet.type }}</p>
+            <p></p>
+            <p class="title">Gender:</p>
+            <p class="attributes">{{ pet.gender }}</p>
+            <p></p>
+            <p class="title" v-if="pet.allergies">Allergies:</p>
             <p class="attributes">
               {{ pet.allergies.join(' ') }}
-            <p>
-          <p class="title" v-if="pet.foodPreferences">Food Preferences:
+            </p>
+
+            <p></p>
+            <p class="title" v-if="pet.foodPreferences">Food Preferences:</p>
             <p class="attributes">
               {{ pet.foodPreferences.join(' ') }}
-            <p>
-          <p class="title" v-if="pet.petItems">Pet Items:
+            </p>
+
+            <p></p>
+            <p class="title" v-if="pet.petItems">Pet Items:</p>
             <p class="attributes">
               {{ pet.petItems.join(' ') }}
-              <p>
-          </p>
-        </b-card-text>
-        <b-button v-b-modal.del-modal id="delete-pet" class ="card-btn" @click="idHandler(pet._id)">Delete</b-button>
-        <b-button v-b-modal.edit-info id="edit-pet" class="card-btn" @click="editHandler(pet)">Edit</b-button>
+            </p>
+
+            <p></p>
+          </b-card-text>
+          <b-button
+            v-b-modal.del-modal
+            id="delete-pet"
+            class="card-btn"
+            @click="idHandler(pet._id)"
+            >Delete</b-button
+          >
+          <b-button
+            v-b-modal.edit-info
+            id="edit-pet"
+            class="card-btn"
+            @click="editHandler(pet)"
+            >Edit</b-button
+          >
         </b-card>
       </b-col>
     </b-row>
@@ -48,7 +69,10 @@
             <label>Name:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="editPet.name" placeholder="Enter pet's name"></b-form-input>
+            <b-form-input
+              v-model="editPet.name"
+              placeholder="Enter pet's name"
+            ></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -56,7 +80,10 @@
             <label>Type:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="editPet.type" placeholder="Enter pet's type"></b-form-input>
+            <b-form-input
+              v-model="editPet.type"
+              placeholder="Enter pet's type"
+            ></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -64,7 +91,10 @@
             <label>Gender:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="editPet.gender" placeholder="Enter pet's gender"></b-form-input>
+            <b-form-input
+              v-model="editPet.gender"
+              placeholder="Enter pet's gender"
+            ></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -72,7 +102,11 @@
             <label>Allergies:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="allergy" @keyup.188="addAllergy" placeholder="Press ',' after entering each allergy"></b-form-input>
+            <b-form-input
+              v-model="allergy"
+              @keyup.188="addAllergy"
+              placeholder="Press ',' after entering each allergy"
+            ></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -80,7 +114,11 @@
             <label>Food Preferences:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="food" @keyup.188="addFood" placeholder="Press ',' after entering each food"></b-form-input>
+            <b-form-input
+              v-model="food"
+              @keyup.188="addFood"
+              placeholder="Press ',' after entering each food"
+            ></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -88,28 +126,35 @@
             <label>Pet Items:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="item" @keyup.188="addItem" placeholder="Press ',' after entering each item"></b-form-input>
+            <b-form-input
+              v-model="item"
+              @keyup.188="addItem"
+              placeholder="Press ',' after entering each item"
+            ></b-form-input>
           </b-col>
         </b-row>
       </b-container>
       <template #modal-footer>
-      <b-button size="lg" variant="outline-secondary" @click="closeReg()">
-        Cancel
-      </b-button>
-      <b-button size="lg" variant="success" @click="petRegister()">
-        Sign UP
-      </b-button>
+        <b-button size="lg" variant="outline-secondary" @click="closeReg()">
+          Cancel
+        </b-button>
+        <b-button size="lg" variant="success" @click="petRegister()">
+          Sign UP
+        </b-button>
       </template>
     </b-modal>
     <b-modal v-bind="editPet" id="edit-info" ref="editModal">
-      <template #modal-title>Edit {{editPet.name}}'s information</template>
+      <template #modal-title>Edit {{ editPet.name }}'s information</template>
       <b-container fluid="md" class="edit-page">
         <b-row>
           <b-col md="3">
             <label>Name:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="editPet.name" placeholder="Enter new name here"></b-form-input>
+            <b-form-input
+              v-model="editPet.name"
+              placeholder="Enter new name here"
+            ></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -117,7 +162,10 @@
             <label>Type:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="editPet.type" placeholder="Enter new type here"></b-form-input>
+            <b-form-input
+              v-model="editPet.type"
+              placeholder="Enter new type here"
+            ></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -125,7 +173,10 @@
             <label>Gender:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="editPet.gender" placeholder="Enter pets gender here"></b-form-input>
+            <b-form-input
+              v-model="editPet.gender"
+              placeholder="Enter pets gender here"
+            ></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -133,7 +184,11 @@
             <label>Allergies:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="allergy" @keyup.188="editAllergies"  placeholder="Press ',' after entering each allergy"></b-form-input>
+            <b-form-input
+              v-model="allergy"
+              @keyup.188="editAllergies"
+              placeholder="Press ',' after entering each allergy"
+            ></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -141,7 +196,11 @@
             <label>Food Preferences:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="food" @keyup.188="editFoods" placeholder="Press ',' after entering each food"></b-form-input>
+            <b-form-input
+              v-model="food"
+              @keyup.188="editFoods"
+              placeholder="Press ',' after entering each food"
+            ></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -149,18 +208,22 @@
             <label>Pet Items:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="item" @keyup.188="editItem" placeholder="Press ',' after entering each item"></b-form-input>
+            <b-form-input
+              v-model="item"
+              @keyup.188="editItem"
+              placeholder="Press ',' after entering each item"
+            ></b-form-input>
           </b-col>
         </b-row>
       </b-container>
       <template #modal-footer>
-      <b-button size="lg" variant="success" @click="petEditor()">
-        Save
-      </b-button>
-      <b-button size="lg" variant="outline-secondary" @click="closeEdit()">
-        Cancel
-      </b-button>
-    </template>
+        <b-button size="lg" variant="success" @click="petEditor()">
+          Save
+        </b-button>
+        <b-button size="lg" variant="outline-secondary" @click="closeEdit()">
+          Cancel
+        </b-button>
+      </template>
     </b-modal>
     <b-modal id="del-modal" ref="deleteModal">
       <b-container>
@@ -171,13 +234,13 @@
         </b-row>
       </b-container>
       <template #modal-footer>
-      <b-button size="lg" @click="closeDel()" id="cancel-btn">
-        Cancel
-      </b-button>
-      <b-button size="lg" @click="deletePet()" id="del-btn">
-        Delete
-      </b-button>
-    </template>
+        <b-button size="lg" @click="closeDel()" id="cancel-btn">
+          Cancel
+        </b-button>
+        <b-button size="lg" @click="deletePet()" id="del-btn">
+          Delete
+        </b-button>
+      </template>
     </b-modal>
   </b-container>
 </template>
@@ -189,10 +252,11 @@ export default {
   name: 'pets',
   mounted() {
     Api.get('/petowners/' + this.$route.params.id + '/pets')
-      .then(res => {
+      .then((res) => {
         console.log(res)
         this.pets = res.data
-      }).catch((err) => {
+      })
+      .catch((err) => {
         this.makeToast(
           'Connection Error',
           String(err) + ', Please try again',
@@ -244,16 +308,19 @@ export default {
       location.reload()
     },
     petRegister() {
-      Api.post('/petowners/' + this.$route.params.id + '/pets', this.editPet)
-        .then(res => this.pets)
+      Api.post(
+        '/petowners/' + this.$route.params.id + '/pets',
+        this.editPet
+      ).then((res) => this.pets)
       location.reload()
     },
     editHandler(pet) {
       this.editPet = pet
     },
     petEditor() {
-      Api.put('petowners/pets/' + this.editPet._id, this.editPet)
-        .then(res => this.pets)
+      Api.put('petowners/pets/' + this.editPet._id, this.editPet).then(
+        (res) => this.pets
+      )
       location.reload()
     },
     closeEdit() {
@@ -283,7 +350,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <style scoped>

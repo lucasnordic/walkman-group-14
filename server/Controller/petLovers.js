@@ -1,7 +1,4 @@
-const express = require('express');
 const jwt = require('jsonwebtoken');
-
-const { request } = require('../app');
 const PetLover = require('../Models/PetLover');
 const Bcrypt = require('../utils/PasswordHandler')
 
@@ -29,11 +26,13 @@ exports.postPetLovers = (req, res, next) => {
 //(b) GET /petLovers
 exports.getPetLovers = (req, res, next) => {
     PetLover.find().sort({ username: -1 })
+        .populate("_services")
         .then((result) => {
             if (result === null) {
                 res.status(404).send({ message: "The petLover_Id not found." });
                 return;
             }
+            console.log(result);
             res.json(result);
         })
         .catch((err) => {
@@ -134,13 +133,20 @@ exports.patchPetLoversById = async ({ body, params }, res, next) => {
         }
         if (body.password) {
             // if there is a new password, hash it.
-            try {
-                const hashedPassword = await Bcrypt.hashPassword(body.password)
-                result.userinfo.password = hashedPassword
-                modified.push('userinfo')
-            } catch (err) {
-                // res.status(500).send(err)
-                next(err);
+            if (body.userinfo.password) {
+                try {
+                    const hashedPassword = await Bcrypt.hashPassword(body.userinfo.password)
+                    result.userinfo.password = hashedPassword
+                } catch (err) {
+                    res.status(500).send(err)
+                    next(err);
+                }
+            }
+            if (body.userinfo.contactInfo) {
+                modified.push('contactInfo')
+                if (body.userinfo.contactInfo.email) { result.userinfo.contactInfo.email = body.userinfo.contactInfo.email }
+                if (body.userinfo.contactInfo.phoneNumber) { result.userinfo.contactInfo.phoneNumber = body.userinfo.contactInfo.phoneNumber }
+                if (body.userinfo.contactInfo.address) { result.userinfo.contactInfo.address = body.userinfo.contactInfo.address }
             }
         }
 

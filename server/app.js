@@ -1,15 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
-var morgan = require('morgan');
-var path = require('path');
-var cors = require('cors');
-var history = require('connect-history-api-fallback');
+const morgan = require('morgan');
+const path = require('path');
+const cors = require('cors');
+const history = require('connect-history-api-fallback');
 
-var serviceRouter = require('./Router/serviceRouter');
-var petRouter = require('./Router/petRouter');
-var petLoverRouter = require('./Router/petLoverRouter');
-var petOwnerRouter = require('./Router/petOwnerRouter');
-var authenticateRouter = require('./Router/authenticateRouter');
+const serviceRouter = require('./Router/serviceRouter');
+const petRouter = require('./Router/petRouter');
+const petLoverRouter = require('./Router/petLoverRouter');
+const petOwnerRouter = require('./Router/petOwnerRouter');
+const authenticateRouter = require('./Router/authenticateRouter');
 
 // Variables
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
@@ -26,7 +26,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }, 
 });
 
 // Create Express app
-var app = express();
+const app = express();
 // Parse requests of content-type 'application/json'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
