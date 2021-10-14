@@ -37,8 +37,8 @@
   border-radius: 5px;
 }
 .about-img {
-  height: 520px;
-  width: 1024px;
+  height: 100%;
+  width: 100%;
 }
 .img_container {
   padding: 1em 1em 1em 1em;
@@ -49,7 +49,7 @@
   font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS',
     sans-serif;
   font-style: italic;
-  width: 1100px;
+  width: 100%;
   text-align: left;
   font-size: 30px;
 }
