@@ -9,7 +9,8 @@
     </b-row>
     <b-row v-for="pet in pets" :key="pet._id">
       <b-col md="12">
-        <b-card class="pet-card" img-src="https://placekitten.com/300/300" img-alt="Card image" img-left>
+        <b-card class="pet-card">
+        <img src="https://placekitten.com/300/300" alt="Card image" class="card-img-">
         <b-card-text >
           <p class="title">Name:
           <p class="attributes">{{pet.name}}

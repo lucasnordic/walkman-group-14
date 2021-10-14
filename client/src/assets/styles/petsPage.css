@@ -1,6 +1,8 @@
 @media screen and (max-width: 768px) {
-  .pet-card image-rendering border-right-style {
-    position: top;
+  .pet-card img{
+    display: inline-block;
+    vertical-align: top;
+    float: none !important;
   }
 }
 
@@ -10,6 +12,11 @@
     margin-bottom: 15px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background-image: linear-gradient(rgb(0, 183, 255), yellow);
+}
+
+.pet-card img {
+  float: left; 
+  padding: 10px;
 }
 
 .col-md-12 {

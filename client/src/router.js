@@ -8,7 +8,6 @@ import Pets from './views/Pets.vue'
 import Service from './views/Service.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
-import Profile from './views/Profile.vue'
 import Void from './views/Void.vue'
 import Nothing from './views/Nothing.vue'
 
@@ -29,11 +28,6 @@ const routes = [
     path: '/register',
     name: 'register',
     component: Register
-  },
-  {
-    path: '/profile',
-    name: 'profile',
-    component: Profile
   },
   {
     path: '/profile/petlovers/:id',
