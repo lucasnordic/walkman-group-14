@@ -1,7 +1,18 @@
 <template>
   <div class="main">
+    <div class="overflow-auto">
+      <p class="mt-3">Current Page: {{ currentPage }}</p>
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        aria-controls="pet_lover_row"
+        align="center"
+      ></b-pagination>
+    </div>
+
     <b-container class="services-page" fluid="sm">
-      <b-container class="carousel-img" fluid="sm">
+      <!-- <b-container class="carousel-img" fluid="sm">
         <b-row>
           <b-col>
             <b-carousel
@@ -69,8 +80,8 @@
                 </h1>
               </b-carousel-slide>
 
-              <!-- Slides with img slot -->
-              <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
+              <!- Slides with img slot ->
+              <!- Note the classes .d-block and .img-fluid to prevent browser default image alignment ->
               <b-carousel-slide>
                 <template #img>
                   <img
@@ -87,7 +98,7 @@
                 </h1>
               </b-carousel-slide>
 
-              <!-- Slide with blank fluid image to maintain slide aspect ratio -->
+              <!- Slide with blank fluid image to maintain slide aspect ratio ->
               <b-carousel-slide>
                 <template #img>
                   <img
@@ -104,13 +115,13 @@
             </b-carousel>
           </b-col>
         </b-row>
-      </b-container>
+      </b-container> -->
 
-      <b-container>
+      <!-- Element to collapse -->
+      <!-- Via multiple directive modifiers -->
+      <!-- <b-container>
         <b-row class="collapse_container" fluid="sm">
           <b-col>
-            <!-- Element to collapse -->
-            <!-- Via multiple directive modifiers -->
             <b-button
               class="all-services"
               variant="success"
@@ -147,19 +158,25 @@
           :activityType="'Services'"
           :subservicetype="this.subservicetype"
         />
-      </b-container>
+      </b-container> -->
 
+      <!-- :items="items"
+        :per-page="perPage"
+        :current-page="currentPage" -->
       <b-container
         class="pet-lover-container"
         fluid="sm"
         id="entire-container"
-        :items="items"
-        :per-page="perPage"
-        :current-page="currentPage"
         small
       >
-        <b-row class="pet_lover_row">
-          <b-col class="leftside">
+        <b-row
+          class="pet_lover_row"
+          v-for="item in currentPagePetlovers"
+          v-bind:key="item.userinfo._id"
+          :per-page="perPage"
+          :current-page="currentPage"
+        >
+          <b-col md="4" class="leftside">
             <img
               class="profile-picture"
               src="../assets/images/profile-picture.png"
@@ -169,16 +186,21 @@
             />
             <div>
               <b-form-rating v-model="value"></b-form-rating>
-              <p class="rating_mt-2" border-variant="transparent" align="right">
-                Value: {{ value }}
+              <p
+                class="rating_mt-2"
+                border-variant="transparent"
+                align="center"
+              >
+                <!-- Value: {{ value }} -->
               </p>
             </div>
 
+            <!-- TODO: Maybe have a "send email button"? -->
             <b-button
               class="profile"
               variant="primary"
-              @click="$router.push('profile')"
-              >Profile</b-button
+              :href="`mailto:${item.userinfo.contactInfo.email}`"
+              >Send Email</b-button
             >
 
             <!-- <b-dropdown
@@ -245,32 +267,43 @@
               </b-dropdown> -->
           </b-col>
 
-          <b-col class="middle" cols="8">
-            <p class="Pet-Lover-Name">Clara Denver</p>
+          <b-col md="4" class="middle" cols="8">
+            <p class="Pet-Lover-Name">Petlover: {{ item.userinfo.username }}</p>
             <hr class="rounded" />
-            <p class="aboutMe">
-              I am energetic, responsible, clean and love animals! I have a
-              flexible schedule too and I am open for suggestions of a preferred
-              park for the dog as well as distance needed 🙂 I can offer some
-              energy burning training day for energetic dogs to play around in
-              bigger spaces in addition to a calm, cuddling slow walk for calmer
-              dogs or older ones, also longer time for the walk if needed.
-            </p>
+            <p class="aboutMe">About me: {{ item.aboutMe }}</p>
             <ul class="contact-phone" align="left">
               Phone:
+              {{
+                item.userinfo.contactInfo.phoneNumber
+              }}
             </ul>
             <ul class="contact-email" align="left">
               E-mail:
+              {{
+                item.userinfo.contactInfo.email
+              }}
             </ul>
-            <ul class="contact-price" align="left">
-              Price per hour:
+            <ul class="contact-email" align="left">
+              City:
+              {{
+                item.userinfo.contactInfo.address.city
+              }}
+            </ul>
+            <ul class="contact-email" align="left">
+              Street:
+              {{
+                item.userinfo.contactInfo.address.streetName
+              }}
+              {{
+                item.userinfo.contactInfo.address.streetNum
+              }}
             </ul>
             <ul class="contact-services" align="left">
               Services:
             </ul>
           </b-col>
 
-          <b-col class="right-side">
+          <b-col md="4" class="right-side">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d68391.29304160277!2d11.853376600415995!3d57.61060663610402!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x464fed6e967e63fd%3A0x7cdfe3785b255e0c!2sAskim%2C%20Gothenburg!5e0!3m2!1sen!2sse!4v1632870578904!5m2!1sen!2sse"
               width="200"
@@ -280,6 +313,21 @@
               loading="lazy"
             ></iframe>
           </b-col>
+
+          <hr class="rounded" />
+
+          <b-row
+            id="bottomside"
+            v-for="(service, index) in services"
+            v-bind:key="service._id"
+          >
+            <h3>Service {{ index + 1 }}</h3>
+
+            <ul>
+              <li>Price: {{ service.price }}</li>
+              <li>Description: {{ service.description }}</li>
+            </ul>
+          </b-row>
         </b-row>
       </b-container>
     </b-container>
@@ -289,7 +337,7 @@
         v-model="currentPage"
         :total-rows="rows"
         :per-page="perPage"
-        aria-controls="entire-container"
+        aria-controls="pet_lover_row"
         align="center"
       ></b-pagination>
 
@@ -301,7 +349,7 @@
   </div> -->
 </template>
 
-<script>
+<script scoped>
 // @ is an alias to /src
 import { Api } from '@/Api'
 
@@ -310,24 +358,67 @@ export default {
   // components: { ServiceItem: ServiceItem },
   mounted() {
     console.log('Page is loaded')
-    Api.getServicesByPetLoverId('/:petLoverId/services')
-      .then(response => {
-        console.log(response)
-        this.services = response.data.services
-      })
-      .catch(error => {
-        this.services = []
-        console.log(error)
-      })
-      .then(() => {
-        console.log('This runs every time after success or error.')
-      })
+    this.getPetLovers()
+    // Api.getServicesByPetLoverId('/:petLoverId/services')
+    //   .then((response) => {
+    //     console.log(response)
+    //     this.services = response.data.services
+    //   })
+    //   .catch((error) => {
+    //     this.services = []
+    //     console.log(error)
+    //   })
+    //   .then(() => {
+    //     console.log('This runs every time after success or error.')
+    //   })
   },
   data() {
     return {
       servicesShown: 'Services',
       subServiceType: '',
-      services: [],
+      services: [
+        {
+          price: '145',
+          description: 'I do only walking service',
+          _id: 'id190328970571376364837481347',
+          beauty: {
+            brush: true,
+            nailclips: true,
+            washing: true
+          },
+          veterinary: {
+            examination: true,
+            examinationSubject: true,
+            xRay: true
+          },
+          hostel: true,
+          walking: {
+            location: 'Askim',
+            hours: 2
+          }
+        },
+        {
+          price: '145',
+          description: 'I do only walking service',
+          _id: 'id190328970571376364837481346',
+          beauty: {
+            brush: true,
+            nailclips: true,
+            washing: true
+          },
+          veterinary: {
+            examination: true,
+            examinationSubject: true,
+            xRay: true
+          },
+          hostel: true,
+          walking: {
+            location: 'Askim',
+            hours: 2
+          }
+        }
+      ],
+      petLovers: [],
       msgbox: '',
       value: null,
       slide: 0,
@@ -340,6 +431,12 @@ export default {
   computed: {
     rows() {
       return this.items.length
+    },
+    currentPagePetlovers: function () {
+      return this.petLovers.slice(
+        (this.currentPage - 1) * this.perPage,
+        this.currentPage * this.perPage
+      )
     }
   },
   methods: {
@@ -361,23 +458,38 @@ export default {
           footerClass: 'p-2 border-top-0',
           centered: true
         })
-        .then(value => {
+        .then((value) => {
           this.msgbox = value
         })
-        .catch(err => {
+        .catch((err) => {
           this.msgbox = []
           console.log(err)
         })
+    },
+    getPetLovers() {
+      Api.get('/petlovers')
+        .then((response) => {
+          this.petLovers = response.data
+        })
+        .catch((error) => {
+          this.petLovers = []
+          console.log(error)
+          console.log({ message: 'Services could not found!.' })
+          //   TODO: display some error message instead of logging to console
+        })
+      // .then(() => {
+      //   this.petLovers.forEach((i) => {})
+      // })
     },
     getServices() {
       Api.get(
         '/petLovers/:petLoverId/services' + this.$route.params.id + '/services',
         this.pet
       )
-        .then(response => {
+        .then((response) => {
           this.services = response.data.services
         })
-        .catch(error => {
+        .catch((error) => {
           this.services = []
           console.log(error)
           console.log({ message: 'Services could not found!.' })
@@ -393,14 +505,17 @@ export default {
 </script>
 
 <style>
+.main {
+  background-color: aliceblue;
+}
+
 .services-page {
   background-color: aliceblue;
   width: 100%;
-  min-width: 100%;
+  min-width: 75%;
   height: auto;
   min-height: 100%;
-  padding-left: 1em;
-  margin-left: 1em;
+  margin: auto;
 }
 
 .services {
@@ -443,14 +558,16 @@ export default {
 }
 
 .pet_lover_row {
-  background: aliceblue;
+  background: white;
   border-radius: 10px;
   border-style: groove;
-  width: 100%;
   height: 100%;
   min-height: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+}
+
+#bottomside {
+  text-align: left;
+  margin: 25px;
 }
 
 .leftside {
@@ -664,7 +781,6 @@ export default {
     background: aliceblue;
     border-radius: 10px;
     border-style: groove;
-    max-width: 100%;
     height: auto;
     margin-top: 10px;
     margin-bottom: 10px;
