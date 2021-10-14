@@ -148,10 +148,9 @@ exports.patchServiceById = ({ body, params }, res, next) => {
             return result.save();
             
 		})
-        .then(result2 => {
-			console.log(result2);
-			res.json(result2);
-
+        .then(nextresult => {
+			console.log(nextresult);
+			res.json(nextresult);
         })
 		.catch((err) => {
 			res.status(502).send({ message: "Not found" });

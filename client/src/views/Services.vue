@@ -220,7 +220,6 @@
               :key="service.id"
             >
               <b-card-text>
-                <!-- <p>Pet Lover Name: {{ petLover.userinfo.fullName }}</p> -->
                 <p><b>Price:</b> {{ service.price }}</p>
                 <hr />
                 <p><b>Description:</b> {{ service.description }}</p>
@@ -324,7 +323,7 @@ export default {
   components: {},
   mounted() {
     this.getUser() // Load services on mount
-    Api.get('/petlovers/' + this.$route.params.id + '/services').then(res => {
+    Api.get('/petlovers/' + this.$route.params.id + '/services').then((res) => {
       console.log(res)
       this.services = res.data
     })
@@ -373,7 +372,6 @@ export default {
         const service = this.services[i]
         if (service._id === id) {
           this.serviceIdToEdit = id
-
           this.service.price = service.price
           this.service.description = service.description
           this.service.beauty.brush = service.beauty.brush
@@ -408,31 +406,30 @@ export default {
         '/petlovers/' + this.$route.params.id + '/services',
         this.service
       )
-        .then(res => {
+        .then((res) => {
           console.log(res)
           this.service = res.data
         })
-        .catch(err => {
+        .catch((err) => {
           // TODO: Display errors to user
           console.log(err)
         })
+      location.reload()
     },
     getUser() {
       // READ
       Api.get('/petlovers/' + this.$route.params.id + '/services')
-        .then(res => {
+        .then((res) => {
           console.log(res)
           this.services = res.data
         })
-        .catch(err => {
+        .catch((err) => {
           // TODO: Display errors to user
           console.log(err)
         })
     },
-    editHandler(service) {
-      this.services = service
-    },
     patchService(id) {
+      this.editing = false
       console.log(id) // debugging
       Api.patch('/petlovers/' + this.$route.params.id + '/services/' + id, {
         price: this.service.price,
@@ -454,15 +451,15 @@ export default {
         },
         _method: 'patch'
       })
-        .then(res => {
+        .then((res) => {
           console.log(res.data)
           const index = this.services.findIndex(
-            service => service._id === res.data._id
+            (service) => service._id === res.data._id
           )
           this.services.splice(index, 1, res.data)
           console.log(this.services)
         })
-        .catch(err => {
+        .catch((err) => {
           // TODO: Display errors to user
           console.log(err)
         })
@@ -470,13 +467,14 @@ export default {
     deleteService(id) {
       // DESTROY
       Api.delete('/petlovers/' + this.$route.params.id + '/services/' + id)
-        .then(res => {
+        .then((res) => {
           console.log(res) // debugging
         })
-        .catch(err => {
+        .catch((err) => {
           // TODO: Display errors to user
           console.log(err)
         })
+      location.reload()
     }
   }
 }
@@ -535,31 +533,31 @@ export default {
 #service-submit-btn {
   max-width: 100%;
   margin: 0;
-  position:static;
+  position: static;
   top: 50%;
   left: 40%;
 }
 
 @media screen and (max-width: 768px) {
-  .priceLabel{
+  .priceLabel {
     text-align-last: left;
   }
-  .priceInput{
+  .priceInput {
     max-width: 100%;
   }
-  .descriptionLabel{
+  .descriptionLabel {
     text-align-last: left;
   }
-  .beautyLabel{
+  .beautyLabel {
     text-align-last: left;
   }
-  .veterinaryLabel{
+  .veterinaryLabel {
     text-align-last: left;
   }
-  .hostelLabel{
+  .hostelLabel {
     text-align-last: left;
   }
-  .walkingLabel{
+  .walkingLabel {
     text-align-last: left;
   }
 }

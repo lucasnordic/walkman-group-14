@@ -4,11 +4,13 @@ const UserInfo = require('./UserInfo');
 
 const petOwnerSchema = new Schema({
     userinfo: { type: UserInfo, required: true },
-    aboutMe: { type:String, required:true},
-    _pets: [{ 
-        type: mongoose.Types.ObjectId, 
-        ref: 'pets'}]
-        
+    aboutMe: { type: String, required: true },
+    imageUrl: { type: String, required: false },
+    _pets: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'pets'
+    }]
+
 });
 
 module.exports = mongoose.model('petOwners', petOwnerSchema);
