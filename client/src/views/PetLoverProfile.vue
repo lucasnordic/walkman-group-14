@@ -217,6 +217,13 @@ export default {
     Api.get('/petlovers/' + this.$route.params.id).then((res) => {
       console.log(res)
       this.petLover = res.data
+    }).catch((err) => {
+      this.makeToast(
+        'Connection Error',
+        String(err) + ', Please try again',
+        'danger',
+        true
+      )
     })
   },
   data() {
@@ -246,6 +253,14 @@ export default {
     }
   },
   methods: {
+    makeToast(title, message, variant, solid) {
+      // https://bootstrap-vue.org/docs/components/toast
+      this.$bvToast.toast(message, {
+        title: title, // ex: 'No Access'
+        variant: variant, // ex: 'warning'
+        solid: solid // ex: boolean
+      })
+    },
     edit() {
       Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
         (res) => this.petLover

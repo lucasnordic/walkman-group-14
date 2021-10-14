@@ -192,7 +192,13 @@ export default {
       .then(res => {
         console.log(res)
         this.pets = res.data
-        // TODO show an error in case there is no connection
+      }).catch((err) => {
+        this.makeToast(
+          'Connection Error',
+          String(err) + ', Please try again',
+          'danger',
+          true
+        )
       })
   },
   data() {
@@ -213,6 +219,14 @@ export default {
     }
   },
   methods: {
+    makeToast(title, message, variant, solid) {
+      // https://bootstrap-vue.org/docs/components/toast
+      this.$bvToast.toast(message, {
+        title: title, // ex: 'No Access'
+        variant: variant, // ex: 'warning'
+        solid: solid // ex: boolean
+      })
+    },
     addAllergy() {
       this.editPet.allergies.push(this.allergy)
       this.allergy = null
