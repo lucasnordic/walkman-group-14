@@ -49,7 +49,7 @@
   font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS',
     sans-serif;
   font-style: italic;
-  width: 1100px;
+  width: 100%;
   text-align: left;
   font-size: 30px;
 }
