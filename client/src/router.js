@@ -8,7 +8,7 @@ import Pets from './views/Pets.vue'
 import Service from './views/Service.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
-import Profile from './views/Profile.vue'
+import Void from './views/Void.vue'
 
 Vue.use(Router)
 
@@ -29,11 +29,6 @@ const routes = [
     component: Register
   },
   {
-    path: '/profile',
-    name: 'profile',
-    component: Profile
-  },
-  {
     path: '/profile/petlovers/:id',
     name: 'petLover profile',
     component: PetLover
@@ -52,6 +47,11 @@ const routes = [
     path: '/profile/petlovers/:id/services',
     name: 'services',
     component: Service
+  },
+  {
+    path: '/noprofile',
+    name: 'void',
+    component: Void
   }
 ]
 

@@ -1,258 +1,327 @@
 <template>
-  <div v-if="petLover">
-    <b-jumbotron id="header">
-      <h1 class="display-4" id="greeting">
-        Welcome {{ petLover.userinfo.username }}!
-      </h1>
-    </b-jumbotron>
-    <table class="table table-bordered">
-      <tbody>
-        <tr>
-          <th scope="row">User Name</th>
-          <td>{{ petLover.userinfo.username }}</td>
-          <td>User Name is not changable!</td>
-        </tr>
-        <tr>
-          <th scope="row">Password</th>
-          <td>{{ petLover.userinfo.password }}</td>
-          <td>
-            <div class="d-flex">
-              <input
-                v-model="passUpdate"
-                type="text"
-                placeholder="Enter your edit value"
-                class="form-control"
-              />
-              <button @click="editPass()" class="btn btn-warning rounded-10">
-                <div class="text-center">
-                  <span class="fa fa-pen"></span>
-                </div>
-                Edit
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">Full Name</th>
-          <td>{{ petLover.userinfo.fullName }}</td>
-          <td>
-            <div class="d-flex">
-              <input
-                v-model="fullNameUpdate"
-                type="text"
-                placeholder="Enter your edit value"
-                class="form-control"
-              />
-              <button
-                @click="editFullName()"
-                class="btn btn-warning rounded-10"
+  <b-container v-if="petLover" fluid="md">
+    <b-row v-model="petLover">
+      <b-col>
+        <b-card class="greeting-user">
+          <b-card-text> Hello {{ petLover.userinfo.username }}! </b-card-text>
+        </b-card>
+        <b-card class="user-info">
+          <b-card-text>
+            <p id="header">Profile information:</p>
+            <p class="key">
+              Username:
+              <span class="value"> {{ petLover.userinfo.username }}</span>
+            </p>
+            <p class="key">
+              Full Name:
+              <span class="value"> {{ petLover.userinfo.fullname }}</span>
+            </p>
+            <p class="key">
+              Email:
+              <span class="value">
+                {{ petLover.userinfo.contactInfo.email }}</span
               >
-                <div class="text-center">
-                  <span class="fa fa-pen"></span>
-                </div>
-                Edit
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">Email</th>
-          <td>{{ petLover.userinfo.contactInfo.email }}</td>
-          <td>
-            <div class="d-flex">
-              <input
-                v-model="emailUpdate"
-                type="text"
-                placeholder="Enter your edit value"
-                class="form-control"
-              />
-              <button @click="editEmail()" class="btn btn-warning rounded-10">
-                <div class="text-center">
-                  <span class="fa fa-pen"></span>
-                </div>
-                Edit
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">Phone Number</th>
-          <td>{{ petLover.userinfo.contactInfo.phoneNumber }}</td>
-          <td>
-            <div class="d-flex">
-              <input
-                v-model="phoneUpdate"
-                type="text"
-                placeholder="Enter your edit value"
-                class="form-control"
-              />
-              <button @click="editPhone()" class="btn btn-warning rounded-10">
-                <div class="text-center">
-                  <span class="fa fa-pen"></span>
-                </div>
-                Edit
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">City</th>
-          <td>{{ petLover.userinfo.contactInfo.address.city }}</td>
-          <td>
-            <div class="d-flex">
-              <input
-                v-model="cityUpdate"
-                type="text"
-                placeholder="Enter your edit value"
-                class="form-control"
-              />
-              <button @click="editCity()" class="btn btn-warning rounded-10">
-                <div class="text-center">
-                  <span class="fa fa-pen"></span>
-                </div>
-                Edit
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">Street Name</th>
-          <td>{{ petLover.userinfo.contactInfo.address.streetName }}</td>
-          <td>
-            <div class="d-flex">
-              <input
-                v-model="sNameUpdate"
-                type="text"
-                placeholder="Enter your edit value"
-                class="form-control"
-              />
-              <button @click="editSName()" class="btn btn-warning rounded-10">
-                <div class="text-center">
-                  <span class="fa fa-pen"></span>
-                </div>
-                Edit
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">Street Number</th>
-          <td>{{ petLover.userinfo.contactInfo.address.streetNum }}</td>
-          <td>
-            <div class="d-flex">
-              <input
-                v-model="sNumUpdate"
-                type="text"
-                placeholder="Enter your edit value"
-                class="form-control"
-              />
-              <button @click="editSNum()" class="btn btn-warning rounded-10">
-                <div class="text-center">
-                  <span class="fa fa-pen"></span>
-                </div>
-                Edit
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div id="bottom-btns">
-      <b-button @click="servicePage()" id="pet-btn" variant="primary"
-        >Your Services</b-button
-      >
-      <b-button @click="delAcc()" variant="danger">Delete Account</b-button>
-    </div>
-  </div>
-</template>
+            </p>
+            <p class="key">
+              Phone Number:
+              <span class="value">
+                {{ petLover.userinfo.contactInfo.phoneNumber }}</span
+              >
+            </p>
+            <p class="key">
+              City:
+              <span class="value">
+                {{ petLover.userinfo.contactInfo.address.city }}</span
+              >
+            </p>
+            <p class="key">
+              Street Name:
+              <span class="value">
+                {{ petLover.userinfo.contactInfo.address.streetName }}</span
+              >
+            </p>
+            <p class="key">
+              Street Number:
+              <span class="value">
+                {{ petLover.userinfo.contactInfo.address.streetNumber }}</span
+              >
+            </p>
+            <p class="key" v-if="petLover.acceptablePets">
+              Acceptable Pets:
+              <span class="value">
+                {{ petLover.acceptablePets.join(' ') }}</span
+              >
+            </p>
+            <p class="key">Description:</p>
+            <p class="value">{{ petLover.aboutMe }}</p>
+            <b-button
+              variant="danger"
+              id="delete-button"
+              v-b-modal.deleteAccount
+              >Delete Account</b-button
+            >
+            <b-button variant="primary" id="edit-button" v-b-modal.edit-user
+              >Edit Information</b-button
+            >
+          </b-card-text>
+        </b-card>
+      </b-col>
+    </b-row>
+    <b-row id="service-row">
+      <b-col md="12">
+        <b-button variant="success" @click="servicePage()" id="service-btn"
+          >View Your services</b-button
+        >
+      </b-col>
+    </b-row>
+    <b-modal id="edit-user" title="Edit Information" ref="editModal">
+      <b-container fluid="md">
+        <h5>Security settings</h5>
 
+        <b-row>
+          <b-col md="3">
+            <label>Password:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="patchInputs.password"></b-form-input>
+          </b-col>
+          <b-button
+            size="lg"
+            variant="success"
+            id="savepassword-btn"
+            @click="editByPatch(patchPasswordData)"
+            >Change Password</b-button
+          >
+        </b-row>
+
+        <hr />
+
+        <h5>Other settings</h5>
+        <b-row>
+          <b-col md="3">
+            <label>Username:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="petLover.userinfo.username"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>fullname:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="petLover.userinfo.fullname"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Email:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input
+              v-model="petLover.userinfo.contactInfo.email"
+            ></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Phone Number:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input
+              v-model="petLover.userinfo.contactInfo.phoneNumber"
+            ></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>City:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input
+              v-model="petLover.userinfo.contactInfo.address.city"
+            ></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Street Name:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input
+              v-model="petLover.userinfo.contactInfo.address.streetName"
+            ></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Street Number:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input
+              v-model="petLover.userinfo.contactInfo.address.streetNumber"
+            ></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Description:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input v-model="petLover.aboutMe"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3">
+            <label>Acceptable Pets:</label>
+          </b-col>
+          <b-col md="9">
+            <b-form-input
+              v-model="accPet"
+              @keyup.188="addPets"
+              placeholder="Press ',' after entering each pet"
+            ></b-form-input>
+          </b-col>
+        </b-row>
+      </b-container>
+      <template #modal-footer>
+        <b-button size="lg" variant="success" @click="edit()"> Save </b-button>
+        <b-button size="lg" variant="outline-secondary" @click="close()">
+          Cancel
+        </b-button>
+      </template>
+    </b-modal>
+    <b-modal ref="delAcc" id="deleteAccount">
+      <b-container>
+        <b-row>
+          <b-col>
+            <p>Are you sure you want to delete your account?</p>
+          </b-col>
+        </b-row>
+      </b-container>
+      <template #modal-footer>
+        <b-button size="lg" @click="closeDel()" id="cancel-btn">
+          Cancel
+        </b-button>
+        <b-button size="lg" @click="delAcc()" id="del-btn"> Delete </b-button>
+      </template>
+    </b-modal>
+  </b-container>
+</template>
 <script>
 import { Api } from '@/Api'
 
 export default {
   name: 'petlover',
   mounted() {
-    // Happens when page is loaded
-    console.log('Yoyo!')
     Api.get('/petlovers/' + this.$route.params.id).then((res) => {
       console.log(res)
       this.petLover = res.data
+    }).catch((err) => {
+      this.makeToast(
+        'Connection Error',
+        String(err) + ', Please try again',
+        'danger',
+        true
+      )
     })
   },
   data() {
     return {
-      passUpdate: null,
-      fullNameUpdate: null,
-      emailUpdate: null,
-      phoneUpdate: null,
-      cityUpdate: null,
-      sNameUpdate: null,
-      sNumUpdate: null,
-      petLover: null
+      accPet: null,
+      petLover: {
+        userinfo: {
+          username: null,
+          password: null,
+          fullname: null,
+          contactInfo: {
+            email: null,
+            phoneNumber: null,
+            address: {
+              city: null,
+              streetName: null,
+              streetNumber: null
+            }
+          }
+        },
+        aboutMe: null,
+        acceptablePets: null
+      },
+      patchInputs: {
+        password: null
+      }
     }
   },
   methods: {
-    editPass() {
-      /* this.petLover.userinfo.password = this.passUpdate */
-      Api.patch('/petlovers/' + this.$route.params.id, this.passUpdate).then(
-        (res) => this.petLover
-      )
-      this.passUpdate = null
+    makeToast(title, message, variant, solid) {
+      // https://bootstrap-vue.org/docs/components/toast
+      this.$bvToast.toast(message, {
+        title: title, // ex: 'No Access'
+        variant: variant, // ex: 'warning'
+        solid: solid // ex: boolean
+      })
     },
-    editFullName() {
-      this.petLover.userinfo.fullName = this.fullNameUpdate
+    edit() {
       Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
         (res) => this.petLover
       )
-      this.fullNameUpdate = null
+      location.reload()
     },
-    editEmail() {
-      this.petLover.userinfo.contactInfo.email = this.emailUpdate
-      Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
-        (res) => this.petLover
-      )
-      this.emailUpdate = null
-    },
-    editPhone() {
-      this.petLover.userinfo.contactInfo.phoneNumber = this.phoneUpdate
-      Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
-        (res) => this.petLover
-      )
-      this.phoneUpdate = null
-    },
-    editCity() {
-      this.petLover.userinfo.contactInfo.address.city = this.cityUpdate
-      Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
-        (res) => this.petLover
-      )
-      this.cityUpdate = null
-    },
-    editSName() {
-      this.petLover.userinfo.contactInfo.address.streetName = this.sNameUpdate
-      Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
-        (res) => this.petLover
-      )
-      this.sNameUpdate = null
-    },
-    editSNum() {
-      this.petLover.userinfo.contactInfo.address.streetNum = this.sNumUpdate
-      Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
-        (res) => this.petLover
-      )
-      this.sNumUpdate = null
+    editByPatch(dataToPatch) {
+      // if input is empty, return.
+      if (!dataToPatch) {
+        // TODO: Show error message to user
+        console.log('No password entered')
+        return
+      }
+
+      Api.patch('/petowners/' + this.$route.params.id, dataToPatch)
+        .then((res) => {
+          // TODO: Show a success message to the user
+          this.petOwner = res
+        })
+        .catch((err) => {
+          // TODO: Show an error message to the user
+          console.log(err)
+        })
+      location.reload()
     },
     delAcc() {
       Api.delete('/petlovers/' + this.$route.params.id)
+      this.$router.push('/noprofile')
     },
     servicePage() {
       this.$router.push(
         '/profile/petLovers/' + this.$route.params.id + '/services'
       )
+    },
+    close() {
+      this.$refs.editModal.hide()
+      location.reload()
+    },
+    closeDel() {
+      this.$refs.delAcc.hide()
+    },
+    addPets() {
+      this.petLover.acceptablePets.push(this.accPet)
+      this.accPet = null
+    }
+  },
+  computed: {
+    patchPasswordData() {
+      return { password: this.patchInputs.password }
     }
   }
 }
 </script>
 
-<style>
-@import '../assets/styles/profiles.css';
+<style scoped>
+@import '../assets/styles/profile.css';
+
+#savepassword-btn {
+  margin-top: 15px;
+  margin-left: 62%;
+  width: 35%;
+  font-size: 100%;
+}
 </style>
