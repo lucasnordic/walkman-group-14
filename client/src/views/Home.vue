@@ -314,14 +314,13 @@
             ></iframe>
           </b-col>
 
-          <hr class="rounded" />
-
           <b-row
             id="bottomside"
+            class="border-top border-black"
             v-for="(service, index) in services"
             v-bind:key="service._id"
           >
-            <h3>Service {{ index + 1 }}</h3>
+            <h4>Service {{ index + 1 }}</h4>
 
             <ul>
               <li>Price: {{ service.price }}</li>
@@ -551,9 +550,7 @@ export default {
   border-style: groove;
   background: rgb(220, 246, 255);
   width: 100%;
-  min-width: 100%;
   height: 100%;
-  min-height: 100%;
   border-radius: 10px;
 }
 
@@ -567,14 +564,17 @@ export default {
 
 #bottomside {
   text-align: left;
-  margin: 25px;
+  margin-left: 0px;
+  padding: 15px;
+  border-top: #ffffff 4px;
+  width: 100%;
 }
 
 .leftside {
   border-radius: 10px;
-  /* width: auto;
+  width: auto;
   height: auto;
-  align-self:center; */
+  align-self: center;
 }
 
 .profile-picture {
@@ -585,9 +585,9 @@ export default {
 .middle {
   border-radius: 10px;
   text-align: center;
-  /* width: auto;
+  width: auto;
   height: auto;
-  align-self:center; */
+  align-self: center;
 }
 
 .right-side {
@@ -778,7 +778,7 @@ export default {
     text-align: left;
   }
   .pet_lover_row {
-    background: aliceblue;
+    background: white;
     border-radius: 10px;
     border-style: groove;
     height: auto;
