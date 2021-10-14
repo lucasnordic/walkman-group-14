@@ -232,7 +232,7 @@ export default {
       Api.put('/petowners/' + this.$route.params.id, this.petOwner).then(
         (res) => this.petOwner
       )
-      this.reload()
+      location.reload()
     },
     editByPatch(dataToPatch) {
       // if input is empty, return.
@@ -251,7 +251,7 @@ export default {
           // TODO: Show an error message to the user
           console.log(err)
         })
-      this.reload()
+      location.reload()
     },
     delAcc() {
       Api.delete('/petowners/' + this.$route.params.id)
@@ -262,13 +262,10 @@ export default {
     },
     close() {
       this.$refs.editModal.hide()
-      this.reload()
+      location.reload()
     },
     closeDel() {
       this.$refs.delAcc.hide()
-    },
-    reload() {
-      this.$router.push('/nothing')
     }
   },
   computed: {

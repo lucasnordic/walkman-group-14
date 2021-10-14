@@ -9,7 +9,6 @@ import Service from './views/Service.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import Void from './views/Void.vue'
-import Nothing from './views/Nothing.vue'
 
 Vue.use(Router)
 
@@ -53,11 +52,6 @@ const routes = [
     path: '/noprofile',
     name: 'void',
     component: Void
-  },
-  {
-    path: '/nothing',
-    name: 'nothing',
-    component: Nothing
   }
 ]
 
