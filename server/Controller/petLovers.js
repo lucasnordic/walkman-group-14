@@ -26,11 +26,13 @@ exports.postPetLovers = (req, res, next) => {
 //(b) GET /petLovers
 exports.getPetLovers = (req, res, next) => {
     PetLover.find().sort({ username: -1 })
+        .populate("_services")
         .then((result) => {
             if (result === null) {
                 res.status(404).send({ message: "The petLover_Id not found." });
                 return;
             }
+            console.log(result);
             res.json(result);
         })
         .catch((err) => {

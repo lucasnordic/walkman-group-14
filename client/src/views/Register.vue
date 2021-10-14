@@ -288,7 +288,7 @@ export default {
             email: '',
             phoneNumber: '',
             address: {
-              city: 'gothenburg',
+              city: '',
               streetName: '',
               streetNumber: ''
             }
@@ -333,7 +333,9 @@ export default {
         this.images.push({ pathLong: r(key), pathShort: key })
       )
       const randomNumber = Math.floor(Math.random() * this.images.length)
-      this.form.imageUrl = this.images[randomNumber].pathShort
+      const tempImagePath = this.images[randomNumber].pathShort
+      const newTestPath = tempImagePath.slice(2, 10)
+      this.form.imageUrl = newTestPath
     },
     makeToast(title, message, variant, solid) {
       // https://bootstrap-vue.org/docs/components/toast

@@ -1,18 +1,7 @@
 <template>
   <div class="main">
-    <div class="overflow-auto">
-      <p class="mt-3">Current Page: {{ currentPage }}</p>
-      <b-pagination
-        v-model="currentPage"
-        :total-rows="rows"
-        :per-page="perPage"
-        aria-controls="pet_lover_row"
-        align="center"
-      ></b-pagination>
-    </div>
-
     <b-container class="services-page" fluid="sm">
-      <!-- <b-container class="carousel-img" fluid="sm">
+      <b-container class="carousel-img" fluid="sm">
         <b-row>
           <b-col>
             <b-carousel
@@ -80,8 +69,8 @@
                 </h1>
               </b-carousel-slide>
 
-              <!- Slides with img slot ->
-              <!- Note the classes .d-block and .img-fluid to prevent browser default image alignment ->
+              <!-- Slides with img slot -->
+              <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
               <b-carousel-slide>
                 <template #img>
                   <img
@@ -98,7 +87,7 @@
                 </h1>
               </b-carousel-slide>
 
-              <!- Slide with blank fluid image to maintain slide aspect ratio ->
+              <!-- Slide with blank fluid image to maintain slide aspect ratio -->
               <b-carousel-slide>
                 <template #img>
                   <img
@@ -115,54 +104,19 @@
             </b-carousel>
           </b-col>
         </b-row>
-      </b-container> -->
+      </b-container>
 
-      <!-- Element to collapse -->
-      <!-- Via multiple directive modifiers -->
-      <!-- <b-container>
-        <b-row class="collapse_container" fluid="sm">
-          <b-col>
-            <b-button
-              class="all-services"
-              variant="success"
-              v-on:click="onFilterClicked('')"
-              >All Services</b-button
-            >
-            <b-button
-              class="walking"
-              variant="success"
-              v-on:click="onFilterClicked('Walking')"
-              >Walking</b-button
-            >
-            <b-button
-              class="beauty"
-              variant="success"
-              v-on:click="onFilterClicked('Beauty')"
-              >Beauty</b-button
-            >
-            <b-button
-              class="veterinary"
-              variant="success"
-              v-on:click="onFilterClicked('Veterinary')"
-              >Veterinary</b-button
-            >
-            <b-button
-              class="hostel"
-              variant="success"
-              v-on:click="onFilterClicked('Hostel')"
-              >Hostel</b-button
-            >
-          </b-col>
-        </b-row>
-        <ActivityCardList
-          :activityType="'Services'"
-          :subservicetype="this.subservicetype"
-        />
-      </b-container> -->
+      <div class="overflow-auto">
+        <p class="mt-3">Current Page: {{ currentPage }}</p>
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="rows"
+          :per-page="perPage"
+          aria-controls="pet_lover_row"
+          align="center"
+        ></b-pagination>
+      </div>
 
-      <!-- :items="items"
-        :per-page="perPage"
-        :current-page="currentPage" -->
       <b-container
         class="pet-lover-container"
         fluid="sm"
@@ -179,8 +133,8 @@
           <b-col md="4" class="leftside">
             <img
               class="profile-picture"
-              src="../assets/images/profile-picture.png"
-              alt=""
+              :src="require('@/assets/images/faces/x250/' + item.imageUrl)"
+              :alt="item.imageUrl"
               width="120"
               height="120"
             />
@@ -190,9 +144,7 @@
                 class="rating_mt-2"
                 border-variant="transparent"
                 align="center"
-              >
-                <!-- Value: {{ value }} -->
-              </p>
+              ></p>
             </div>
 
             <!-- TODO: Maybe have a "send email button"? -->
@@ -202,69 +154,6 @@
               :href="`mailto:${item.userinfo.contactInfo.email}`"
               >Send Email</b-button
             >
-
-            <!-- <b-dropdown
-                id="dropdown-form"
-                variant="primary"
-                text="Send a message"
-                ref="dropdown"
-                class="m-2"
-              >
-                <b-dropdown-form class="dropdown-form-message">
-                  <b-form-group
-                    label="Name"
-                    label-for="dropdown-form-name"
-                    @submit.stop.prevent
-                  >
-                    <b-form-input
-                      id="dropdown-form-name"
-                      type="name"
-                      size="sm"
-                      placeholder="Name"
-                    ></b-form-input>
-                  </b-form-group>
-
-                  <b-form-group
-                    label="Phone Number"
-                    label-for="dropdown-form-name"
-                    @submit.stop.prevent
-                  >
-                    <b-form-input
-                      id="dropdown-form-name"
-                      type="name"
-                      size="sm"
-                      placeholder="Phone Number"
-                    ></b-form-input>
-                  </b-form-group>
-
-                  <b-form-group
-                    label="Email"
-                    label-for="dropdown-form-email"
-                    @submit.stop.prevent
-                  >
-                    <b-form-input
-                      id="dropdown-form-email"
-                      size="sm"
-                      placeholder="email@example.com"
-                    ></b-form-input>
-                  </b-form-group>
-
-                  <b-form-textarea
-                    id="textarea"
-                    label="Message"
-                    v-model="text"
-                    placeholder="Type your message..."
-                    rows="3"
-                    max-rows="6"
-                  ></b-form-textarea>
-
-                  <div class="msg_confirmation">
-                    <b-button @click="showMsgBox" variant="primary" size="sm"
-                      >Send</b-button
-                    >
-                  </div>
-                </b-dropdown-form>
-              </b-dropdown> -->
           </b-col>
 
           <b-col md="4" class="middle" cols="8">
@@ -317,7 +206,7 @@
           <b-row
             id="bottomside"
             class="border-top border-black"
-            v-for="(service, index) in services"
+            v-for="(service, index) in item._services"
             v-bind:key="service._id"
           >
             <h4>Service {{ index + 1 }}</h4>
@@ -361,6 +250,7 @@ export default {
     // Api.getServicesByPetLoverId('/:petLoverId/services')
     //   .then((response) => {
     //     console.log(response)
+
     //     this.services = response.data.services
     //   })
     //   .catch((error) => {
@@ -375,48 +265,6 @@ export default {
     return {
       servicesShown: 'Services',
       subServiceType: '',
-      services: [
-        {
-          price: '145',
-          description: 'I do only walking service',
-          _id: 'id190328970571376364837481347',
-          beauty: {
-            brush: true,
-            nailclips: true,
-            washing: true
-          },
-          veterinary: {
-            examination: true,
-            examinationSubject: true,
-            xRay: true
-          },
-          hostel: true,
-          walking: {
-            location: 'Askim',
-            hours: 2
-          }
-        },
-        {
-          price: '145',
-          description: 'I do only walking service',
-          _id: 'id190328970571376364837481346',
-          beauty: {
-            brush: true,
-            nailclips: true,
-            washing: true
-          },
-          veterinary: {
-            examination: true,
-            examinationSubject: true,
-            xRay: true
-          },
-          hostel: true,
-          walking: {
-            location: 'Askim',
-            hours: 2
-          }
-        }
-      ],
       petLovers: [],
       msgbox: '',
       value: null,
@@ -465,6 +313,14 @@ export default {
           console.log(err)
         })
     },
+    makeToast(title, message, variant, solid) {
+      // https://bootstrap-vue.org/docs/components/toast
+      this.$bvToast.toast(message, {
+        title: title, // ex: 'No Access'
+        variant: variant, // ex: 'warning'
+        solid: solid // ex: boolean
+      })
+    },
     getPetLovers() {
       Api.get('/petlovers')
         .then((response) => {
@@ -472,13 +328,11 @@ export default {
         })
         .catch((error) => {
           this.petLovers = []
-          console.log(error)
-          console.log({ message: 'Services could not found!.' })
-          //   TODO: display some error message instead of logging to console
+          this.makeToast('Error', String(error), 'warning', true)
         })
-      // .then(() => {
-      //   this.petLovers.forEach((i) => {})
-      // })
+        .then(() => {
+          console.log(this.petLovers)
+        })
     },
     getServices() {
       Api.get(
@@ -490,9 +344,7 @@ export default {
         })
         .catch((error) => {
           this.services = []
-          console.log(error)
-          console.log({ message: 'Services could not found!.' })
-          //   TODO: display some error message instead of logging to console
+          this.makeToast('Error', String(error), 'warning', true)
         })
     },
     onFilterClicked(subServiceType) {
@@ -560,6 +412,7 @@ export default {
   border-style: groove;
   height: 100%;
   min-height: 100%;
+  margin-bottom: 5px;
 }
 
 #bottomside {
