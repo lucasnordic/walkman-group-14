@@ -42,7 +42,7 @@
     </b-row>
     <b-modal id="register-pet" ref="registeration">
       <template #modal-title>Sign Up Your Pet!</template>
-      <b-container fluid class="register-page">
+      <b-container fluid="md" class="register-page">
         <b-row>
           <b-col md="3">
             <label>Name:</label>
@@ -80,7 +80,7 @@
             <label>Food Preferences:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="food" @keyup.188="addFood" placeholder="Add a food"></b-form-input>
+            <b-form-input v-model="food" @keyup.188="addFood" placeholder="Press ',' after entering each food"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -88,7 +88,7 @@
             <label>Pet Items:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="item" @keyup.188="addItem" placeholder="Add an item"></b-form-input>
+            <b-form-input v-model="item" @keyup.188="addItem" placeholder="Press ',' after entering each item"></b-form-input>
           </b-col>
         </b-row>
       </b-container>
@@ -103,7 +103,7 @@
     </b-modal>
     <b-modal v-bind="editPet" id="edit-info" ref="editModal">
       <template #modal-title>Edit {{editPet.name}}'s information</template>
-      <b-container fluid class="edit-page">
+      <b-container fluid="md" class="edit-page">
         <b-row>
           <b-col md="3">
             <label>Name:</label>
@@ -133,7 +133,7 @@
             <label>Allergies:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="allergy" @keyup.188="editAllergies"  placeholder="Add a new allergy"></b-form-input>
+            <b-form-input v-model="allergy" @keyup.188="editAllergies"  placeholder="Press ',' after entering each allergy"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -141,7 +141,7 @@
             <label>Food Preferences:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="food" @keyup.188="editFoods" placeholder="Add a new food"></b-form-input>
+            <b-form-input v-model="food" @keyup.188="editFoods" placeholder="Press ',' after entering each food"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -149,7 +149,7 @@
             <label>Pet Items:</label>
           </b-col>
           <b-col md="9">
-            <b-form-input v-model="item" @keyup.188="editItem" placeholder="Add a new item"></b-form-input>
+            <b-form-input v-model="item" @keyup.188="editItem" placeholder="Press ',' after entering each item"></b-form-input>
           </b-col>
         </b-row>
       </b-container>
