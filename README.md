@@ -66,28 +66,29 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 Walkman:
 
-It is a safe environment where pet owners find care for their pets (dogs, cats, hamsters, etc) While they are traveling daily or staying overnight or even a few days off. Pet owners are able to find reliable people through the system by reading through about them. We call these people, "Pet Lovers". The system is going to have messaging option between the users to be able to establish quaility communication.    
+It is a safe environment where pet owners find care for their any kind of pets (dogs, cats, hamsters, etc) while they are traveling daily or staying overnight or even they are a few days off. Pet owners are able to find reliable people through the system by reading through about their ads. We call these people, "Pet Lovers". our application is going to have e-mailing option between the users - pet owners and pet lovers - to be able to exchange information.
 
-Walkman will provide an opportunity for pet lovers to offer their services to pet owners. Offered services include things like veterinary services, walking, beauty services and even housing services for those days when pet owners want to take some time away from their pets. 
-
+Walkman will provide an opportunity for pet lovers to offer their services to pet owners. Services which is offered by a pet lover can be a veterinary service, a walking service, a beauty service and even a housing service - called hostel in the application. When pet owners would like to take some time off of their pets, Walkman would be their platform to find the help.
 
 ### Pages
 
-* Home page: 
-Login box for the users who would like to login to the website. Information about the purpose of website. Thumpnails and buttons of services, pet lovers messages/feedbacks as well as thumbnails & tips about animals which can taken care of.
+* [**Home page**](https://fierce-atoll-00561.herokuapp.com/register)**:** 
+Login through the navigation bar for the users who would like to log in to the system. There is information through slide pictures about the purpose of the website. Thumbnails of services where a pet lover shares their purpose and their contact information. A pet owner can send an email to a pet lover through emailing option and can also read about the available services, the pet lover's detailed descriptions, and the possible prices for the available services.
 
-* Service: 
-The page of both pet owners and pet lovers can interact between to provide and/or receive the services through variaes of choices. Through this page, users can also read about the available services, their detailed descriptions and their possible price ranges.
+* **Register page:** 
+The page of pet lovers and pet owners where they can create an account to be able to log in to the system.
 
-* Pet Lovers: 
-This page displays all the pet Lovers and their services. Here a user can also sort through all the different pet lovers depending on the services they give.
+* **Login page:** 
+The page of pet lovers and pet owners where they can log in to the system.
 
-* Profile: 
-Here, pet owners, or lovers, can see all sorts of information of the sites users. A user can also change  anything related to their profile.
+* **Service page:** 
+The page of pet lovers where they can create their services, share their purposes and information to be able to earn money and provide services for those who need them.
 
+* **Profile page:** 
+Pet owners and pet lovers can create and edit their profiles.
 
-
-
+* **About page:** 
+All users of the web applications such as pet owners and pet lovers can read about the system creators.
 
 ### Entity-Relationship (ER) Diagram
 
