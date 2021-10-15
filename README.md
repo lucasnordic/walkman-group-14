@@ -75,10 +75,10 @@ Walkman will provide an opportunity for pet lovers to offer their services to pe
 * [**Home page**](https://fierce-atoll-00561.herokuapp.com/register)**:** 
 Login through the navigation bar for the users who would like to log in to the system. There is information through slide pictures about the purpose of the website. Thumbnails of services where a pet lover shares their purpose and their contact information. A pet owner can send an email to a pet lover through emailing option and can also read about the available services, the pet lover's detailed descriptions, and the possible prices for the available services.
 
-* **Register page:** 
+* **[Register page](https://fierce-atoll-00561.herokuapp.com/register):** 
 The page of pet lovers and pet owners where they can create an account to be able to log in to the system.
 
-* **Login page:** 
+* **[Login page](https://fierce-atoll-00561.herokuapp.com/login):** 
 The page of pet lovers and pet owners where they can log in to the system.
 
 * **Service page:** 
@@ -87,7 +87,7 @@ The page of pet lovers where they can create their services, share their purpose
 * **Profile page:** 
 Pet owners and pet lovers can create and edit their profiles.
 
-* **About page:** 
+* **[About page](https://fierce-atoll-00561.herokuapp.com/about):** 
 All users of the web applications such as pet owners and pet lovers can read about the system creators.
 
 ### Entity-Relationship (ER) Diagram
