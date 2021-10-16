@@ -30,6 +30,7 @@
       <b-collapse id="navbar-toggle-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
           <b-nav-item to="/">Home</b-nav-item>
+          <b-nav-item to="/about">About</b-nav-item>
           <b-nav-item v-if="!loggedIn" to="/login">Login</b-nav-item>
           <b-nav-item v-if="!loggedIn" to="/register">Register</b-nav-item>
           <b-nav-item v-if="loggedIn" v-on:click="routerPush"
