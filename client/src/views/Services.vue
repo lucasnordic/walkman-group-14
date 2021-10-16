@@ -499,7 +499,6 @@ export default {
   height: auto;
   width: 100%;
   margin: auto;
-  position: absolute;
 }
 
 #title {
@@ -533,7 +532,6 @@ export default {
 #service-submit-btn {
   max-width: 100%;
   margin: 0;
-  position: static;
   top: 50%;
   left: 40%;
 }
