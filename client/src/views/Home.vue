@@ -425,8 +425,6 @@ export default {
 
 .leftside {
   border-radius: 10px;
-  width: auto;
-  height: auto;
   align-self: center;
 }
 
@@ -439,6 +437,7 @@ export default {
   border-radius: 10px;
   text-align: center;
   width: auto;
+  margin: auto;
   height: auto;
   align-self: center;
 }
@@ -584,6 +583,10 @@ export default {
     text-shadow: 2px 2px 4px #ffffff;
     font-family: cursive;
     text-decoration: overline;
+  }
+
+  .middle {
+    margin: auto;
   }
 
   .get-pet-lover {
