@@ -205,112 +205,112 @@
             </b-card>
           </b-form-group>
         </b-card>
+
+        <!-- Services -->
+        <div v-bind="service" id="services-cards">
+          <b-container>
+            <b-col md="12">
+              <b-card
+                bg-variant="light"
+                text-variant="dark"
+                header="Edit or delete services (click edit on services below)"
+                class="header mt-3"
+                v-for="service in services"
+                :key="service.id"
+              >
+                <b-card-text>
+                  <p><b>Price:</b> {{ service.price }}</p>
+                  <hr />
+                  <p><b>Description:</b> {{ service.description }}</p>
+                  <hr />
+                  <p><b>Services</b></p>
+                  <ul v-if="service.beauty">
+                    <b>Beauty</b>
+                    <ul>
+                      <b>Brush:</b>
+                      {{
+                        service.beauty.brush
+                      }}
+                    </ul>
+                    <ul>
+                      <b>Nailclips:</b>
+                      {{
+                        service.beauty.nailclips
+                      }}
+                    </ul>
+                    <ul>
+                      <b>Washing:</b>
+                      {{
+                        service.beauty.washing
+                      }}
+                    </ul>
+                  </ul>
+
+                  <ul v-if="service.veterinary">
+                    <b>Veterinary</b>
+                    <ul>
+                      <b>X-ray:</b>
+                      {{
+                        service.veterinary.xRay
+                      }}
+                    </ul>
+                    <ul>
+                      <b>Examination:</b>
+                      {{
+                        service.veterinary.examination
+                      }}
+                    </ul>
+                    <ul>
+                      <b>Examination Subject:</b>
+                      {{
+                        service.veterinary.examinationSubject
+                      }}
+                    </ul>
+                  </ul>
+                  <hr />
+                  <p><b>Hostel:</b> {{ service.hostel }}</p>
+                  <hr />
+                  <ul v-if="service.walking">
+                    <b>Walking</b>
+                    <ul>
+                      <b>Walking Location:</b>
+                      {{
+                        service.walking.location
+                      }}
+                    </ul>
+                    <ul>
+                      <b>Total walking hours:</b>
+                      {{
+                        service.walking.hours
+                      }}
+                    </ul>
+                  </ul>
+                  <hr />
+                </b-card-text>
+
+                <div>
+                  <b-container>
+                    <b-button
+                      @click="editService(service._id)"
+                      id="service-edit-btn"
+                      variant="info"
+                      class="edit-btn"
+                      >Edit</b-button
+                    >
+                    <b-button
+                      @click="deleteService(service._id)"
+                      id="service-delete-btn"
+                      variant="danger"
+                      class="delete-btn"
+                      >Delete</b-button
+                    >
+                  </b-container>
+                </div>
+              </b-card>
+            </b-col>
+          </b-container>
+        </div>
       </b-jumbotron>
-
-      <!-- Services -->
-      <div v-bind="service" id="services-cards">
-        <b-container>
-          <b-col md="12">
-            <b-card
-              bg-variant="light"
-              text-variant="dark"
-              header="Edit or delete services (click edit on services below)"
-              class="header mt-3"
-              v-for="service in services"
-              :key="service.id"
-            >
-              <b-card-text>
-                <p><b>Price:</b> {{ service.price }}</p>
-                <hr />
-                <p><b>Description:</b> {{ service.description }}</p>
-                <hr />
-                <p><b>Services</b></p>
-                <ul v-if="service.beauty">
-                  <b>Beauty</b>
-                  <ul>
-                    <b>Brush:</b>
-                    {{
-                      service.beauty.brush
-                    }}
-                  </ul>
-                  <ul>
-                    <b>Nailclips:</b>
-                    {{
-                      service.beauty.nailclips
-                    }}
-                  </ul>
-                  <ul>
-                    <b>Washing:</b>
-                    {{
-                      service.beauty.washing
-                    }}
-                  </ul>
-                </ul>
-
-                <ul v-if="service.veterinary">
-                  <b>Veterinary</b>
-                  <ul>
-                    <b>X-ray:</b>
-                    {{
-                      service.veterinary.xRay
-                    }}
-                  </ul>
-                  <ul>
-                    <b>Examination:</b>
-                    {{
-                      service.veterinary.examination
-                    }}
-                  </ul>
-                  <ul>
-                    <b>Examination Subject:</b>
-                    {{
-                      service.veterinary.examinationSubject
-                    }}
-                  </ul>
-                </ul>
-                <hr />
-                <p><b>Hostel:</b> {{ service.hostel }}</p>
-                <hr />
-                <ul v-if="service.walking">
-                  <b>Walking</b>
-                  <ul>
-                    <b>Walking Location:</b>
-                    {{
-                      service.walking.location
-                    }}
-                  </ul>
-                  <ul>
-                    <b>Total walking hours:</b>
-                    {{
-                      service.walking.hours
-                    }}
-                  </ul>
-                </ul>
-                <hr />
-              </b-card-text>
-
-              <div>
-                <b-container>
-                  <b-button
-                    @click="editService(service._id)"
-                    id="service-edit-btn"
-                    variant="info"
-                    class="edit-btn"
-                    >Edit</b-button
-                  >
-                  <b-button
-                    @click="deleteService(service._id)"
-                    id="service-delete-btn"
-                    variant="danger"
-                    class="delete-btn"
-                    >Delete</b-button
-                  >
-                </b-container>
-              </div>
-            </b-card>
-          </b-col>
-        </b-container>
-      </div>
     </div>
   </div>
 </template>
