@@ -3,7 +3,7 @@
     <div id="wrapper">
       <b-jumbotron id="add-service">
         <h1 class="display-4" id="title">My services</h1>
-        <b-card no-body bg-variant="light" class="services">
+        <div bg-variant="light" class="services">
           <h5><em>Add Services</em></h5>
 
           <b-form-group @submit="postService">
@@ -204,7 +204,7 @@
               </div>
             </b-card>
           </b-form-group>
-        </b-card>
+        </div>
 
         <!-- Services -->
         <div v-bind="service" id="services-cards">
@@ -485,6 +485,7 @@ export default {
 
 .services {
   padding: 1em 1em;
+  position: inherit;
 }
 
 /* Overrides imported .css */
@@ -524,6 +525,7 @@ export default {
 }
 .card-body {
   margin: 0.5em 0.5em 0.5em 0.5em;
+  position: unset;
 }
 .edit-btn {
   margin-right: 1em;
