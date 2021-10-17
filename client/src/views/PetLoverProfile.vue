@@ -214,17 +214,19 @@ import { Api } from '@/Api'
 export default {
   name: 'petlover',
   mounted() {
-    Api.get('/petlovers/' + this.$route.params.id).then((res) => {
-      console.log(res)
-      this.petLover = res.data
-    }).catch((err) => {
-      this.makeToast(
-        'Connection Error',
-        String(err) + ', Please try again',
-        'danger',
-        true
-      )
-    })
+    Api.get('/petlovers/' + this.$route.params.id)
+      .then((res) => {
+        console.log(res)
+        this.petLover = res.data
+      })
+      .catch((err) => {
+        this.makeToast(
+          'Connection Error',
+          String(err) + ', Please try again',
+          'danger',
+          true
+        )
+      })
   },
   data() {
     return {
@@ -263,9 +265,11 @@ export default {
     },
     edit() {
       Api.put('/petlovers/' + this.$route.params.id, this.petLover).then(
-        (res) => this.petLover
+        (res) => {
+          this.petLover = res
+          location.reload()
+        }
       )
-      location.reload()
     },
     editByPatch(dataToPatch) {
       // if input is empty, return.
@@ -275,16 +279,16 @@ export default {
         return
       }
 
-      Api.patch('/petowners/' + this.$route.params.id, dataToPatch)
+      Api.patch('/petlovers/' + this.$route.params.id, dataToPatch)
         .then((res) => {
           // TODO: Show a success message to the user
-          this.petOwner = res
+          this.petLover = res
+          location.reload()
         })
         .catch((err) => {
           // TODO: Show an error message to the user
           console.log(err)
         })
-      location.reload()
     },
     delAcc() {
       Api.delete('/petlovers/' + this.$route.params.id)
