@@ -132,22 +132,16 @@ exports.patchPetLoversById = async ({ body, params }, res, next) => {
             result.userinfo.contactInfo.address = body.address
         }
         if (body.password) {
-            // if there is a new password, hash it.
-            if (body.userinfo.password) {
-                try {
-                    const hashedPassword = await Bcrypt.hashPassword(body.userinfo.password)
-                    result.userinfo.password = hashedPassword
-                } catch (err) {
-                    res.status(500).send(err)
-                    next(err);
-                }
+            // if there is a new password, try hashing it.
+            try {
+                const hashedPassword = await Bcrypt.hashPassword(body.password)
+                result.userinfo.password = hashedPassword
+                modified.push('userinfo')
+            } catch (err) {
+                res.status(500).send(err)
+                next(err);
             }
-            if (body.userinfo.contactInfo) {
-                modified.push('contactInfo')
-                if (body.userinfo.contactInfo.email) { result.userinfo.contactInfo.email = body.userinfo.contactInfo.email }
-                if (body.userinfo.contactInfo.phoneNumber) { result.userinfo.contactInfo.phoneNumber = body.userinfo.contactInfo.phoneNumber }
-                if (body.userinfo.contactInfo.address) { result.userinfo.contactInfo.address = body.userinfo.contactInfo.address }
-            }
+
         }
 
         // Go through each marked attribute and specify them as edited for mongoose

@@ -123,13 +123,13 @@ exports.patchPetOwnersById = async ({ body, params }, res, next) => {
             result.userinfo.contactInfo.address = body.address
         }
         if (body.password) {
-            // if there is a new password, hash it.
+            // if there is a new password, try hashing it.
             try {
                 const hashedPassword = await Bcrypt.hashPassword(body.password)
                 result.userinfo.password = hashedPassword
                 modified.push('userinfo')
             } catch (err) {
-                // res.status(500).send(err)
+                res.status(500).send(err)
                 next(err);
             }
         }

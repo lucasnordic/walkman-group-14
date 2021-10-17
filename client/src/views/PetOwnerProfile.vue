@@ -197,17 +197,19 @@ import { Api } from '@/Api'
 export default {
   name: 'petOwner',
   mounted() {
-    Api.get('/petowners/' + this.$route.params.id).then((res) => {
-      console.log(res)
-      this.petOwner = res.data
-    }).catch((err) => {
-      this.makeToast(
-        'Connection Error',
-        String(err) + ', Please try again',
-        'danger',
-        true
-      )
-    })
+    Api.get('/petowners/' + this.$route.params.id)
+      .then((res) => {
+        console.log(res)
+        this.petOwner = res.data
+      })
+      .catch((err) => {
+        this.makeToast(
+          'Connection Error',
+          String(err) + ', Please try again',
+          'danger',
+          true
+        )
+      })
   },
   data() {
     return {
@@ -245,9 +247,11 @@ export default {
     },
     edit() {
       Api.put('/petowners/' + this.$route.params.id, this.petOwner).then(
-        (res) => this.petOwner
+        (res) => {
+          this.petOwner = res
+          location.reload()
+        }
       )
-      location.reload()
     },
     editByPatch(dataToPatch) {
       // if input is empty, return.
@@ -261,12 +265,12 @@ export default {
         .then((res) => {
           // TODO: Show a success message to the user
           this.petOwner = res
+          location.reload()
         })
         .catch((err) => {
           // TODO: Show an error message to the user
           console.log(err)
         })
-      location.reload()
     },
     delAcc() {
       Api.delete('/petowners/' + this.$route.params.id)
