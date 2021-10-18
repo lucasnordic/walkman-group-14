@@ -74,7 +74,21 @@ exports.getPetLoversById = (req, res, next) => {
 };
 
 //(e) PUT /petLovers/:id
-exports.putPetLoversById = (req, res, next) => {
+exports.putPetLoversById = async (req, res, next) => {
+    const password = req.body.userinfo.password
+    const petLover = req.body
+
+    if (password) {
+        // if there is a new password, try hashing it.
+        try {
+            const hashedPassword = await Bcrypt.hashPassword(password)
+            petLover.userinfo.password = hashedPassword
+        } catch (err) {
+            res.status(500).send(err)
+            next(err);
+        }
+    }
+
     PetLover.findByIdAndUpdate(req.params.userId, req.body, { new: true })
         .then((result) => {
             if (result === null) {
