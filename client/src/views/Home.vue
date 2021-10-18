@@ -151,6 +151,7 @@
             <b-button
               class="profile"
               variant="primary"
+              v-if="item.userinfo.contactInfo.email"
               :href="`mailto:${item.userinfo.contactInfo.email}`"
               >Send Email</b-button
             >
@@ -160,35 +161,48 @@
             <p class="Pet-Lover-Name">Petlover: {{ item.userinfo.username }}</p>
             <hr class="rounded" />
             <p class="aboutMe">About me: {{ item.aboutMe }}</p>
-            <ul class="contact-phone" align="left">
+            <ul
+              v-if="item.userinfo.contactInfo.phoneNumber"
+              class="contact-phone"
+              align="left"
+            >
               Phone:
               {{
                 item.userinfo.contactInfo.phoneNumber
               }}
             </ul>
-            <ul class="contact-email" align="left">
+            <ul
+              v-if="item.userinfo.contactInfo.email"
+              class="contact-email"
+              align="left"
+            >
               E-mail:
               {{
                 item.userinfo.contactInfo.email
               }}
             </ul>
-            <ul class="contact-email" align="left">
+            <ul
+              v-if="item.userinfo.contactInfo.address.city"
+              class="contact-email"
+              align="left"
+            >
               City:
               {{
                 item.userinfo.contactInfo.address.city
               }}
             </ul>
-            <ul class="contact-email" align="left">
+            <ul
+              v-if="item.userinfo.contactInfo.address.streetName"
+              class="contact-email"
+              align="left"
+            >
               Street:
               {{
                 item.userinfo.contactInfo.address.streetName
               }}
               {{
-                item.userinfo.contactInfo.address.streetNum
+                item.userinfo.contactInfo.address.streetNumber
               }}
-            </ul>
-            <ul class="contact-services" align="left">
-              Services:
             </ul>
           </b-col>
 
@@ -232,9 +246,6 @@
       <p class="mt-3">Current Page: {{ currentPage }}</p>
     </div>
   </div>
-  <!-- <service-item v-bind:services="services" />
-    </div>
-  </div> -->
 </template>
 
 <script scoped>
@@ -243,41 +254,25 @@ import { Api } from '@/Api'
 
 export default {
   name: 'home',
-  // components: { ServiceItem: ServiceItem },
   mounted() {
     console.log('Page is loaded')
     this.getPetLovers()
-    // Api.getServicesByPetLoverId('/:petLoverId/services')
-    //   .then((response) => {
-    //     console.log(response)
-
-    //     this.services = response.data.services
-    //   })
-    //   .catch((error) => {
-    //     this.services = []
-    //     console.log(error)
-    //   })
-    //   .then(() => {
-    //     console.log('This runs every time after success or error.')
-    //   })
   },
   data() {
     return {
       servicesShown: 'Services',
-      subServiceType: '',
       petLovers: [],
       msgbox: '',
       value: null,
       slide: 0,
       sliding: null,
       perPage: 3,
-      currentPage: 1,
-      items: [{ id: 1 }, {}, {}, {}, {}]
+      currentPage: 1
     }
   },
   computed: {
     rows() {
-      return this.items.length
+      return this.petLovers.length
     },
     currentPagePetlovers: function () {
       return this.petLovers.slice(
@@ -346,10 +341,6 @@ export default {
           this.services = []
           this.makeToast('Error', String(error), 'warning', true)
         })
-    },
-    onFilterClicked(subServiceType) {
-      this.servicesShown = subServiceType + ' Services'
-      this.subServiceType = subServiceType
     }
   }
 }
