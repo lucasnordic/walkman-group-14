@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const PetLover = require('../Models/PetLover');
 const Bcrypt = require('../utils/PasswordHandler')
+const Service = require("../Models/Services");
 
 //(a) POST /petLovers
 exports.postPetLovers = (req, res, next) => {
@@ -173,17 +174,36 @@ exports.patchPetLoversById = async ({ body, params }, res, next) => {
 
 //(g) DELETE /petLovers/:id
 exports.deletePetLoversbyId = (req, res, next) => {
-    PetLover.findByIdAndDelete(req.params.userId)
+    PetLover.findById(req.params.userId)
         .then((result) => {
-            if (result === null) {
-                res.status(404).send({ message: "The petLover_Id not found." });
-                return;
+            for (var i = 0; i < result._services.length; i++) {
+                // find services and delete them as well
+                Service.findByIdAndDelete(result._services[i])
+                    .then((result) => {
+                        if (result === null) {
+                            res.status(404).send({ message: "The service_Id not found." });
+                            return;
+                        }
+                    })
+                    .catch((err) => {
+                        res.status(502).send();
+                        return next(err);
+                    })
             }
-            res.json(result);
-        }).catch((err) => {
-            res.status(502).send();
-            return next(err);
-        });
+        })
+        .then(() => {
+            PetLover.findByIdAndDelete(req.params.userId)
+                .then((result) => {
+                    if (result === null) {
+                        res.status(404).send({ message: "The petLover_Id not found." });
+                        return;
+                    }
+                    res.json(result);
+                }).catch((err) => {
+                    res.status(502).send();
+                    return next(err);
+                });
+        })
 };
 
 // Login PetLover
