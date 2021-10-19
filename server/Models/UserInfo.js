@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const addressSchema = new Schema({
    city: { type: String, required: false },
    streetName: { type: String, required: false },
-   streetNum: { type: Number, required: false }
+   streetNumber: { type: Number, required: false }
 });
 
 const contactInfoSchema = new Schema({

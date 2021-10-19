@@ -73,8 +73,22 @@ exports.getPetOwnersById = (req, res, next) => {
 };
 
 //(e) PUT /petOwners/:id
-exports.putPetOwnersById = (req, res, next) => {
-    PetOwner.findByIdAndUpdate(req.params.userId, req.body, { new: true })
+exports.putPetOwnersById = async (req, res, next) => {
+    const password = req.body.userinfo.password
+    const petOwner = req.body
+
+    if (password) {
+        // if there is a new password, try hashing it.
+        try {
+            const hashedPassword = await Bcrypt.hashPassword(password)
+            petOwner.userinfo.password = hashedPassword
+        } catch (err) {
+            res.status(500).send(err)
+            next(err);
+        }
+    }
+
+    PetOwner.findByIdAndUpdate(req.params.userId, petOwner, { new: true })
         .then((result) => {
             if (result === null) {
                 res.status(404).send({ message: "The petOwner_Id not found." });
